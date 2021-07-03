@@ -1,0 +1,20 @@
+[
+  {
+    "name": "23 см",
+    "image": "/public/img/diameter.svg",
+    "multiplier": 1,
+    "type": "small"
+  },
+  {
+    "name": "32 см",
+    "image": "/public/img/diameter.svg",
+    "multiplier": 2,
+    "type": "normal"
+  },
+  {
+    "name": "45 см",
+    "image": "/public/img/diameter.svg",
+    "multiplier": 3,
+    "type": "big"
+  }
+]

@@ -1,0 +1,12 @@
+[
+  {
+    "name": "Томатный",
+    "price": 50,
+    "value": "tomato"
+  },
+  {
+    "name": "Сливочный",
+    "price": 50,
+    "value": "creamy"
+  }
+]
