@@ -13,13 +13,13 @@
                 v-for="dough in doughList"
                 :key="dough.name"
                 :class="{
-                  'dough__input--light': dough.type === 'light',
-                  'dough__input--large': dough.type === 'large',
+                  'dough__input--light': dough.value === 'light',
+                  'dough__input--large': dough.value === 'large',
                 }"
                 class="dough__input"
               >
                 <input
-                  :value="dough.type"
+                  :value="dough.value"
                   type="radio"
                   name="dought"
                   class="visually-hidden"
@@ -40,9 +40,9 @@
                 v-for="size in sizes"
                 :key="size.name"
                 :class="{
-                  'diameter__input--small': size.type === 'small',
-                  'diameter__input--normal': size.type === 'normal',
-                  'diameter__input--normal': size.type === 'big',
+                  'diameter__input--small': size.value === 'small',
+                  'diameter__input--normal': size.value === 'normal',
+                  'diameter__input--normal': size.value === 'big',
                 }"
                 class="diameter__input"
               >
@@ -95,22 +95,23 @@
                   >
                     <span
                       :class="{
-                        'filling--mushrooms': ingredient.type === 'mushrooms',
-                        'filling--cheddar': ingredient.type === 'cheddar',
-                        'filling--salami': ingredient.type === 'salami',
-                        'filling--ham': ingredient.type === 'ham',
-                        'filling--ananas': ingredient.type === 'ananas',
-                        'filling--bacon': ingredient.type === 'bacon',
-                        'filling--onion': ingredient.type === 'onion',
-                        'filling--chile': ingredient.type === 'chile',
-                        'filling--jalapeno': ingredient.type === 'jalapeno',
-                        'filling--olives': ingredient.type === 'olives',
-                        'filling--tomatoes': ingredient.type === 'tomatoes',
-                        'filling--salmon': ingredient.type === 'salmon',
-                        'filling--mozzarella': ingredient.type === 'mozzarella',
-                        'filling--parmesan': ingredient.type === 'parmesan',
+                        'filling--mushrooms': ingredient.value === 'mushrooms',
+                        'filling--cheddar': ingredient.value === 'cheddar',
+                        'filling--salami': ingredient.value === 'salami',
+                        'filling--ham': ingredient.value === 'ham',
+                        'filling--ananas': ingredient.value === 'ananas',
+                        'filling--bacon': ingredient.value === 'bacon',
+                        'filling--onion': ingredient.value === 'onion',
+                        'filling--chile': ingredient.value === 'chile',
+                        'filling--jalapeno': ingredient.value === 'jalapeno',
+                        'filling--olives': ingredient.value === 'olives',
+                        'filling--tomatoes': ingredient.value === 'tomatoes',
+                        'filling--salmon': ingredient.value === 'salmon',
+                        'filling--mozzarella':
+                          ingredient.value === 'mozzarella',
+                        'filling--parmesan': ingredient.value === 'parmesan',
                         'filling--blue_cheese':
-                          ingredient.type === 'blue_cheese',
+                          ingredient.value === 'blue_cheese',
                       }"
                       class="filling"
                     >
@@ -186,14 +187,25 @@ import sizes from "@/static/sizes.json";
 import sauces from "@/static/sauces.json";
 import ingredients from "@/static/ingredients.json";
 
+import {
+  DOUGH_TYPES,
+  SIZE_TYPES,
+  SAUCE_TYPES,
+  INGREDIENT_TYPES,
+} from "@/common/constants";
+
+import { getValueByName } from "@/common/helpers";
+
 export default {
   name: "Index",
   data() {
     return {
-      doughList,
-      sizes,
-      sauces,
-      ingredients,
+      doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
+      sizes: sizes.map((item) => getValueByName(item, SIZE_TYPES)),
+      sauces: sauces.map((item) => getValueByName(item, SAUCE_TYPES)),
+      ingredients: ingredients.map((item) =>
+        getValueByName(item, INGREDIENT_TYPES)
+      ),
     };
   },
 };
