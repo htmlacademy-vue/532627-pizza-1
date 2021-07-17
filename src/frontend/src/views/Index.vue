@@ -9,24 +9,25 @@
             <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
             <div class="sheet__content dough">
-              <label
+              <RadioButton
                 v-for="dough in doughList"
                 :key="dough.name"
+                name="dough"
+                :item-value="dough.value"
                 :class="{
                   'dough__input--light': dough.value === 'light',
                   'dough__input--large': dough.value === 'large',
                 }"
                 class="dough__input"
               >
-                <input
-                  :value="dough.value"
-                  type="radio"
-                  name="dought"
-                  class="visually-hidden"
-                />
-                <b> {{ dough.name }}</b>
-                <span>{{ dough.description }}</span>
-              </label>
+                <template #name>
+                  <b> {{ dough.name }}</b>
+                </template>
+
+                <template #description>
+                  <span>{{ dough.description }}</span>
+                </template>
+              </RadioButton>
             </div>
           </div>
         </div>
@@ -36,9 +37,11 @@
             <h2 class="title title--small sheet__title">Выберите размер</h2>
 
             <div class="sheet__content diameter">
-              <label
+              <RadioButton
                 v-for="size in sizes"
                 :key="size.name"
+                :item-value="size.value"
+                name="diameter"
                 :class="{
                   'diameter__input--small': size.value === 'small',
                   'diameter__input--normal': size.value === 'normal',
@@ -46,14 +49,10 @@
                 }"
                 class="diameter__input"
               >
-                <input
-                  type="radio"
-                  name="diameter"
-                  value="small"
-                  class="visually-hidden"
-                />
-                <span>{{ size.name }}</span>
-              </label>
+                <template #name>
+                  <span>{{ size.name }}</span>
+                </template>
+              </RadioButton>
             </div>
           </div>
         </div>
@@ -71,14 +70,17 @@
               >
                 <p>Основной соус:</p>
 
-                <label
+                <RadioButton
                   v-for="sauce in sauces"
                   :key="sauce.value"
+                  :item-value="sauce.value"
+                  name="sauce"
                   class="radio ingridients__input"
                 >
-                  <input type="radio" name="sauce" :value="sauce.value" />
-                  <span>{{ sauce.name }}</span>
-                </label>
+                  <template #name>
+                    <span>{{ sauce.name }}</span>
+                  </template>
+                </RadioButton>
               </div>
 
               <div
@@ -93,55 +95,11 @@
                     :key="ingredient.name"
                     class="ingridients__item"
                   >
-                    <span
-                      :class="{
-                        'filling--mushrooms': ingredient.value === 'mushrooms',
-                        'filling--cheddar': ingredient.value === 'cheddar',
-                        'filling--salami': ingredient.value === 'salami',
-                        'filling--ham': ingredient.value === 'ham',
-                        'filling--ananas': ingredient.value === 'ananas',
-                        'filling--bacon': ingredient.value === 'bacon',
-                        'filling--onion': ingredient.value === 'onion',
-                        'filling--chile': ingredient.value === 'chile',
-                        'filling--jalapeno': ingredient.value === 'jalapeno',
-                        'filling--olives': ingredient.value === 'olives',
-                        'filling--tomatoes': ingredient.value === 'tomatoes',
-                        'filling--salmon': ingredient.value === 'salmon',
-                        'filling--mozzarella':
-                          ingredient.value === 'mozzarella',
-                        'filling--parmesan': ingredient.value === 'parmesan',
-                        'filling--blue_cheese':
-                          ingredient.value === 'blue_cheese',
-                      }"
-                      class="filling"
-                    >
+                    <ItemChip :value="ingredient.value">
                       {{ ingredient.name }}
-                    </span>
+                    </ItemChip>
 
-                    <div class="counter counter--orange ingridients__counter">
-                      <button
-                        type="button"
-                        class="
-                          counter__button
-                          counter__button--disabled
-                          counter__button--minus
-                        "
-                      >
-                        <span class="visually-hidden">Меньше</span>
-                      </button>
-                      <input
-                        type="text"
-                        name="counter"
-                        class="counter__input"
-                        value="0"
-                      />
-                      <button
-                        type="button"
-                        class="counter__button counter__button--plus"
-                      >
-                        <span class="visually-hidden">Больше</span>
-                      </button>
-                    </div>
+                    <ItemCounter class="ingridients__counter" />
                   </li>
                 </ul>
               </div>
@@ -196,8 +154,13 @@ import {
 
 import { getValueByName } from "@/common/helpers";
 
+import RadioButton from "@/common/components/RadioButton";
+import ItemCounter from "@/common/components/ItemCounter";
+import ItemChip from "@/common/components/ItemChip";
+
 export default {
   name: "Index",
+  components: { ItemChip, RadioButton, ItemCounter },
   data() {
     return {
       doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
