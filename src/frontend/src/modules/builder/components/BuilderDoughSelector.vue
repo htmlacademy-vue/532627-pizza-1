@@ -8,6 +8,7 @@
           v-for="dough in doughList"
           :key="dough.name"
           name="dough"
+          :checked="dough.value === value"
           :item-value="dough.value"
           :class="{
             'dough__input--light': dough.value === 'light',
@@ -38,6 +39,10 @@ export default {
     doughList: {
       type: Array,
       required: true,
+    },
+    value: {
+      type: String,
+      default: "",
     },
   },
 };

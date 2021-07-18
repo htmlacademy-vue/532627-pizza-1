@@ -9,6 +9,7 @@
           :key="size.name"
           :item-value="size.value"
           name="diameter"
+          :checked="size.value === value"
           :class="{
             'diameter__input--small': size.value === 'small',
             'diameter__input--normal': size.value === 'normal',
@@ -35,6 +36,10 @@ export default {
     sizes: {
       type: Array,
       required: true,
+    },
+    value: {
+      type: String,
+      default: "",
     },
   },
 };

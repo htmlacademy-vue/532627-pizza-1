@@ -3,6 +3,7 @@
     <label class="input">
       <span class="visually-hidden">Название пиццы</span>
       <input
+        :value="pizzaName"
         type="text"
         name="pizza_name"
         placeholder="Введите название пиццы"
@@ -19,17 +20,28 @@
       </div>
     </div>
 
-    <div class="content__result">
-      <p>Итого: 0 ₽</p>
-      <button type="button" class="button button--disabled" disabled>
-        Готовьте!
-      </button>
-    </div>
+    <BuilderPriceCounter :total="total" :disabled="disabled" />
   </div>
 </template>
 
 <script>
+import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 export default {
   name: "BuilderPizzaView",
+  components: { BuilderPriceCounter },
+  props: {
+    total: {
+      type: Number,
+      default: 0,
+    },
+    disabled: {
+      type: Boolean,
+      default: true,
+    },
+    pizzaName: {
+      type: String,
+      default: "",
+    },
+  },
 };
 </script>

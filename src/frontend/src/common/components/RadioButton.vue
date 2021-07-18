@@ -4,6 +4,7 @@
       :name="name"
       :value="itemValue"
       type="radio"
+      :checked="checked"
       class="visually-hidden"
       @change="$emit('change', itemValue)"
     />
@@ -25,6 +26,10 @@ export default {
     itemValue: {
       type: String,
       required: true,
+    },
+    checked: {
+      type: Boolean,
+      default: false,
     },
   },
 };

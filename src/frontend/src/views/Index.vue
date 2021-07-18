@@ -6,18 +6,29 @@
 
         <BuilderDoughSelector
           v-if="doughList && doughList.length > 0"
+          :value="doughValue"
           :dough-list="doughList"
         />
 
-        <BuilderSizeSelector v-if="sizes && sizes.length > 0" :sizes="sizes" />
+        <BuilderSizeSelector
+          v-if="sizes && sizes.length > 0"
+          :value="sizeValue"
+          :sizes="sizes"
+        />
 
         <BuilderIngredientsSelector
           v-if="isShowIngredientsBuilder"
+          :sauce-value="sauceValue"
+          :ingredient-value="ingredientValues"
           :sauces="sauces"
           :ingredients="ingredients"
         />
 
-        <BuilderPizzaView />
+        <BuilderPizzaView
+          :total="totalSum"
+          :pizza-name="pizzaName"
+          :disabled="isDisabledSubmit"
+        />
       </div>
     </form>
   </main>
@@ -53,6 +64,10 @@ export default {
   },
   data() {
     return {
+      doughValue: "light",
+      sizeValue: "small",
+      sauceValue: "tomato",
+      pizzaName: "",
       doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
       sizes: sizes.map((item) => getValueByName(item, SIZE_TYPES)),
       sauces: sauces.map((item) => getValueByName(item, SAUCE_TYPES)),
@@ -64,6 +79,18 @@ export default {
   computed: {
     isShowIngredientsBuilder() {
       return this.sauces?.length > 0 && this.ingredients?.length > 0;
+    },
+    ingredientValues() {
+      //TODO
+      return [];
+    },
+    isDisabledSubmit() {
+      //TODO
+      return true;
+    },
+    totalSum() {
+      // TODO
+      return 0;
     },
   },
 };

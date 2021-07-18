@@ -11,6 +11,7 @@
             v-for="sauce in sauces"
             :key="sauce.value"
             :item-value="sauce.value"
+            :checked="sauce.value === sauceValue"
             name="sauce"
             class="radio ingridients__input"
           >
@@ -65,6 +66,10 @@ export default {
     ingredients: {
       type: Array,
       required: true,
+    },
+    sauceValue: {
+      type: String,
+      default: "",
     },
   },
 };
