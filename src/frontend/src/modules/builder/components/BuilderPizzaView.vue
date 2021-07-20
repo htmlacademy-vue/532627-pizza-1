@@ -11,13 +11,19 @@
     </label>
 
     <div class="content__constructor">
-      <div class="pizza pizza--foundation--big-tomato">
-        <div class="pizza__wrapper">
-          <div class="pizza__filling pizza__filling--ananas"></div>
-          <div class="pizza__filling pizza__filling--bacon"></div>
-          <div class="pizza__filling pizza__filling--cheddar"></div>
+      <AppDrop @drop="onConstructorDrop($event)">
+        <div :class="`pizza--foundation--${size}-${sauce}`" class="pizza">
+          <div class="pizza__wrapper">
+            <template v-for="ingredient in ingredients">
+              <div
+                :key="ingredient.id"
+                :class="`pizza__filling--${ingredient.value}`"
+                class="pizza__filling"
+              />
+            </template>
+          </div>
         </div>
-      </div>
+      </AppDrop>
     </div>
 
     <BuilderPriceCounter :total="total" :disabled="disabled" />
@@ -26,10 +32,24 @@
 
 <script>
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
+import AppDrop from "@/common/components/AppDrop";
 export default {
   name: "BuilderPizzaView",
-  components: { BuilderPriceCounter },
+  components: {
+    BuilderPriceCounter,
+    AppDrop,
+  },
   props: {
+    dough: {
+      type: String,
+      required: true,
+      validator: (value) => ["light", "large"].includes(value),
+    },
+    sauce: {
+      type: String,
+      required: true,
+      validator: (value) => ["tomato", "creamy"].includes(value),
+    },
     total: {
       type: Number,
       default: 0,
@@ -41,6 +61,25 @@ export default {
     pizzaName: {
       type: String,
       default: "",
+    },
+    ingredients: {
+      type: Array,
+      default: () => [],
+    },
+  },
+
+  computed: {
+    size() {
+      return this.dough === "light" ? "small" : "big";
+    },
+  },
+
+  methods: {
+    onConstructorDrop(event) {
+      this.$emit("drop", {
+        value: event.value,
+        count: event.count + 1,
+      });
     },
   },
 };

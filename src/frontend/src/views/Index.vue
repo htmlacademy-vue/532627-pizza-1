@@ -22,9 +22,13 @@
           :ingredient-value="ingredientValues"
           :sauces="sauces"
           :ingredients="ingredients"
+          @change="onIngredientChange"
         />
 
         <BuilderPizzaView
+          :ingredients="[]"
+          :sauce="`tomato`"
+          :dough="`light`"
           :total="totalSum"
           :pizza-name="pizzaName"
           :disabled="isDisabledSubmit"
@@ -71,9 +75,9 @@ export default {
       doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
       sizes: sizes.map((item) => getValueByName(item, SIZE_TYPES)),
       sauces: sauces.map((item) => getValueByName(item, SAUCE_TYPES)),
-      ingredients: ingredients.map((item) =>
-        getValueByName(item, INGREDIENT_TYPES)
-      ),
+      ingredients: ingredients.map((item) => {
+        return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
+      }),
     };
   },
   computed: {
@@ -91,6 +95,23 @@ export default {
     totalSum() {
       // TODO
       return 0;
+    },
+    checkedIngredients() {
+      return this.ingredients.filter((ingredient) => ingredient.count > 0);
+    },
+  },
+
+  methods: {
+    onIngredientChange({ value, count }) {
+      const currentIngredient = this.ingredients.find(
+        (ingredient) => ingredient.value === value
+      );
+
+      if (currentIngredient) {
+        currentIngredient.count = count;
+      }
+      this.ingredients = JSON.parse(JSON.stringify(this.ingredients));
+      console.log(this.ingredients);
     },
   },
 };

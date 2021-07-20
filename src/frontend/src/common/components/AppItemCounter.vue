@@ -31,14 +31,14 @@ export default {
   },
   methods: {
     increase() {
-      return this.$emit("change", this.value++);
+      return this.$emit("change", this.value + 1);
     },
     decrease() {
       if (!this.value) {
         return false;
       }
 
-      return this.$emit("change", this.value--);
+      return this.$emit("change", this.value - 1);
     },
   },
 };

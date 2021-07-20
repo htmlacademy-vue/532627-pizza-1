@@ -4,7 +4,7 @@
       <h2 class="title title--small sheet__title">Выберите размер</h2>
 
       <div class="sheet__content diameter">
-        <RadioButton
+        <AppRadioButton
           v-for="size in sizes"
           :key="size.name"
           :item-value="size.value"
@@ -20,18 +20,18 @@
           <template #name>
             <span>{{ size.name }}</span>
           </template>
-        </RadioButton>
+        </AppRadioButton>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import RadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 export default {
   name: "BuilderSizeSelector",
-  components: { RadioButton },
+  components: { AppRadioButton },
   props: {
     sizes: {
       type: Array,

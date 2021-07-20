@@ -7,7 +7,7 @@
         <div class="ingridients__sauce">
           <p>Основной соус:</p>
 
-          <RadioButton
+          <AppRadioButton
             v-for="sauce in sauces"
             :key="sauce.value"
             :item-value="sauce.value"
@@ -18,7 +18,7 @@
             <template #name>
               <span>{{ sauce.name }}</span>
             </template>
-          </RadioButton>
+          </AppRadioButton>
         </div>
 
         <div
@@ -33,11 +33,16 @@
               :key="ingredient.name"
               class="ingridients__item"
             >
-              <ItemChip :value="ingredient.value">
-                {{ ingredient.name }}
-              </ItemChip>
-
-              <ItemCounter class="ingridients__counter" />
+              <AppDrag :draggable="true" :transfer-data="ingredient">
+                <AppItemChip :value="ingredient.value">
+                  {{ ingredient.name }}
+                </AppItemChip>
+              </AppDrag>
+              <AppItemCounter
+                :value="ingredient.count"
+                class="ingridients__counter"
+                @change="onIngredientCountChange(ingredient.value, $event)"
+              />
             </li>
           </ul>
         </div>
@@ -47,16 +52,18 @@
 </template>
 
 <script>
-import ItemChip from "@/common/components/ItemChip";
-import ItemCounter from "@/common/components/ItemCounter";
-import RadioButton from "@/common/components/RadioButton";
+import AppItemChip from "@/common/components/AppItemChip";
+import AppItemCounter from "@/common/components/AppItemCounter";
+import AppRadioButton from "@/common/components/AppRadioButton";
+import AppDrag from "@/common/components/AppDrag";
 
 export default {
   name: "BuilderIngredientsSelector",
   components: {
-    ItemCounter,
-    ItemChip,
-    RadioButton,
+    AppDrag,
+    AppItemCounter,
+    AppItemChip,
+    AppRadioButton,
   },
   props: {
     sauces: {
@@ -70,6 +77,15 @@ export default {
     sauceValue: {
       type: String,
       default: "",
+    },
+  },
+
+  methods: {
+    onIngredientCountChange(value, count) {
+      return this.$emit("change", {
+        value,
+        count,
+      });
     },
   },
 };

@@ -4,7 +4,7 @@
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
 
       <div class="sheet__content dough">
-        <RadioButton
+        <AppRadioButton
           v-for="dough in doughList"
           :key="dough.name"
           name="dough"
@@ -23,18 +23,18 @@
           <template #description>
             <span>{{ dough.description }}</span>
           </template>
-        </RadioButton>
+        </AppRadioButton>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import RadioButton from "@/common/components/RadioButton";
+import AppRadioButton from "@/common/components/AppRadioButton";
 
 export default {
   name: "BuilderDoughSelector",
-  components: { RadioButton },
+  components: { AppRadioButton },
   props: {
     doughList: {
       type: Array,
