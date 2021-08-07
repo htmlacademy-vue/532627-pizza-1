@@ -8,6 +8,7 @@
           v-if="doughList && doughList.length > 0"
           :value="doughValue"
           :dough-list="doughList"
+          @change="doughValue = $event"
         />
 
         <BuilderSizeSelector
@@ -19,19 +20,20 @@
         <BuilderIngredientsSelector
           v-if="isShowIngredientsBuilder"
           :sauce-value="sauceValue"
-          :ingredient-value="ingredientValues"
           :sauces="sauces"
           :ingredients="ingredients"
           @change="onIngredientChange"
+          @change-sauce="sauceValue = $event"
         />
 
         <BuilderPizzaView
-          :ingredients="[]"
-          :sauce="`tomato`"
-          :dough="`light`"
+          :ingredients="checkedIngredients"
+          :sauce="sauceValue"
+          :dough="doughValue"
           :total="totalSum"
           :pizza-name="pizzaName"
           :disabled="isDisabledSubmit"
+          @drop="onIngredientChange"
         />
       </div>
     </form>
@@ -84,10 +86,6 @@ export default {
     isShowIngredientsBuilder() {
       return this.sauces?.length > 0 && this.ingredients?.length > 0;
     },
-    ingredientValues() {
-      //TODO
-      return [];
-    },
     isDisabledSubmit() {
       //TODO
       return true;
@@ -111,7 +109,6 @@ export default {
         currentIngredient.count = count;
       }
       this.ingredients = JSON.parse(JSON.stringify(this.ingredients));
-      console.log(this.ingredients);
     },
   },
 };

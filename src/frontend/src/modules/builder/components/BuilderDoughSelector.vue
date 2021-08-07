@@ -15,6 +15,7 @@
             'dough__input--large': dough.value === 'large',
           }"
           class="dough__input"
+          @change="$emit('change', $event)"
         >
           <template #name>
             <b> {{ dough.name }}</b>

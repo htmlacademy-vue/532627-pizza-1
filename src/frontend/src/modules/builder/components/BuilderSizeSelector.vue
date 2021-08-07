@@ -16,6 +16,7 @@
             'diameter__input--normal': size.value === 'big',
           }"
           class="diameter__input"
+          @change="onChange"
         >
           <template #name>
             <span>{{ size.name }}</span>
@@ -40,6 +41,11 @@ export default {
     value: {
       type: String,
       default: "",
+    },
+  },
+  methods: {
+    onChange(val) {
+      this.$emit("change", val);
     },
   },
 };

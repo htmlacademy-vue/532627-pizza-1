@@ -14,6 +14,7 @@
             :checked="sauce.value === sauceValue"
             name="sauce"
             class="radio ingridients__input"
+            @change="$emit('change-sauce', $event)"
           >
             <template #name>
               <span>{{ sauce.name }}</span>
