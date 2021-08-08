@@ -15,6 +15,7 @@
           v-if="sizes && sizes.length > 0"
           :value="sizeValue"
           :sizes="sizes"
+          @change="sizeValue = $event"
         />
 
         <BuilderIngredientsSelector
@@ -34,6 +35,7 @@
           :pizza-name="pizzaName"
           :disabled="isDisabledSubmit"
           @drop="onIngredientChange"
+          @input-name="pizzaName = $event"
         />
       </div>
     </form>
@@ -87,12 +89,27 @@ export default {
       return this.sauces?.length > 0 && this.ingredients?.length > 0;
     },
     isDisabledSubmit() {
-      //TODO
-      return true;
+      return !(this.checkedIngredients.length && this.pizzaName);
     },
     totalSum() {
-      // TODO
-      return 0;
+      const doughPrice = this.doughList.find(
+        (item) => item.value === this.doughValue
+      )?.price;
+
+      const saucePrice = this.sauces.find(
+        (item) => item.value === this.sauceValue
+      )?.price;
+
+      const sizeMultiplier = this.sizes.find(
+        (item) => item.value === this.sizeValue
+      )?.multiplier;
+
+      const ingredientsPrice = this.checkedIngredients.reduce((acc, item) => {
+        acc += item.count * item.price;
+        return acc;
+      }, 0);
+
+      return (doughPrice + saucePrice + ingredientsPrice) * sizeMultiplier;
     },
     checkedIngredients() {
       return this.ingredients.filter((ingredient) => ingredient.count > 0);
