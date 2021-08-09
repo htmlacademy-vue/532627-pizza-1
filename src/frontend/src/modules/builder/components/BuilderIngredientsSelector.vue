@@ -34,13 +34,18 @@
               :key="ingredient.name"
               class="ingridients__item"
             >
-              <AppDrag :draggable="true" :transfer-data="ingredient">
+              <AppDrag
+                :draggable="ingredient.count < $options.INGREDIENTS_MAX_VALUE"
+                :transfer-data="ingredient"
+              >
                 <AppItemChip :value="ingredient.value">
                   {{ ingredient.name }}
                 </AppItemChip>
               </AppDrag>
+
               <AppItemCounter
                 :value="ingredient.count"
+                :max-value="$options.INGREDIENTS_MAX_VALUE"
                 class="ingridients__counter"
                 @change="onIngredientCountChange(ingredient.value, $event)"
               />
@@ -66,6 +71,7 @@ export default {
     AppItemChip,
     AppRadioButton,
   },
+  INGREDIENTS_MAX_VALUE: 3,
   props: {
     sauces: {
       type: Array,

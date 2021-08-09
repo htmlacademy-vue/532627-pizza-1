@@ -125,7 +125,6 @@ export default {
       if (currentIngredient) {
         currentIngredient.count = count;
       }
-      this.ingredients = JSON.parse(JSON.stringify(this.ingredients));
     },
   },
 };

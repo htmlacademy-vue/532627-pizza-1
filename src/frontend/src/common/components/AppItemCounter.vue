@@ -2,7 +2,9 @@
   <div class="counter counter--orange">
     <button
       type="button"
-      class="counter__button counter__button--disabled counter__button--minus"
+      :disabled="value === 0"
+      :class="{ 'counter__button--disabled': value === 0 }"
+      class="counter__button counter__button--minus"
       @click="decrease"
     >
       <span class="visually-hidden">Меньше</span>
@@ -12,6 +14,8 @@
 
     <button
       type="button"
+      :disabled="value === maxValue"
+      :class="{ 'counter__button--disabled': value === maxValue }"
       class="counter__button counter__button--plus"
       @click="increase"
     >
@@ -27,6 +31,10 @@ export default {
     value: {
       type: Number,
       default: 0,
+    },
+    maxValue: {
+      type: Number,
+      default: 3,
     },
   },
   methods: {
