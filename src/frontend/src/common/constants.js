@@ -97,3 +97,6 @@ export const INGREDIENT_TYPES = [
     value: "blue_cheese",
   },
 ];
+
+export const MOVE = "move";
+export const DATA_TRANSFER_PAYLOAD = "payload";
