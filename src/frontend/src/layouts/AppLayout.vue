@@ -1,16 +1,20 @@
 <template>
-  <div class="app-layout">
-    <AppLayoutHeader />
-    <Index />
-  </div>
+  <component :is="layout">
+    <slot />
+  </component>
 </template>
 
 <script>
-import AppLayoutHeader from "@/layouts/AppLayoutHeader";
-import Index from "@/views/Index";
+const defaultLayout = "AppDefaultLayout";
 
 export default {
   name: "AppLayouts",
-  components: { Index, AppLayoutHeader },
+  computed: {
+    layout() {
+      const layout = this.$route.meta.layout || defaultLayout;
+      console.log(layout);
+      return () => import(`@/layouts/${layout}.vue`);
+    },
+  },
 };
 </script>
