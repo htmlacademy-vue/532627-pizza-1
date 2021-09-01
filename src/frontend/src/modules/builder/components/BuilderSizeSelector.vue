@@ -5,18 +5,18 @@
 
       <div class="sheet__content diameter">
         <AppRadioButton
-          v-for="size in sizes"
+          v-for="size in sizeList"
           :key="size.name"
           :item-value="size.value"
           name="diameter"
-          :checked="size.value === value"
+          :checked="size.value === sizeValue"
           :class="{
             'diameter__input--small': size.value === 'small',
             'diameter__input--normal': size.value === 'normal',
             'diameter__input--normal': size.value === 'big',
           }"
           class="diameter__input"
-          @change="onChange"
+          @change="setSizeValue"
         >
           <template #name>
             <span>{{ size.name }}</span>
@@ -28,25 +28,23 @@
 </template>
 
 <script>
+import { SET_SIZE } from "@/store/mutation-types";
+import { mapGetters, mapMutations } from "vuex";
 import AppRadioButton from "@/common/components/AppRadioButton";
 
 export default {
   name: "BuilderSizeSelector",
   components: { AppRadioButton },
-  props: {
-    sizes: {
-      type: Array,
-      required: true,
-    },
-    value: {
-      type: String,
-      default: "",
-    },
+  computed: {
+    ...mapGetters("Builder", {
+      sizeValue: "getSizeValue",
+      sizeList: "getSizeList",
+    }),
   },
   methods: {
-    onChange(val) {
-      this.$emit("change", val);
-    },
+    ...mapMutations("Builder", {
+      setSizeValue: SET_SIZE,
+    }),
   },
 };
 </script>

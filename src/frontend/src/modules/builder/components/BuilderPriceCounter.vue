@@ -1,11 +1,12 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ total }} ₽</p>
+    <p>Итого: {{ totalSum }} ₽</p>
     <button
       type="button"
-      :disabled="disabled"
-      :class="{ 'button--disabled': disabled }"
+      :disabled="isDisabledSubmit"
+      :class="{ 'button--disabled': isDisabledSubmit }"
       class="button"
+      @click="createCart"
     >
       Готовьте!
     </button>
@@ -13,17 +14,18 @@
 </template>
 
 <script>
+import { CREATE_CART } from "@/store/actions-types";
+import { mapGetters, mapActions } from "vuex";
+
 export default {
   name: "BuilderPriceCounter",
-  props: {
-    total: {
-      type: Number,
-      default: 0,
-    },
-    disabled: {
-      type: Boolean,
-      default: true,
-    },
+  computed: {
+    ...mapGetters("Builder", ["totalSum", "isDisabledSubmit"]),
+  },
+  methods: {
+    ...mapActions("Cart", {
+      createCart: CREATE_CART,
+    }),
   },
 };
 </script>

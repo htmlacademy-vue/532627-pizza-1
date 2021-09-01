@@ -50,14 +50,19 @@ export default {
     [SET_SAUCE](state, payload) {
       state.sauceValue = payload;
     },
-    [RESET_BUILDER]() {
-      initState();
+    [RESET_BUILDER](state) {
+      Object.assign(state, initState());
     },
-    [CHANGE_INGREDIENTS](state, payload) {
+    [CHANGE_INGREDIENTS](state, { value, count }) {
+      const currentIngredient = state.ingredientList.find(
+        (ingredient) => ingredient.value === value
+      );
 
+      if (currentIngredient) {
+        currentIngredient.count = count;
+      }
     },
   },
-  actions: {},
   getters: {
     checkedIngredients(state) {
       return state.ingredientList.filter((ingredient) => ingredient.count > 0);
@@ -90,6 +95,30 @@ export default {
     },
     isDisabledSubmit(state, getters) {
       return !(getters.checkedIngredients.length && state.pizzaName);
+    },
+    getDoughList(state) {
+      return state.doughList;
+    },
+    getDoughValue(state) {
+      return state.doughValue;
+    },
+    getSizeList(state) {
+      return state.sizeList;
+    },
+    getSizeValue(state) {
+      return state.sizeValue;
+    },
+    getSauceList(state) {
+      return state.sauceList;
+    },
+    getSauceValue(state) {
+      return state.sauceValue;
+    },
+    getIngredientList(state) {
+      return state.ingredientList;
+    },
+    getPizzaName(state) {
+      return state.pizzaName;
     },
   },
 };
