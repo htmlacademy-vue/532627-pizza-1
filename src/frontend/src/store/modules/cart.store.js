@@ -1,8 +1,10 @@
 import { ADD_TO_CART, RESET_CART } from "@/store/mutation-types";
 import { CREATE_CART } from "@/store/actions-types";
+import misc from "@/static/misc.json";
 
 const initState = () => ({
   cart: [],
+  misc: misc,
 });
 
 export default {
@@ -18,7 +20,6 @@ export default {
   },
   actions: {
     [CREATE_CART]({ rootGetters, commit }) {
-      console.log(rootGetters.Builder);
       commit(ADD_TO_CART, {
         id: Math.floor(Math.random() * 1000),
         name: rootGetters["Builder/getPizzaName"],
@@ -38,6 +39,9 @@ export default {
       return state.cart.reduce((acc, item) => {
         return acc + item.price * item.quantity;
       }, 0);
+    },
+    getMisc(state) {
+      return state.misc;
     },
   },
 };
