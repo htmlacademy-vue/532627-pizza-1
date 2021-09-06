@@ -7,15 +7,26 @@
 
     <div class="additional-list__wrapper">
       <div class="counter additional-list__counter">
-        <button type="button" class="counter__button counter__button--minus">
+        <button
+          type="button"
+          class="counter__button counter__button--minus"
+          @click="deleteMisc(misc.id)"
+        >
           <span class="visually-hidden">Меньше</span>
         </button>
 
-        <input type="text" name="counter" class="counter__input" value="2" />
+        <input
+          :value="misc.quantity"
+          type="text"
+          name="counter"
+          class="counter__input"
+          readonly
+        />
 
         <button
           type="button"
           class="counter__button counter__button--plus counter__button--orange"
+          @click="addMisc(misc.id)"
         >
           <span class="visually-hidden">Больше</span>
         </button>
@@ -29,6 +40,8 @@
 </template>
 
 <script>
+import { mapMutations } from "vuex";
+import { ADD_MISC, DELETE_MISC } from "@/store/mutation-types";
 export default {
   name: "CartAdditionalItem",
   props: {
@@ -36,6 +49,12 @@ export default {
       type: Object,
       default: () => {},
     },
+  },
+  methods: {
+    ...mapMutations("Cart", {
+      addMisc: ADD_MISC,
+      deleteMisc: DELETE_MISC,
+    }),
   },
 };
 </script>

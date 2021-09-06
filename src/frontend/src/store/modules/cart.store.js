@@ -1,10 +1,16 @@
-import { ADD_TO_CART, RESET_CART } from "@/store/mutation-types";
+import {
+  ADD_TO_CART,
+  RESET_CART,
+  ADD_MISC,
+  DELETE_MISC,
+} from "@/store/mutation-types";
 import { CREATE_CART } from "@/store/actions-types";
 import misc from "@/static/misc.json";
+import { getSumm, mapMiscFields } from "@/common/helpers";
 
 const initState = () => ({
   cart: [],
-  misc: misc,
+  misc: mapMiscFields(misc),
 });
 
 export default {
@@ -16,6 +22,20 @@ export default {
     },
     [RESET_CART](state) {
       Object.assign(state, initState());
+    },
+    [ADD_MISC](state, miscId) {
+      const miscItem = state.misc.find((misc) => miscId === misc.id);
+
+      if (miscItem) {
+        miscItem.quantity += 1;
+      }
+    },
+    [DELETE_MISC](state, miscId) {
+      const miscItem = state.misc.find((misc) => miscId === misc.id);
+
+      if (miscItem && miscItem.quantity > 0) {
+        miscItem.quantity -= 1;
+      }
     },
   },
   actions: {
@@ -36,9 +56,10 @@ export default {
   },
   getters: {
     getTotal(state) {
-      return state.cart.reduce((acc, item) => {
-        return acc + item.price * item.quantity;
-      }, 0);
+      return getSumm(state.cart) + getSumm(state.misc);
+    },
+    getCart(state) {
+      return state.cart;
     },
     getMisc(state) {
       return state.misc;

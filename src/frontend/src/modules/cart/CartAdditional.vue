@@ -3,7 +3,7 @@
     <ul class="additional-list">
       <CartAdditionalItem
         v-for="miscItem in miscList"
-        :key="miscItem.name"
+        :key="miscItem.id"
         :misc="miscItem"
       />
     </ul>

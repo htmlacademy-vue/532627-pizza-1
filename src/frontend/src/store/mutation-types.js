@@ -13,3 +13,5 @@ export const RESET_BUILDER = "RESET_BUILDER";
 **/
 export const ADD_TO_CART = "ADD_TO CART";
 export const RESET_CART = "RESET_CART";
+export const ADD_MISC = "ADD_MISC";
+export const DELETE_MISC = "DELETE_MISC";
