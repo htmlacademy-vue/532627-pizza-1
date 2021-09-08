@@ -29,3 +29,12 @@ export const getSumm = (items) => {
     return acc + item.price * item.quantity;
   }, 0);
 };
+
+/**
+ * @param {String} value
+ * @param {Array} TYPES
+ * @return {Object} processed item
+ */
+export const getNameByValue = (value, TYPES) => {
+  return TYPES.find((type) => type?.value === value)?.name;
+};

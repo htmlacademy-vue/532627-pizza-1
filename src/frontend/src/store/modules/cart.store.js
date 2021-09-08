@@ -3,6 +3,8 @@ import {
   RESET_CART,
   ADD_MISC,
   DELETE_MISC,
+  REMOVE_PIZZA,
+  CHANGE_PIZZA_QUANTITY,
 } from "@/store/mutation-types";
 import { CREATE_CART } from "@/store/actions-types";
 import misc from "@/static/misc.json";
@@ -36,6 +38,17 @@ export default {
       if (miscItem && miscItem.quantity > 0) {
         miscItem.quantity -= 1;
       }
+    },
+    [REMOVE_PIZZA](state, id) {
+      state.cart = state.cart.filter((cartItem) => cartItem.id !== id);
+    },
+    [CHANGE_PIZZA_QUANTITY](state, { id, quantity }) {
+      state.cart = state.cart.map((cartItem) => {
+        return {
+          ...cartItem,
+          quantity: cartItem.id === id ? quantity : cartItem.quantity,
+        };
+      });
     },
   },
   actions: {
