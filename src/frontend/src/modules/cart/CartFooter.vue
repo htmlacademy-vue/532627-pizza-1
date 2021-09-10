@@ -23,7 +23,8 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
+import { RESET_CART } from "@/store/mutation-types";
 export default {
   name: "CartFooter",
   computed: {
@@ -32,7 +33,11 @@ export default {
     }),
   },
   methods: {
+    ...mapMutations("Cart", {
+      resetCart: RESET_CART,
+    }),
     submitOrder() {
+      this.resetCart();
       this.$emit("submit");
     },
   },
