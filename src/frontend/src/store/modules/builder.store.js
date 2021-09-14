@@ -23,6 +23,8 @@ import {
 } from "@/store/mutation-types";
 
 const initState = () => ({
+  id: null,
+  quantity: null,
   doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
   sizeList: sizes.map((item) => getValueByName(item, SIZE_TYPES)),
   sauceList: sauces.map((item) => getValueByName(item, SAUCE_TYPES)),
@@ -107,6 +109,12 @@ export default {
     },
     isDisabledSubmit(state, getters) {
       return !(getters.checkedIngredients.length && state.name);
+    },
+    getId(state) {
+      return state.id;
+    },
+    getQuantity(state) {
+      return state.quantity;
     },
     getDoughList(state) {
       return state.doughList;

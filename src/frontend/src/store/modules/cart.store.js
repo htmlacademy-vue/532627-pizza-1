@@ -37,6 +37,15 @@ export default {
         miscItem.quantity += 1;
       }
     },
+    [EDIT_PIZZA](state, pizza) {
+      const currentPizza = state.cart.find(
+        (pizzaItem) => pizzaItem.id === pizza.id
+      );
+
+      if (currentPizza) {
+        Object.assign(currentPizza, pizza);
+      }
+    },
     [DELETE_MISC](state, miscId) {
       const miscItem = state.misc.find((misc) => miscId === misc.id);
 
@@ -57,9 +66,10 @@ export default {
     },
   },
   actions: {
-    [EDIT_CART_PIZZA]({ rootGetters, commit }) {
-      //TODO пробрасывать id и количество
+    [EDIT_CART_PIZZA]({ rootGetters, commit }, { id, quantity }) {
       commit(EDIT_PIZZA, {
+        id,
+        quantity,
         name: rootGetters["Builder/getPizzaName"],
         dough: rootGetters["Builder/getDoughValue"],
         size: rootGetters["Builder/getSizeValue"],
