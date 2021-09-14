@@ -8,13 +8,13 @@
           <p>Основной соус:</p>
 
           <AppRadioButton
-            v-for="sauce in sauces"
+            v-for="sauce in sauceList"
             :key="sauce.value"
             :item-value="sauce.value"
             :checked="sauce.value === sauceValue"
             name="sauce"
             class="radio ingridients__input"
-            @change="$emit('change-sauce', $event)"
+            @change="setSauceValue"
           >
             <template #name>
               <span>{{ sauce.name }}</span>
@@ -23,14 +23,14 @@
         </div>
 
         <div
-          v-if="ingredients && ingredients.length > 0"
+          v-if="ingredientList && ingredientList.length > 0"
           class="ingridients__filling"
         >
           <p>Начинка:</p>
 
           <ul class="ingridients__list">
             <li
-              v-for="ingredient in ingredients"
+              v-for="ingredient in ingredientList"
               :key="ingredient.name"
               class="ingridients__item"
             >
@@ -47,7 +47,9 @@
                 :value="ingredient.count"
                 :max-value="$options.INGREDIENTS_MAX_VALUE"
                 class="ingridients__counter"
-                @change="onIngredientCountChange(ingredient.value, $event)"
+                @change="
+                  changeIngredients({ value: ingredient.value, count: $event })
+                "
               />
             </li>
           </ul>
@@ -58,6 +60,8 @@
 </template>
 
 <script>
+import { SET_SAUCE, CHANGE_INGREDIENTS } from "@/store/mutation-types";
+import { mapGetters, mapMutations } from "vuex";
 import AppItemChip from "@/common/components/AppItemChip";
 import AppItemCounter from "@/common/components/AppItemCounter";
 import AppRadioButton from "@/common/components/AppRadioButton";
@@ -72,28 +76,19 @@ export default {
     AppRadioButton,
   },
   INGREDIENTS_MAX_VALUE: 3,
-  props: {
-    sauces: {
-      type: Array,
-      required: true,
-    },
-    ingredients: {
-      type: Array,
-      required: true,
-    },
-    sauceValue: {
-      type: String,
-      default: "",
-    },
-  },
 
+  computed: {
+    ...mapGetters("Builder", {
+      sauceValue: "getSauceValue",
+      sauceList: "getSauceList",
+      ingredientList: "getIngredientList",
+    }),
+  },
   methods: {
-    onIngredientCountChange(value, count) {
-      return this.$emit("change", {
-        value,
-        count,
-      });
-    },
+    ...mapMutations("Builder", {
+      setSauceValue: SET_SAUCE,
+      changeIngredients: CHANGE_INGREDIENTS,
+    }),
   },
 };
 </script>
