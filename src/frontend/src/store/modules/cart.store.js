@@ -5,8 +5,13 @@ import {
   DELETE_MISC,
   REMOVE_PIZZA,
   CHANGE_PIZZA_QUANTITY,
+  EDIT_PIZZA,
 } from "@/store/mutation-types";
-import { CREATE_CART } from "@/store/actions-types";
+import {
+  CREATE_CART,
+  DECREASE_PIZZA_QUANTITY,
+  EDIT_CART_PIZZA,
+} from "@/store/actions-types";
 import misc from "@/static/misc.json";
 import { getSumm, mapMiscFields } from "@/common/helpers";
 
@@ -52,6 +57,19 @@ export default {
     },
   },
   actions: {
+    [EDIT_CART_PIZZA]({ rootGetters, commit }) {
+      //TODO пробрасывать id и количество
+      commit(EDIT_PIZZA, {
+        name: rootGetters["Builder/getPizzaName"],
+        dough: rootGetters["Builder/getDoughValue"],
+        size: rootGetters["Builder/getSizeValue"],
+        sauce: rootGetters["Builder/getSauceValue"],
+        ingredients: rootGetters["Builder/checkedIngredients"],
+        price: rootGetters["Builder/totalSum"],
+      });
+
+      commit("Builder/RESET_BUILDER", null, { root: true });
+    },
     [CREATE_CART]({ rootGetters, commit }) {
       commit(ADD_TO_CART, {
         id: Math.floor(Math.random() * 1000),
@@ -65,6 +83,13 @@ export default {
       });
 
       commit("Builder/RESET_BUILDER", null, { root: true });
+    },
+    [DECREASE_PIZZA_QUANTITY]({ commit }, { id, quantity }) {
+      if (quantity === 0) {
+        commit(REMOVE_PIZZA, id);
+      } else {
+        commit(CHANGE_PIZZA_QUANTITY, { id, quantity });
+      }
     },
   },
   getters: {

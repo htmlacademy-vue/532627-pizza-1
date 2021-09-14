@@ -13,7 +13,7 @@
         <div class="product__text">
           <h2>{{ pizza.name }}</h2>
           <ul>
-            <li>{{ getSize(pizza.size) }}, на тонком тесте</li>
+            <li>{{ getSize(pizza.size) }}, {{ getDough(pizza.dough) }}</li>
             <li>Соус: {{ getSauce(pizza.sauce) }}</li>
             <li>Начинка: {{ getIngredients(pizza.ingredients) }}</li>
           </ul>
@@ -25,9 +25,9 @@
           type="button"
           class="counter__button counter__button--minus"
           @click="
-            changePizzaQuantity({
+            decreaseQuantity({
               id: pizza.id,
-              quantity: Math.max(1, pizza.quantity - 1),
+              quantity: Math.max(0, pizza.quantity - 1),
             })
           "
         >
@@ -67,13 +67,11 @@
 
 <script>
 import { SAUCE_TYPES, SIZE_TYPES } from "@/common/constants";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapMutations, mapActions } from "vuex";
 import { getNameByValue } from "@/common/helpers";
-import {
-  CHANGE_PIZZA,
-  REMOVE_PIZZA,
-  CHANGE_PIZZA_QUANTITY,
-} from "@/store/mutation-types";
+import { CHANGE_PIZZA, CHANGE_PIZZA_QUANTITY } from "@/store/mutation-types";
+import { DECREASE_PIZZA_QUANTITY } from "@/store/actions-types";
+
 export default {
   name: "CartList",
   computed: {
@@ -82,11 +80,13 @@ export default {
     }),
   },
   methods: {
+    ...mapActions("Cart", {
+      decreaseQuantity: DECREASE_PIZZA_QUANTITY,
+    }),
     ...mapMutations("Builder", {
       changeBuilder: CHANGE_PIZZA,
     }),
     ...mapMutations("Cart", {
-      removeFromOrder: REMOVE_PIZZA,
       changePizzaQuantity: CHANGE_PIZZA_QUANTITY,
     }),
     getSize(value) {
@@ -103,7 +103,6 @@ export default {
     },
     change(pizza) {
       this.changeBuilder(pizza);
-      this.removeFromOrder(pizza.id);
       this.$router.push("/");
     },
   },
