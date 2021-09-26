@@ -100,3 +100,5 @@ export const INGREDIENT_TYPES = [
 
 export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
+
+export const NOTIFICATION_TIME = 3000;

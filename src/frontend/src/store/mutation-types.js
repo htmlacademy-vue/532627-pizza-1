@@ -19,3 +19,9 @@ export const DELETE_MISC = "DELETE_MISC";
 export const REMOVE_PIZZA = "REMOVE_PIZZA";
 export const CHANGE_PIZZA_QUANTITY = "CHANGE_PIZZA_QUANTITY";
 export const EDIT_PIZZA = "EDIT_PIZZA";
+
+/**
+ Notification types
+ **/
+export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
+export const REMOVE_NOTIFICATION = "REMOVE_NOTIFICATION";
