@@ -25,3 +25,9 @@ export const EDIT_PIZZA = "EDIT_PIZZA";
  **/
 export const ADD_NOTIFICATION = "ADD_NOTIFICATION";
 export const REMOVE_NOTIFICATION = "REMOVE_NOTIFICATION";
+
+/**
+ Loading mutations
+ **/
+export const START_LOADING = "START_LOADING";
+export const FINISH_LOADING = "FINISH_LOADING";

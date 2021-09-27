@@ -41,7 +41,7 @@
 
 <script>
 import { mapMutations } from "vuex";
-import { ADD_MISC, DELETE_MISC } from "@/store/mutation-types";
+import { ADD_MISC, DELETE_MISC } from "@/store/mutation.types";
 export default {
   name: "CartAdditionalItem",
   props: {

@@ -60,7 +60,7 @@
 </template>
 
 <script>
-import { SET_SAUCE, CHANGE_INGREDIENTS } from "@/store/mutation-types";
+import { SET_SAUCE, CHANGE_INGREDIENTS } from "@/store/mutation.types";
 import { mapGetters, mapMutations } from "vuex";
 import AppItemChip from "@/common/components/AppItemChip";
 import AppItemCounter from "@/common/components/AppItemCounter";

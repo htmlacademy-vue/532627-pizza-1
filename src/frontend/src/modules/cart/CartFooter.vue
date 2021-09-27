@@ -24,7 +24,7 @@
 
 <script>
 import { mapGetters, mapMutations } from "vuex";
-import { RESET_CART } from "@/store/mutation-types";
+import { RESET_CART } from "@/store/mutation.types";
 export default {
   name: "CartFooter",
   computed: {

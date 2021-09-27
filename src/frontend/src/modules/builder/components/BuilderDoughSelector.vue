@@ -30,7 +30,7 @@
 </template>
 
 <script>
-import { SET_DOUGH } from "@/store/mutation-types";
+import { SET_DOUGH } from "@/store/mutation.types";
 import { mapGetters, mapMutations } from "vuex";
 import AppRadioButton from "@/common/components/AppRadioButton";
 

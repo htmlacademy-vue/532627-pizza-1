@@ -20,7 +20,7 @@ import {
   RESET_BUILDER,
   CHANGE_INGREDIENTS,
   CHANGE_PIZZA,
-} from "@/store/mutation-types";
+} from "@/store/mutation.types";
 
 const initState = () => ({
   id: null,

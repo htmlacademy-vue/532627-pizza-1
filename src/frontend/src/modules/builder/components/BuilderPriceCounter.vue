@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { CREATE_CART, EDIT_CART_PIZZA } from "@/store/actions-types";
+import { CREATE_CART, EDIT_CART_PIZZA } from "@/store/actions.types";
 import { mapGetters, mapActions } from "vuex";
 
 export default {

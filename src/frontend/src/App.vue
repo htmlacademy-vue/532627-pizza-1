@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <AppLayout>
+    <AppStartScreen v-if="isLoading" />
+
+    <AppLayout v-else>
       <router-view />
     </AppLayout>
 
@@ -17,18 +19,29 @@
 <script>
 import AppLayout from "@/layouts/AppLayout";
 import AppNotification from "@/common/components/AppNotification";
-import { mapGetters } from "vuex";
+import AppStartScreen from "@/common/components/AppStartScreen";
+import { mapGetters, mapActions } from "vuex";
+import { INIT } from "@/store/actions.types";
+
 export default {
   name: "App",
-  components: { AppLayout, AppNotification },
+  components: { AppLayout, AppNotification, AppStartScreen },
+  mounted() {
+    this.init();
+  },
   computed: {
     ...mapGetters("Notification", {
       notification: "getNotification",
     }),
 
+    ...mapGetters(["isLoading"]),
+
     needShowNotification() {
       return this.notification.msg;
     },
+  },
+  methods: {
+    ...mapActions({ init: INIT }),
   },
 };
 </script>

@@ -1,5 +1,5 @@
 import { notificationTypes } from "@/common/enums";
-import { CREATE_NOTIFICATION } from "@/store/actions-types";
+import { CREATE_NOTIFICATION } from "@/store/actions.types";
 
 export default class Notifier {
   #store;

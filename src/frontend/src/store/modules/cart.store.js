@@ -6,12 +6,12 @@ import {
   REMOVE_PIZZA,
   CHANGE_PIZZA_QUANTITY,
   EDIT_PIZZA,
-} from "@/store/mutation-types";
+} from "@/store/mutation.types";
 import {
   CREATE_CART,
   DECREASE_PIZZA_QUANTITY,
   EDIT_CART_PIZZA,
-} from "@/store/actions-types";
+} from "@/store/actions.types";
 import misc from "@/static/misc.json";
 import { getSumm, mapMiscFields } from "@/common/helpers";
 

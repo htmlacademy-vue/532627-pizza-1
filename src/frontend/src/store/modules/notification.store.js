@@ -1,5 +1,5 @@
-import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from "@/store/mutation-types";
-import { CREATE_NOTIFICATION } from "@/store/actions-types";
+import { ADD_NOTIFICATION, REMOVE_NOTIFICATION } from "@/store/mutation.types";
+import { CREATE_NOTIFICATION } from "@/store/actions.types";
 import { NOTIFICATION_TIME } from "@/common/constants";
 
 const initState = () => ({
