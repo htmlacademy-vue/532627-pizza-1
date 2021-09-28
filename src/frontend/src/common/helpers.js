@@ -1,3 +1,6 @@
+import { resourceTypes } from "@/common/enums";
+import { ReadOnlyApiService } from "@/services/api.service";
+
 /**
  * @param {Object} item
  * @param {Array} TYPES
@@ -37,4 +40,13 @@ export const getSumm = (items) => {
  */
 export const getNameByValue = (value, TYPES) => {
   return TYPES.find((type) => type?.value === value)?.name;
+};
+
+export const createResources = (notifier) => {
+  return {
+    [resourceTypes.DOUGH]: new ReadOnlyApiService(
+      resourceTypes.DOUGH,
+      notifier
+    ),
+  };
 };

@@ -8,6 +8,7 @@ export const SET_SAUCE = "SET_SAUCE";
 export const CHANGE_INGREDIENTS = "CHANGE_INGREDIENTS";
 export const RESET_BUILDER = "RESET_BUILDER";
 export const CHANGE_PIZZA = "CHANGE_PIZZA";
+export const SET_BUILDER = "SET_BUILDER";
 
 /**
   Cart mutations
@@ -31,3 +32,8 @@ export const REMOVE_NOTIFICATION = "REMOVE_NOTIFICATION";
  **/
 export const START_LOADING = "START_LOADING";
 export const FINISH_LOADING = "FINISH_LOADING";
+
+/**
+ Common
+ **/
+export const SET_ENTITY = "SET_ENTITY";

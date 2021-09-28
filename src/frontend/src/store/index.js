@@ -26,9 +26,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    [INIT]({ commit }) {
+    [INIT]({ commit, dispatch }) {
       commit(START_LOADING);
-      setTimeout(() => commit(FINISH_LOADING), 5000);
+      dispatch("Builder/fetchBuilderData");
+      setTimeout(() => commit(FINISH_LOADING), 3000);
     },
   },
   modules,

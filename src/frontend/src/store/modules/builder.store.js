@@ -2,6 +2,7 @@ import doughList from "@/static/dough.json";
 import sizes from "@/static/sizes.json";
 import sauces from "@/static/sauces.json";
 import ingredients from "@/static/ingredients.json";
+import { resourceTypes } from "@/common/enums";
 
 import {
   DOUGH_TYPES,
@@ -20,6 +21,7 @@ import {
   RESET_BUILDER,
   CHANGE_INGREDIENTS,
   CHANGE_PIZZA,
+  SET_BUILDER,
 } from "@/store/mutation.types";
 
 const initState = () => ({
@@ -40,7 +42,18 @@ const initState = () => ({
 export default {
   namespaced: true,
   state: initState(),
+  actions: {
+    fetchBuilderData({ commit }) {
+      commit(SET_BUILDER, {
+        doughList: this.$api[resourceTypes.DOUGH].query(),
+      });
+    },
+  },
   mutations: {
+    [SET_BUILDER](state, payload) {
+      Object.assign(state, payload);
+    },
+
     [SET_PIZZA_NAME](state, payload) {
       state.name = payload;
     },
