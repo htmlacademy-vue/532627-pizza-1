@@ -48,5 +48,17 @@ export const createResources = (notifier) => {
       resourceTypes.DOUGH,
       notifier
     ),
+    [resourceTypes.SIZES]: new ReadOnlyApiService(
+      resourceTypes.SIZES,
+      notifier
+    ),
+    [resourceTypes.SAUCES]: new ReadOnlyApiService(
+      resourceTypes.SAUCES,
+      notifier
+    ),
+    [resourceTypes.INGREDIENTS]: new ReadOnlyApiService(
+      resourceTypes.INGREDIENTS,
+      notifier
+    ),
   };
 };

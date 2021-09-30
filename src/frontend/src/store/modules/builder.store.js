@@ -1,7 +1,3 @@
-import doughList from "@/static/dough.json";
-import sizes from "@/static/sizes.json";
-import sauces from "@/static/sauces.json";
-import ingredients from "@/static/ingredients.json";
 import { resourceTypes } from "@/common/enums";
 
 import {
@@ -27,12 +23,10 @@ import {
 const initState = () => ({
   id: null,
   quantity: null,
-  doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
-  sizeList: sizes.map((item) => getValueByName(item, SIZE_TYPES)),
-  sauceList: sauces.map((item) => getValueByName(item, SAUCE_TYPES)),
-  ingredients: ingredients.map((item) => {
-    return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
-  }),
+  doughList: [],
+  sizeList: [],
+  sauceList: [],
+  ingredients: [],
   dough: "light",
   size: "small",
   sauce: "tomato",
@@ -43,9 +37,21 @@ export default {
   namespaced: true,
   state: initState(),
   actions: {
-    fetchBuilderData({ commit }) {
+    async fetchBuilderData({ commit }) {
+      const [doughList, ingredients, saucesList, sizeList] = await Promise.all([
+        this.$api[resourceTypes.DOUGH].query(),
+        this.$api[resourceTypes.INGREDIENTS].query(),
+        this.$api[resourceTypes.SAUCES].query(),
+        this.$api[resourceTypes.SIZES].query(),
+      ]);
+
       commit(SET_BUILDER, {
-        doughList: this.$api[resourceTypes.DOUGH].query(),
+        doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
+        sizeList: sizeList.map((item) => getValueByName(item, SIZE_TYPES)),
+        sauceList: saucesList.map((item) => getValueByName(item, SAUCE_TYPES)),
+        ingredients: ingredients.map((item) => {
+          return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
+        }),
       });
     },
   },
