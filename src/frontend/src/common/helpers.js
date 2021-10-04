@@ -1,5 +1,5 @@
 import { resourceTypes } from "@/common/enums";
-import { ReadOnlyApiService } from "@/services/api.service";
+import { ReadOnlyApiService, AuthApiService } from "@/services/api.service";
 
 /**
  * @param {Object} item
@@ -60,5 +60,7 @@ export const createResources = (notifier) => {
       resourceTypes.INGREDIENTS,
       notifier
     ),
+    [resourceTypes.MISC]: new ReadOnlyApiService(resourceTypes.MISC, notifier),
+    [resourceTypes.AUTH]: new AuthApiService(notifier),
   };
 };

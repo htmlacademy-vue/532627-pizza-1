@@ -20,6 +20,7 @@ export const DELETE_MISC = "DELETE_MISC";
 export const REMOVE_PIZZA = "REMOVE_PIZZA";
 export const CHANGE_PIZZA_QUANTITY = "CHANGE_PIZZA_QUANTITY";
 export const EDIT_PIZZA = "EDIT_PIZZA";
+export const SET_MISC = "SET_MISC";
 
 /**
  Notification types
@@ -34,6 +35,7 @@ export const START_LOADING = "START_LOADING";
 export const FINISH_LOADING = "FINISH_LOADING";
 
 /**
- Common
+ Auth
  **/
-export const SET_ENTITY = "SET_ENTITY";
+export const SET_AUTH = "SET_AUTH";
+export const SET_USER = "SET_USER";

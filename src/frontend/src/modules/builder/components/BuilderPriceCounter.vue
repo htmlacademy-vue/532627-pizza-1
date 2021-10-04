@@ -1,7 +1,6 @@
 <template>
   <div class="content__result">
     <p>Итого: {{ totalSum }} ₽</p>
-    {{ id }}
     <button
       type="button"
       :disabled="isDisabledSubmit"

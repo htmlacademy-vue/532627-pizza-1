@@ -39,11 +39,14 @@ export default {
   align-items: center;
   width: 300px;
   min-height: 100px;
+  padding: 0 16px;
   box-shadow: 0 4px 8px rgb(0 0 0 / 4%), 0 0 2px rgb(0 0 0 / 6%),
     0 0 1px rgb(0 0 0 / 4%);
+  background: #fff;
 
   &__message {
     font-size: 16px;
+    line-height: 24px;
     font-weight: bold;
 
     &_warning {

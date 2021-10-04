@@ -21,8 +21,8 @@ import {
 } from "@/store/mutation.types";
 
 const initState = () => ({
-  id: null,
-  quantity: null,
+  id: 0,
+  quantity: 0,
   doughList: [],
   sizeList: [],
   sauceList: [],
@@ -38,21 +38,28 @@ export default {
   state: initState(),
   actions: {
     async fetchBuilderData({ commit }) {
-      const [doughList, ingredients, saucesList, sizeList] = await Promise.all([
-        this.$api[resourceTypes.DOUGH].query(),
-        this.$api[resourceTypes.INGREDIENTS].query(),
-        this.$api[resourceTypes.SAUCES].query(),
-        this.$api[resourceTypes.SIZES].query(),
-      ]);
+      try {
+        const [doughList, ingredients, saucesList, sizeList] =
+          await Promise.all([
+            this.$api[resourceTypes.DOUGH].query(),
+            this.$api[resourceTypes.INGREDIENTS].query(),
+            this.$api[resourceTypes.SAUCES].query(),
+            this.$api[resourceTypes.SIZES].query(),
+          ]);
 
-      commit(SET_BUILDER, {
-        doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
-        sizeList: sizeList.map((item) => getValueByName(item, SIZE_TYPES)),
-        sauceList: saucesList.map((item) => getValueByName(item, SAUCE_TYPES)),
-        ingredients: ingredients.map((item) => {
-          return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
-        }),
-      });
+        commit(SET_BUILDER, {
+          doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
+          sizeList: sizeList.map((item) => getValueByName(item, SIZE_TYPES)),
+          sauceList: saucesList.map((item) =>
+            getValueByName(item, SAUCE_TYPES)
+          ),
+          ingredients: ingredients.map((item) => {
+            return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
+          }),
+        });
+      } catch (e) {
+        this.$notifier.error(e.toString());
+      }
     },
   },
   mutations: {
@@ -73,7 +80,12 @@ export default {
       state.sauce = payload;
     },
     [RESET_BUILDER](state) {
-      Object.assign(state, initState());
+      state.name = "";
+      state.id = 0;
+      state.quantity = 0;
+      state.dough = "light";
+      state.size = "small";
+      state.sauce = "tomato";
     },
     [CHANGE_INGREDIENTS](state, { value, count }) {
       const currentIngredient = state.ingredients.find(

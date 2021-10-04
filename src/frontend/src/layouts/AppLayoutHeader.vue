@@ -14,7 +14,17 @@
       <router-link to="/cart">{{ total }} ₽</router-link>
     </div>
     <div class="header__user">
-      <router-link to="/login" class="header__login">
+      <template v-if="isLoggedIn">
+        <router-link to="/orders">
+          <img :src="user.avatar" :alt="user.name" width="32" height="32" />
+          <span>{{ user.name }}</span>
+        </router-link>
+
+        <button class="header__logout" @click.prevent="logout">
+          <span>Выйти</span>
+        </button>
+      </template>
+      <router-link v-else to="/login" class="header__login">
         <span>Войти</span>
       </router-link>
     </div>
@@ -22,13 +32,27 @@
 </template>
 
 <script>
-import { mapGetters } from "vuex";
+import { mapActions, mapGetters } from "vuex";
+import { LOGOUT } from "@/store/actions.types";
 export default {
   name: "AppLayoutHeader",
   computed: {
     ...mapGetters("Cart", {
       total: "getTotal",
     }),
+    ...mapGetters("Auth", {
+      isLoggedIn: "isLoggedIn",
+      user: "getUser",
+    }),
+  },
+  methods: {
+    ...mapActions("Auth", { logout: LOGOUT }),
+
+    handleLogout() {
+      this.logout();
+      this.$notifier.warning("Вы вышли из своей учётной записи");
+      this.$router.push("/login");
+    },
   },
 };
 </script>

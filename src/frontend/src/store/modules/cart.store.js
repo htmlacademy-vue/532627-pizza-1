@@ -6,24 +6,30 @@ import {
   REMOVE_PIZZA,
   CHANGE_PIZZA_QUANTITY,
   EDIT_PIZZA,
+  SET_MISC,
 } from "@/store/mutation.types";
 import {
   CREATE_CART,
   DECREASE_PIZZA_QUANTITY,
   EDIT_CART_PIZZA,
+  FETCH_MISC,
 } from "@/store/actions.types";
-import misc from "@/static/misc.json";
+
+import { resourceTypes } from "@/common/enums";
 import { getSumm, mapMiscFields } from "@/common/helpers";
 
 const initState = () => ({
   cart: [],
-  misc: mapMiscFields(misc),
+  misc: [],
 });
 
 export default {
   namespaced: true,
   state: initState(),
   mutations: {
+    [SET_MISC](state, misc) {
+      state.misc = misc;
+    },
     [ADD_TO_CART](state, product) {
       state.cart.push(product);
     },
@@ -66,6 +72,17 @@ export default {
     },
   },
   actions: {
+    async [FETCH_MISC]({ commit }) {
+      try {
+        console.log(this.$api);
+        const misc = await this.$api[resourceTypes.MISC].query();
+        if (misc.length) {
+          commit(SET_MISC, mapMiscFields(misc));
+        }
+      } catch (e) {
+        this.$notifier.error(e.toString());
+      }
+    },
     [EDIT_CART_PIZZA]({ rootGetters, commit }, { id, quantity }) {
       commit(EDIT_PIZZA, {
         id,
