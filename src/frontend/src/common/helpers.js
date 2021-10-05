@@ -1,5 +1,6 @@
 import { resourceTypes } from "@/common/enums";
 import { ReadOnlyApiService, AuthApiService } from "@/services/api.service";
+import { GET_ME } from "@/store/actions.types";
 
 /**
  * @param {Object} item
@@ -63,4 +64,11 @@ export const createResources = (notifier) => {
     [resourceTypes.MISC]: new ReadOnlyApiService(resourceTypes.MISC, notifier),
     [resourceTypes.AUTH]: new AuthApiService(notifier),
   };
+};
+
+export const initUser = (store) => {
+  if (store.$jwt.getToken()) {
+    store.$api.auth.setAuthHeader();
+    store.dispatch(`Auth/${GET_ME}`);
+  }
 };
