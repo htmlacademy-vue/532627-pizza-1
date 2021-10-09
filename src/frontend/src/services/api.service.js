@@ -66,7 +66,9 @@ export class AuthApiService extends BaseApiService {
 
   setAuthHeader() {
     const token = JwtService.getToken();
-    axiosInstance.defaults.headers.common["Token"] = token ?? "";
+    axiosInstance.defaults.headers.common["Authorization"] = token
+      ? `Bearer ${token}`
+      : "";
   }
 
   // отправляем логин/пароль для авторизации на сервере
