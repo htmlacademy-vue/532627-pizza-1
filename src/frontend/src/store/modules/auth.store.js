@@ -14,7 +14,7 @@ export default {
 
         if (loginData?.token) {
           this.$jwt.saveToken(loginData.token);
-          this.$api.auth.setAuthHeader(loginData.token);
+          this.$api.auth.setAuthHeader();
           dispatch(GET_ME);
         } else {
           this.$notifier.error("Токен не получен");
@@ -23,10 +23,11 @@ export default {
         return false;
       }
     },
+
     async [GET_ME]({ commit, dispatch }) {
       try {
         const userData = await this.$api.auth.getMe();
-        console.log(111, userData);
+
         commit(SET_AUTH, true);
         commit(SET_USER, userData);
       } catch (e) {
@@ -34,6 +35,16 @@ export default {
           dispatch(LOGOUT);
         }, 2000);
       }
+    },
+
+    [LOGOUT]({ commit }) {
+      this.$api.auth.logout().then(() => {
+        this.$jwt.destroyToken();
+        this.$api.auth.setAuthHeader();
+
+        commit(SET_AUTH, false);
+        commit(SET_USER, {});
+      });
     },
   },
   mutations: {

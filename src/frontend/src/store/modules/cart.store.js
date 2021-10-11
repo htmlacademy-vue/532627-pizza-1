@@ -13,6 +13,7 @@ import {
   DECREASE_PIZZA_QUANTITY,
   EDIT_CART_PIZZA,
   FETCH_MISC,
+  CREATE_ORDER,
 } from "@/store/actions.types";
 
 import { resourceTypes } from "@/common/enums";
@@ -72,9 +73,24 @@ export default {
     },
   },
   actions: {
+    async [CREATE_ORDER]({ state, rootState }) {
+      const pizzas = [];
+
+      const misc = [];
+
+      const order = {
+        userId: rootState.Auth.user?.id ?? null,
+        phone: state.phone,
+        address: state.address,
+        pizzas,
+        misc,
+      };
+
+      await this.$api.orders.post(order);
+    },
+
     async [FETCH_MISC]({ commit }) {
       try {
-        console.log(this.$api);
         const misc = await this.$api[resourceTypes.MISC].query();
         if (misc.length) {
           commit(SET_MISC, mapMiscFields(misc));
@@ -83,6 +99,7 @@ export default {
         this.$notifier.error(e.toString());
       }
     },
+
     [EDIT_CART_PIZZA]({ rootGetters, commit }, { id, quantity }) {
       commit(EDIT_PIZZA, {
         id,

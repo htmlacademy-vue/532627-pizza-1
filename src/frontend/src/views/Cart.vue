@@ -1,5 +1,5 @@
 <template>
-  <form method="post" class="layout-form">
+  <form method="post" class="layout-form" @submit.prevent="handleSubmit">
     <main class="content cart">
       <div class="container">
         <CartTitle />
@@ -28,6 +28,8 @@ import CartEmpty from "@/modules/cart/CartEmpty";
 import CartList from "@/modules/cart/CartList";
 import CartTitle from "@/modules/cart/CartTitle";
 import CartThanksForOrder from "@/modules/cart/CartThanksForOrder";
+import { CREATE_ORDER } from "@/store/actions.types";
+import { mapActions } from "vuex";
 
 export default {
   name: "Cart",
@@ -46,7 +48,11 @@ export default {
     };
   },
   methods: {
-    handleSubmit() {
+    ...mapActions("Cart", {
+      createOrder: CREATE_ORDER,
+    }),
+    async handleSubmit() {
+      await this.createOrder();
       this.isSubmitted = true;
     },
   },

@@ -51,7 +51,7 @@ export default {
     handleLogout() {
       this.logout();
       this.$notifier.warning("Вы вышли из своей учётной записи");
-      this.$router.push("/login");
+      this.$router.push("/");
     },
   },
 };
