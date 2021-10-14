@@ -21,6 +21,8 @@ export const REMOVE_PIZZA = "REMOVE_PIZZA";
 export const CHANGE_PIZZA_QUANTITY = "CHANGE_PIZZA_QUANTITY";
 export const EDIT_PIZZA = "EDIT_PIZZA";
 export const SET_MISC = "SET_MISC";
+export const SET_PHONE = "SET_PHONE";
+export const SET_ADDRESS = "SET_ADDRESS";
 
 /**
  Notification types

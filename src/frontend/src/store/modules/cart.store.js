@@ -7,6 +7,8 @@ import {
   CHANGE_PIZZA_QUANTITY,
   EDIT_PIZZA,
   SET_MISC,
+  SET_ADDRESS,
+  SET_PHONE,
 } from "@/store/mutation.types";
 import {
   CREATE_CART,
@@ -23,7 +25,11 @@ const initState = () => ({
   cart: [],
   misc: [],
   phone: "",
-  address: "",
+  address: {
+    street: "",
+    building: "",
+    flat: "",
+  },
 });
 
 export default {
@@ -73,14 +79,15 @@ export default {
         };
       });
     },
+    [SET_PHONE](state, phone) {
+      state.phone = phone;
+    },
+    [SET_ADDRESS](state, address) {
+      state.address = address;
+    },
   },
   actions: {
-    async [CREATE_ORDER]({ state, rootState, getters, rootGetters }) {
-      //TODO закончить оформление заказа
-      //TODO пофиксить сброс корзины при нажатии на "Готовьте"
-      // Сеттить телефон и адрес
-      console.log(state);
-      console.log(getters.getCart);
+    async [CREATE_ORDER]({ state, rootState, getters, rootGetters, commit }) {
       const pizzas = getters.getCart.map((item) => ({
         name: item.name,
         sauceId: rootGetters["Builder/getSauceList"].find(
@@ -121,7 +128,12 @@ export default {
         misc,
       };
 
-      await this.$api.orders.post(order);
+      try {
+        await this.$api.orders.post(order);
+        commit(RESET_CART);
+      } catch (e) {
+        return false;
+      }
     },
 
     async [FETCH_MISC]({ commit }) {
@@ -180,6 +192,9 @@ export default {
     },
     getMisc(state) {
       return state.misc;
+    },
+    isValidOrderData(state) {
+      return state.phone && state.address;
     },
   },
 };

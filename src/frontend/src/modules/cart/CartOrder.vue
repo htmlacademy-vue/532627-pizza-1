@@ -13,7 +13,13 @@
 
       <label class="input input--big-label">
         <span>Контактный телефон:</span>
-        <input type="text" name="tel" placeholder="+7 999-999-99-99" />
+        <input
+          v-model="phone"
+          type="text"
+          name="tel"
+          placeholder="+7 999-999-99-99"
+          @input="setPhone(phone)"
+        />
       </label>
 
       <div class="cart-form__address">
@@ -22,21 +28,36 @@
         <div class="cart-form__input">
           <label class="input">
             <span>Улица*</span>
-            <input type="text" name="street" />
+            <input
+              v-model="address.street"
+              type="text"
+              name="street"
+              @input="setAddress(address)"
+            />
           </label>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
           <label class="input">
             <span>Дом*</span>
-            <input type="text" name="house" />
+            <input
+              v-model="address.building"
+              type="text"
+              name="house"
+              @input="setAddress(address)"
+            />
           </label>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
           <label class="input">
             <span>Квартира</span>
-            <input type="text" name="apartment" />
+            <input
+              v-model="address.flat"
+              type="text"
+              name="apartment"
+              @input="setAddress(address)"
+            />
           </label>
         </div>
       </div>
@@ -45,7 +66,26 @@
 </template>
 
 <script>
+import { SET_PHONE, SET_ADDRESS } from "@/store/mutation.types";
+import { mapMutations } from "vuex";
+
 export default {
   name: "CartOrder",
+  data() {
+    return {
+      phone: "",
+      address: {
+        street: "",
+        building: "",
+        flat: "",
+      },
+    };
+  },
+  methods: {
+    ...mapMutations("Cart", {
+      setPhone: SET_PHONE,
+      setAddress: SET_ADDRESS,
+    }),
+  },
 };
 </script>

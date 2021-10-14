@@ -86,6 +86,9 @@ export default {
       state.dough = "light";
       state.size = "small";
       state.sauce = "tomato";
+      state.ingredients = state.ingredients.map((item) => {
+        return { ...item, count: 0 };
+      });
     },
     [CHANGE_INGREDIENTS](state, { value, count }) {
       const currentIngredient = state.ingredients.find(

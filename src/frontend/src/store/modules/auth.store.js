@@ -24,16 +24,14 @@ export default {
       }
     },
 
-    async [GET_ME]({ commit, dispatch }) {
+    async [GET_ME]({ commit }) {
       try {
         const userData = await this.$api.auth.getMe();
 
         commit(SET_AUTH, true);
         commit(SET_USER, userData);
       } catch (e) {
-        setTimeout(() => {
-          dispatch(LOGOUT);
-        }, 2000);
+        return false;
       }
     },
 

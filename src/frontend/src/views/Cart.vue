@@ -29,7 +29,7 @@ import CartList from "@/modules/cart/CartList";
 import CartTitle from "@/modules/cart/CartTitle";
 import CartThanksForOrder from "@/modules/cart/CartThanksForOrder";
 import { CREATE_ORDER } from "@/store/actions.types";
-import { mapActions } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 
 export default {
   name: "Cart",
@@ -46,6 +46,16 @@ export default {
     return {
       isSubmitted: false,
     };
+  },
+  computed: {
+    ...mapGetters("Cart", {
+      cart: "getCart",
+    }),
+  },
+  mounted() {
+    if (!this.cart.length) {
+      this.$router.push("/");
+    }
   },
   methods: {
     ...mapActions("Cart", {
