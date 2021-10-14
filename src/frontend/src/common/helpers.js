@@ -1,5 +1,9 @@
 import { resourceTypes } from "@/common/enums";
-import { ReadOnlyApiService, AuthApiService } from "@/services/api.service";
+import {
+  ReadOnlyApiService,
+  AuthApiService,
+  OrderApiService,
+} from "@/services/api.service";
 import { GET_ME } from "@/store/actions.types";
 
 /**
@@ -63,6 +67,7 @@ export const createResources = (notifier) => {
     ),
     [resourceTypes.MISC]: new ReadOnlyApiService(resourceTypes.MISC, notifier),
     [resourceTypes.AUTH]: new AuthApiService(notifier),
+    [resourceTypes.ORDERS]: new OrderApiService(notifier),
   };
 };
 

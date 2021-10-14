@@ -22,6 +22,8 @@ import { getSumm, mapMiscFields } from "@/common/helpers";
 const initState = () => ({
   cart: [],
   misc: [],
+  phone: "",
+  address: "",
 });
 
 export default {
@@ -73,10 +75,43 @@ export default {
     },
   },
   actions: {
-    async [CREATE_ORDER]({ state, rootState }) {
-      const pizzas = [];
+    async [CREATE_ORDER]({ state, rootState, getters, rootGetters }) {
+      //TODO закончить оформление заказа
+      //TODO пофиксить сброс корзины при нажатии на "Готовьте"
+      // Сеттить телефон и адрес
+      console.log(state);
+      console.log(getters.getCart);
+      const pizzas = getters.getCart.map((item) => ({
+        name: item.name,
+        sauceId: rootGetters["Builder/getSauceList"].find(
+          (it) => it.value === item.sauce
+        ).id,
+        doughId: rootGetters["Builder/getDoughList"].find(
+          (it) => it.value === item.dough
+        ).id,
+        sizeId: rootGetters["Builder/getSizeList"].find(
+          (it) => it.value === item.size
+        ).id,
+        quantity: item.quantity,
+        ingredients: item.ingredients.map((it) => ({
+          ingredientId: it.id,
+          quantity: it.count,
+        })),
+      }));
 
-      const misc = [];
+      const misc = getters.getMisc.reduce((acc, item) => {
+        if (item.quantity > 0) {
+          return [
+            ...acc,
+            {
+              miscId: item.id,
+              quantity: item.quantity,
+            },
+          ];
+        }
+
+        return acc;
+      }, []);
 
       const order = {
         userId: rootState.Auth.user?.id ?? null,
@@ -96,7 +131,7 @@ export default {
           commit(SET_MISC, mapMiscFields(misc));
         }
       } catch (e) {
-        this.$notifier.error(e.toString());
+        console.error("Misc don't fetched");
       }
     },
 
