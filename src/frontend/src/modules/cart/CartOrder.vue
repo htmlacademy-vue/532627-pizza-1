@@ -4,10 +4,12 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select name="test" class="select">
-          <option value="1">Заберу сам</option>
-          <option value="2">Новый адрес</option>
-          <option value="3">Дом</option>
+        <select v-model="deliveryType" name="test" class="select">
+          <option :value="$options.deliveryTypes.SELF">Заберу сам</option>
+          <option :value="$options.deliveryTypes.NEW_ADDRESS">
+            Новый адрес
+          </option>
+          <option :value="$options.deliveryTypes.ADDRESS">Дом</option>
         </select>
       </label>
 
@@ -22,7 +24,10 @@
         />
       </label>
 
-      <div class="cart-form__address">
+      <div
+        v-if="deliveryType !== $options.deliveryTypes.SELF"
+        class="cart-form__address"
+      >
         <span class="cart-form__label">Новый адрес:</span>
 
         <div class="cart-form__input">
@@ -30,6 +35,7 @@
             <span>Улица*</span>
             <input
               v-model="address.street"
+              :disabled="isDisabled"
               type="text"
               name="street"
               @input="setAddress(address)"
@@ -42,6 +48,7 @@
             <span>Дом*</span>
             <input
               v-model="address.building"
+              :disabled="isDisabled"
               type="text"
               name="house"
               @input="setAddress(address)"
@@ -54,6 +61,7 @@
             <span>Квартира</span>
             <input
               v-model="address.flat"
+              :disabled="isDisabled"
               type="text"
               name="apartment"
               @input="setAddress(address)"
@@ -68,11 +76,13 @@
 <script>
 import { SET_PHONE, SET_ADDRESS } from "@/store/mutation.types";
 import { mapMutations } from "vuex";
+import { DELIVERY_TYPES } from "@/common/constants";
 
 export default {
   name: "CartOrder",
   data() {
     return {
+      deliveryType: DELIVERY_TYPES.SELF,
       phone: "",
       address: {
         street: "",
@@ -80,6 +90,15 @@ export default {
         flat: "",
       },
     };
+  },
+  deliveryTypes: DELIVERY_TYPES,
+  computed: {
+    isDisabled() {
+      return (
+        this.deliveryType !== this.$options.SELF &&
+        this.deliveryType !== this.$options.NEW_ADDRESS
+      );
+    },
   },
   methods: {
     ...mapMutations("Cart", {

@@ -102,3 +102,8 @@ export const MOVE = "move";
 export const DATA_TRANSFER_PAYLOAD = "payload";
 
 export const NOTIFICATION_TIME = 3000;
+
+export const DELIVERY_TYPES = {
+  SELF: "SELF",
+  NEW_ADDRESS: "NEW_ADDRESS",
+};
