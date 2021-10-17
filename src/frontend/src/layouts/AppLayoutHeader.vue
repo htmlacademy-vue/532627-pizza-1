@@ -15,7 +15,7 @@
     </div>
     <div class="header__user">
       <template v-if="isLoggedIn">
-        <router-link to="/orders">
+        <router-link to="/profile">
           <img :src="user.avatar" :alt="user.name" width="32" height="32" />
           <span>{{ user.name }}</span>
         </router-link>

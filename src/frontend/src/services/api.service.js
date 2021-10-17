@@ -30,7 +30,7 @@ export class ReadOnlyApiService extends BaseApiService {
   }
 }
 
-export class CrudApiService extends BaseApiService {
+export class CrudApiService extends ReadOnlyApiService {
   #resource;
   constructor(resource, notifier) {
     super(notifier);

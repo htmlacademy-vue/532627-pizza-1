@@ -3,6 +3,7 @@ import Builder from "./builder.store";
 import Cart from "./cart.store";
 import Orders from "./orders.store";
 import Notification from "./notification.store";
+import Addresses from "./addresses.store";
 
 export default {
   Auth,
@@ -10,4 +11,5 @@ export default {
   Cart,
   Orders,
   Notification,
+  Addresses,
 };

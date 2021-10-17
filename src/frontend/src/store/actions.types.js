@@ -22,3 +22,10 @@ export const CREATE_NOTIFICATION = "CREATE_NOTIFICATION";
 export const LOGIN = "LOGIN";
 export const GET_ME = "GET_ME";
 export const LOGOUT = "LOGOUT";
+
+/**
+ Addresses
+ **/
+export const FETCH_ADRESSES = "FETCH_ADRESSES";
+export const ADD_ADDRESS = "ADD_ADDRESS";
+export const REMOVE_ADDRESS = "REMOVE_ADDRESS";

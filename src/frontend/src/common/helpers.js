@@ -3,6 +3,7 @@ import {
   ReadOnlyApiService,
   AuthApiService,
   OrderApiService,
+  AddressApiService,
 } from "@/services/api.service";
 import { GET_ME } from "@/store/actions.types";
 
@@ -68,12 +69,16 @@ export const createResources = (notifier) => {
     [resourceTypes.MISC]: new ReadOnlyApiService(resourceTypes.MISC, notifier),
     [resourceTypes.AUTH]: new AuthApiService(notifier),
     [resourceTypes.ORDERS]: new OrderApiService(notifier),
+    [resourceTypes.ADDRESSES]: new AddressApiService(
+      resourceTypes.ADDRESSES,
+      notifier
+    ),
   };
 };
 
 export const initUser = (store) => {
   if (store.$jwt.getToken()) {
-    store.$api.auth.setAuthHeader();
+    store.$api[resourceTypes.AUTH].setAuthHeader();
     store.dispatch(`Auth/${GET_ME}`);
   }
 };
