@@ -22,12 +22,14 @@ import AppNotification from "@/common/components/AppNotification";
 import AppStartScreen from "@/common/components/AppStartScreen";
 import { mapGetters, mapActions } from "vuex";
 import { INIT } from "@/store/actions.types";
+import { initUser } from "@/common/helpers";
 
 export default {
   name: "App",
   components: { AppLayout, AppNotification, AppStartScreen },
   mounted() {
     this.init();
+    initUser(this.$store);
   },
   computed: {
     ...mapGetters("Notification", {

@@ -9,7 +9,13 @@
           <option :value="$options.deliveryTypes.NEW_ADDRESS">
             Новый адрес
           </option>
-          <option :value="$options.deliveryTypes.ADDRESS">Дом</option>
+          <option
+            v-for="address in addressList"
+            :key="address.id"
+            :value="address.id"
+          >
+            {{ address.name }}
+          </option>
         </select>
       </label>
 
@@ -75,7 +81,7 @@
 
 <script>
 import { SET_PHONE, SET_ADDRESS } from "@/store/mutation.types";
-import { mapMutations } from "vuex";
+import { mapGetters, mapMutations } from "vuex";
 import { DELIVERY_TYPES } from "@/common/constants";
 
 export default {
@@ -93,6 +99,9 @@ export default {
   },
   deliveryTypes: DELIVERY_TYPES,
   computed: {
+    ...mapGetters("Addresses", {
+      addressList: "getAddresses",
+    }),
     isDisabled() {
       return (
         this.deliveryType !== this.$options.SELF &&

@@ -68,7 +68,7 @@ export const createResources = (notifier) => {
     ),
     [resourceTypes.MISC]: new ReadOnlyApiService(resourceTypes.MISC, notifier),
     [resourceTypes.AUTH]: new AuthApiService(notifier),
-    [resourceTypes.ORDERS]: new OrderApiService(notifier),
+    [resourceTypes.ORDERS]: new OrderApiService(resourceTypes.ORDERS, notifier),
     [resourceTypes.ADDRESSES]: new AddressApiService(
       resourceTypes.ADDRESSES,
       notifier

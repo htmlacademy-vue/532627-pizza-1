@@ -8,15 +8,14 @@ export const auth = ({ next, store, nextMiddleware }) => {
     } else {
       next();
     }
-    return nextMiddleware();
-  } else {
-    return nextMiddleware();
   }
+  return nextMiddleware();
 };
 
 export const loggedIn = ({ next, store, nextMiddleware }) => {
   if (store.$jwt.getToken()) {
     next("/");
   }
+
   return nextMiddleware();
 };

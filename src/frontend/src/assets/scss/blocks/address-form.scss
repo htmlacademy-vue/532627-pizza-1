@@ -27,6 +27,12 @@
 
     padding: 0 16px;
   }
+
+  &__edit {
+    .icon {
+      cursor: pointer;
+    }
+  }
 }
 
 .address-form__wrapper {

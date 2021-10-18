@@ -104,6 +104,7 @@ export default {
   },
   data() {
     return {
+      id: this.address.id || "",
       name: this.address.name || "",
       street: this.address.street || "",
       building: this.address.building || "",
@@ -117,6 +118,7 @@ export default {
     },
     save() {
       const address = {
+        id: this.id,
         name: this.name,
         street: this.street,
         building: this.building,

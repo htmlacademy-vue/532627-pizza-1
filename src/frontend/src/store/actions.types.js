@@ -29,3 +29,9 @@ export const LOGOUT = "LOGOUT";
 export const FETCH_ADRESSES = "FETCH_ADRESSES";
 export const ADD_ADDRESS = "ADD_ADDRESS";
 export const REMOVE_ADDRESS = "REMOVE_ADDRESS";
+export const UPDATE_ADDRESS = "UPDATE_ADDRESS";
+
+/**
+ Orders
+ **/
+export const FETCH_ORDERS = "FETCH_ORDERS";

@@ -4,6 +4,7 @@ import {
   ADD_ADDRESS,
   FETCH_ADRESSES,
   REMOVE_ADDRESS,
+  UPDATE_ADDRESS,
 } from "@/store/actions.types";
 
 export default {
@@ -12,6 +13,17 @@ export default {
     addresses: [],
   },
   actions: {
+    async [UPDATE_ADDRESS]({ commit, getters }, updatedAddress) {
+      try {
+        await this.$api.addresses.put(updatedAddress);
+        const updatedAddressList = getters.getAddresses.map((address) => {
+          return address.id === updatedAddress.id ? updatedAddress : address;
+        });
+        commit(SET_ADDRESSES, updatedAddressList);
+      } catch {
+        return false;
+      }
+    },
     async [FETCH_ADRESSES]({ commit }) {
       try {
         const addresses = await this.$api[resourceTypes.ADDRESSES].query();
@@ -28,12 +40,12 @@ export default {
         return false;
       }
     },
-    async [REMOVE_ADDRESS]({ commit, getters }, address) {
+    async [REMOVE_ADDRESS]({ commit, getters }, addressId) {
       try {
-        await this.$api.addresses.delete(address);
+        await this.$api.addresses.delete(addressId);
         commit(
           SET_ADDRESSES,
-          getters.getAddresses.filter((item) => item.id !== address.id)
+          getters.getAddresses.filter((item) => item.id !== addressId)
         );
       } catch (e) {
         return false;

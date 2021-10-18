@@ -46,3 +46,8 @@ export const SET_USER = "SET_USER";
  Addresses
  **/
 export const SET_ADDRESSES = "SET_ADDRESSES";
+
+/**
+ Orders
+ **/
+export const SET_ORDERS = "SET_ORDERS";

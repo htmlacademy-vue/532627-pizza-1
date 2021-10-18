@@ -1,6 +1,6 @@
 <template>
   <div class="layout__content">
-    <ProfileTitle />
+    <AppLayoutTitle>Мои данные</AppLayoutTitle>
 
     <ProfileUserData />
 
@@ -9,16 +9,16 @@
 </template>
 
 <script>
-import ProfileTitle from "@/modules/profile/ProfileTitle";
 import ProfileUserData from "@/modules/profile/ProfileUserData";
 import ProfileAddressList from "@/modules/profile/ProfileAddressList";
+import AppLayoutTitle from "@/common/components/AppLayoutTitle";
 
 export default {
   name: "Profile",
   components: {
+    AppLayoutTitle,
     ProfileAddressList,
     ProfileUserData,
-    ProfileTitle,
   },
   data() {
     return {
