@@ -59,7 +59,9 @@ export default {
   },
   getters: {
     getAddresses(state) {
-      return state.addresses;
+      return state.addresses.filter(
+        (address) => !!address.street && address.street !== " "
+      );
     },
     getAddress(state, id) {
       return state.addresses.find((address) => address.id === id);

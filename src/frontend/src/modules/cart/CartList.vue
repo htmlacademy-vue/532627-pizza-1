@@ -98,8 +98,8 @@ export default {
     getSauce(value) {
       return getNameByValue(value, SAUCE_TYPES)?.toLowerCase();
     },
-    getIngredients(value) {
-      return value.map((item) => item.name.toLowerCase()).join(", ");
+    getIngredients(items) {
+      return items.map((item) => item.name.toLowerCase()).join(", ");
     },
     change(pizza) {
       this.changeBuilder(pizza);

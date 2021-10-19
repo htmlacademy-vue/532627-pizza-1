@@ -4,19 +4,21 @@
       <div class="container">
         <CartTitle />
 
-        <CartEmpty v-if="false" />
+        <CartEmpty v-if="!cart.length" />
 
-        <CartList />
+        <template v-else>
+          <CartList />
 
-        <CartAdditional />
+          <CartAdditional />
 
-        <CartOrder />
+          <CartOrder />
+        </template>
       </div>
     </main>
 
     <CartFooter @submit="handleSubmit" />
 
-    <CartThanksForOrder v-if="isSubmitted" />
+    <CartThanksForOrder v-if="isSuccess" @close="setSuccess(false)" />
   </form>
 </template>
 
@@ -29,7 +31,8 @@ import CartList from "@/modules/cart/CartList";
 import CartTitle from "@/modules/cart/CartTitle";
 import CartThanksForOrder from "@/modules/cart/CartThanksForOrder";
 import { CREATE_ORDER } from "@/store/actions.types";
-import { mapActions, mapGetters } from "vuex";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import { SET_SUCCESS } from "@/store/mutation.types";
 
 export default {
   name: "Cart",
@@ -50,6 +53,7 @@ export default {
   computed: {
     ...mapGetters("Cart", {
       cart: "getCart",
+      isSuccess: "getIsSuccess",
     }),
   },
   mounted() {
@@ -60,6 +64,9 @@ export default {
   methods: {
     ...mapActions("Cart", {
       createOrder: CREATE_ORDER,
+    }),
+    ...mapMutations("Cart", {
+      setSuccess: SET_SUCCESS,
     }),
     async handleSubmit() {
       await this.createOrder();

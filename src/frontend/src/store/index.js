@@ -3,7 +3,7 @@ import Vuex from "vuex";
 import modules from "./modules";
 
 import { START_LOADING, FINISH_LOADING } from "@/store/mutation.types";
-import { INIT } from "@/store/actions.types";
+import { FETCH_MISC, FETCH_BUILDER_DATA, INIT } from "@/store/actions.types";
 import { vuexPlugins } from "@/plugins";
 
 Vue.use(Vuex);
@@ -28,7 +28,8 @@ export default new Vuex.Store({
   actions: {
     [INIT]({ commit, dispatch }) {
       commit(START_LOADING);
-      dispatch("Builder/fetchBuilderData");
+      dispatch(`Builder/${FETCH_BUILDER_DATA}`);
+      dispatch(`Cart/${FETCH_MISC}`);
       setTimeout(() => commit(FINISH_LOADING), 1000);
     },
   },

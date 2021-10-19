@@ -9,6 +9,8 @@ import {
   SET_MISC,
   SET_ADDRESS,
   SET_PHONE,
+  SET_CART,
+  SET_SUCCESS,
 } from "@/store/mutation.types";
 import {
   CREATE_CART,
@@ -16,6 +18,7 @@ import {
   EDIT_CART_PIZZA,
   FETCH_MISC,
   CREATE_ORDER,
+  REPEAT_ORDER,
 } from "@/store/actions.types";
 
 import { resourceTypes } from "@/common/enums";
@@ -30,20 +33,27 @@ const initState = () => ({
     building: "",
     flat: "",
   },
+  isSuccess: false,
 });
 
 export default {
   namespaced: true,
   state: initState(),
   mutations: {
+    [SET_SUCCESS](state, payload) {
+      state.isSuccess = payload;
+    },
     [SET_MISC](state, misc) {
       state.misc = misc;
+    },
+    [SET_CART](state, cart) {
+      state.cart = cart;
     },
     [ADD_TO_CART](state, product) {
       state.cart.push(product);
     },
     [RESET_CART](state) {
-      Object.assign(state, initState());
+      Object.assign(state, { ...initState(), isSuccess: state.isSuccess });
     },
     [ADD_MISC](state, miscId) {
       const miscItem = state.misc.find((misc) => miscId === misc.id);
@@ -87,6 +97,59 @@ export default {
     },
   },
   actions: {
+    [REPEAT_ORDER]({ commit, rootGetters, getters }, orderId) {
+      const copiedOrder = rootGetters["Orders/getOrderById"](orderId);
+
+      const pizzas = copiedOrder.orderPizzas.map((item) => {
+        const dough = rootGetters["Builder/getDoughList"].find(
+          (it) => it.id === item.doughId
+        );
+        const sauce = rootGetters["Builder/getSauceList"].find(
+          (it) => it.id === item.sauceId
+        );
+        const size = rootGetters["Builder/getSizeList"].find(
+          (it) => it.id === item.sizeId
+        );
+        const ingredients = item.ingredients.map((it) => {
+          const ingredient = rootGetters["Builder/getIngredientList"].find(
+            (el) => el.id === it.ingredientId
+          );
+          return {
+            ...ingredient,
+            count: it.quantity,
+          };
+        });
+
+        return {
+          id: Math.floor(Math.random() * 1000),
+          name: item.name,
+          dough: dough.value,
+          sauce: sauce.value,
+          size: size.value,
+          price: rootGetters["Orders/getPizzaPrice"](item),
+          quantity: item.quantity,
+          ingredients,
+        };
+      });
+
+      const misc = getters.getMisc.map((item) => {
+        const copiedMisc = copiedOrder.orderMisc?.find(
+          (it) => it.miscId === item.id
+        );
+
+        if (copiedMisc) {
+          return {
+            ...item,
+            quantity: copiedMisc.quantity,
+          };
+        }
+        return { ...item };
+      });
+
+      commit(SET_MISC, misc);
+      commit(SET_CART, pizzas);
+    },
+
     async [CREATE_ORDER]({ state, rootState, getters, rootGetters, commit }) {
       const pizzas = getters.getCart.map((item) => ({
         name: item.name,
@@ -130,6 +193,7 @@ export default {
 
       try {
         await this.$api.orders.post(order);
+        commit(SET_SUCCESS, true);
         commit(RESET_CART);
       } catch (e) {
         return false;
@@ -195,6 +259,12 @@ export default {
     },
     isValidOrderData(state) {
       return state.phone && state.address;
+    },
+    getPhone(state) {
+      return state.phone;
+    },
+    getIsSuccess(state) {
+      return state.isSuccess;
     },
   },
 };

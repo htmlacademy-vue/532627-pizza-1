@@ -23,6 +23,8 @@ export const EDIT_PIZZA = "EDIT_PIZZA";
 export const SET_MISC = "SET_MISC";
 export const SET_PHONE = "SET_PHONE";
 export const SET_ADDRESS = "SET_ADDRESS";
+export const SET_CART = "SET_CART";
+export const SET_SUCCESS = "SET_SUCCESS";
 
 /**
  Notification types

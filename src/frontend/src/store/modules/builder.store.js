@@ -19,6 +19,7 @@ import {
   CHANGE_PIZZA,
   SET_BUILDER,
 } from "@/store/mutation.types";
+import { FETCH_BUILDER_DATA } from "@/store/actions.types";
 
 const initState = () => ({
   id: 0,
@@ -37,7 +38,7 @@ export default {
   namespaced: true,
   state: initState(),
   actions: {
-    async fetchBuilderData({ commit }) {
+    async [FETCH_BUILDER_DATA]({ commit }) {
       try {
         const [doughList, ingredients, saucesList, sizeList] =
           await Promise.all([

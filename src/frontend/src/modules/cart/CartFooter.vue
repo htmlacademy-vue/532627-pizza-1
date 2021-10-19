@@ -16,9 +16,9 @@
 
     <div class="footer__submit">
       <button
-        :disabled="!isValidOrderData"
+        :disabled="isDisabledSubmit"
         type="submit"
-        :class="{ 'button--disabled': !isValidOrderData }"
+        :class="{ 'button--disabled': isDisabledSubmit }"
         class="button"
         @click.prevent="submitOrder"
       >
@@ -33,14 +33,27 @@ import { mapGetters } from "vuex";
 
 export default {
   name: "CartFooter",
+  data() {
+    return {
+      isSubmitted: false,
+    };
+  },
   computed: {
     ...mapGetters("Cart", {
       total: "getTotal",
       isValidOrderData: "isValidOrderData",
     }),
+    isDisabledSubmit() {
+      return this.isSubmitted || !this.isValidOrderData;
+    },
   },
   methods: {
     submitOrder() {
+      this.isSubmitted = true;
+      setTimeout(() => {
+        this.isSubmitted = false;
+      }, 1500);
+
       this.$emit("submit");
     },
   },

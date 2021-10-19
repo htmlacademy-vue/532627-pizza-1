@@ -14,7 +14,7 @@
             :key="address.id"
             :value="address.id"
           >
-            {{ address.name }}
+            {{ !!address.name ? address.name : getAddressDesc(address) }}
           </option>
         </select>
       </label>
@@ -98,22 +98,52 @@ export default {
     };
   },
   deliveryTypes: DELIVERY_TYPES,
+  watch: {
+    deliveryType: {
+      handler(val) {
+        if (val === DELIVERY_TYPES.SELF) {
+          this.address = {
+            street: " ",
+            building: " ",
+            flat: " ",
+          };
+        } else if (val !== DELIVERY_TYPES.NEW_ADDRESS) {
+          this.address = this.addressList.find((address) => address.id === val);
+        } else {
+          this.address = {
+            street: "",
+            building: "",
+            flat: "",
+          };
+        }
+        this.setAddress(this.address);
+      },
+      immediate: true,
+    },
+  },
   computed: {
     ...mapGetters("Addresses", {
       addressList: "getAddresses",
     }),
+    ...mapGetters("Cart", {
+      getPhone: "getPhone",
+    }),
     isDisabled() {
-      return (
-        this.deliveryType !== this.$options.SELF &&
-        this.deliveryType !== this.$options.NEW_ADDRESS
-      );
+      return this.deliveryType !== this.$options.deliveryTypes.NEW_ADDRESS;
     },
+  },
+  mounted() {
+    this.phone = this.getPhone;
   },
   methods: {
     ...mapMutations("Cart", {
       setPhone: SET_PHONE,
       setAddress: SET_ADDRESS,
     }),
+
+    getAddressDesc(address) {
+      return `ул. ${address.street}, д. ${address.building}`;
+    },
   },
 };
 </script>

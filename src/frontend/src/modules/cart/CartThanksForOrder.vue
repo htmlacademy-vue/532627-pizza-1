@@ -1,6 +1,6 @@
-<template functional>
+<template>
   <div class="popup">
-    <a href="#" class="close">
+    <a href="#" class="close" @click="close">
       <span class="visually-hidden">Закрыть попап</span>
     </a>
     <div class="popup__title">
@@ -16,5 +16,10 @@
 <script>
 export default {
   name: "CartThanksForOrder",
+  methods: {
+    close() {
+      this.$emit("close");
+    },
+  },
 };
 </script>
