@@ -6,7 +6,7 @@ export const auth = ({ next, store, nextMiddleware }) => {
     if (token) {
       initUser(store);
     } else {
-      next();
+      next("/");
     }
   }
   return nextMiddleware();

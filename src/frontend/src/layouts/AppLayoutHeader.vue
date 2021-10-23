@@ -20,9 +20,9 @@
           <span>{{ user.name }}</span>
         </router-link>
 
-        <button class="header__logout" @click.prevent="logout">
+        <a class="header__logout" @click.prevent="logout">
           <span>Выйти</span>
-        </button>
+        </a>
       </template>
       <router-link v-else to="/login" class="header__login">
         <span>Войти</span>

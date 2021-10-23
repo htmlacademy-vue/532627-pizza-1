@@ -8,14 +8,23 @@
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <router-link to="/" class="button">Отлично, я жду!</router-link>
+      <router-link :to="isLoggedIn ? '/orders' : '/'" class="button">
+        Отлично, я жду!</router-link
+      >
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from "vuex";
+
 export default {
   name: "CartThanksForOrder",
+  computed: {
+    ...mapGetters("Auth", {
+      isLoggedIn: "isLoggedIn",
+    }),
+  },
   methods: {
     close() {
       this.$emit("close");

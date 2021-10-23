@@ -20,7 +20,7 @@ export default {
           this.$notifier.error("Токен не получен");
         }
       } catch (e) {
-        return false;
+        console.error(e);
       }
     },
 

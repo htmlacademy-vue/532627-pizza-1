@@ -15,16 +15,16 @@ export default {
           SET_ORDERS,
           getters.getOrderList.filter((item) => item.id !== orderId)
         );
-      } catch {
-        return false;
+      } catch (e) {
+        console.error(e);
       }
     },
     async [FETCH_ORDERS]({ commit }) {
       try {
         const orders = await this.$api[resourceTypes.ORDERS].query();
         commit(SET_ORDERS, orders);
-      } catch {
-        return false;
+      } catch (e) {
+        console.error(e);
       }
     },
   },

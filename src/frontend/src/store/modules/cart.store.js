@@ -196,7 +196,7 @@ export default {
         commit(SET_SUCCESS, true);
         commit(RESET_CART);
       } catch (e) {
-        return false;
+        console.error(e);
       }
     },
 

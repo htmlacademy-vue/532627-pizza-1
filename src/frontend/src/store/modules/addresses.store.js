@@ -20,16 +20,16 @@ export default {
           return address.id === updatedAddress.id ? updatedAddress : address;
         });
         commit(SET_ADDRESSES, updatedAddressList);
-      } catch {
-        return false;
+      } catch (e) {
+        console.error(e);
       }
     },
     async [FETCH_ADRESSES]({ commit }) {
       try {
         const addresses = await this.$api[resourceTypes.ADDRESSES].query();
         commit(SET_ADDRESSES, addresses ?? []);
-      } catch {
-        return false;
+      } catch (e) {
+        console.error(e);
       }
     },
     async [ADD_ADDRESS]({ commit, getters }, address) {
@@ -37,7 +37,7 @@ export default {
         const newAddress = await this.$api.addresses.post(address);
         commit(SET_ADDRESSES, [...getters.getAddresses, newAddress]);
       } catch (e) {
-        return false;
+        console.error(e);
       }
     },
     async [REMOVE_ADDRESS]({ commit, getters }, addressId) {
@@ -48,7 +48,7 @@ export default {
           getters.getAddresses.filter((item) => item.id !== addressId)
         );
       } catch (e) {
-        return false;
+        console.error(e);
       }
     },
   },
