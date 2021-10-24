@@ -103,9 +103,9 @@ export default {
       handler(val) {
         if (val === DELIVERY_TYPES.SELF) {
           this.address = {
-            street: " ",
-            building: " ",
-            flat: " ",
+            street: "0",
+            building: "0",
+            flat: "0",
           };
         } else if (val !== DELIVERY_TYPES.NEW_ADDRESS) {
           this.address = this.addressList.find((address) => address.id === val);

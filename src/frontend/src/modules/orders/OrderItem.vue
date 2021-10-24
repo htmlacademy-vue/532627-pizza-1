@@ -59,27 +59,24 @@
       </li>
     </ul>
 
-    <ul
-      v-if="order.orderMisc && order.orderMisc.length"
-      class="order__additional"
-    >
-      <li v-for="miscItem in order.orderMisc" :key="miscItem.id">
+    <ul v-if="formattedMisc.length" class="order__additional">
+      <li v-for="miscItem in formattedMisc" :key="miscItem.id">
         <img
-          src="@/assets/img/cola.svg"
+          :src="miscItem.image"
           width="20"
           height="30"
-          alt="Coca-Cola 0,5 литра"
+          :alt="miscItem.name"
         />
 
         <p>
-          <span>Coca-Cola 0,5 литра</span>
-          <b>56 ₽</b>
+          <span>{{ miscItem.name }}</span>
+          <b>{{ miscItem.price }} ₽</b>
         </p>
       </li>
     </ul>
 
-    <p v-if="orderAddress" class="order__address">
-      Адрес доставки: {{ orderAddress }}
+    <p class="order__address">
+      {{ orderAddress }}
     </p>
   </section>
 </template>
@@ -107,12 +104,37 @@ export default {
       ingredientList: "getIngredientList",
     }),
 
+    ...mapGetters("Cart", {
+      miscList: "getMisc",
+    }),
+
+    formattedMisc() {
+      if (!this.order.orderMisc?.length) {
+        return [];
+      }
+
+      return this.order.orderMisc.map((orderMisc) => {
+        return this.miscList.find((misc) => misc.id === orderMisc.miscId);
+      });
+    },
     total() {
       return this.totalSum(this.order.id);
     },
 
+    isSelfDelivery() {
+      return (
+        this.order.orderAddress.street === "0" &&
+        this.order.orderAddress.building === "0" &&
+        this.order.orderAddress.flat === "0"
+      );
+    },
+
     orderAddress() {
-      let fullAddress = `ул. ${this.order.orderAddress.street}, д. ${this.order.orderAddress.building}`;
+      if (this.isSelfDelivery) {
+        return "Самовывоз";
+      }
+
+      let fullAddress = `Адрес доставки: ул. ${this.order.orderAddress.street}, д. ${this.order.orderAddress.building}`;
 
       if (this.order.orderAddress.flat) {
         return `${fullAddress}, кв. ${this.order.orderAddress.flat}`;

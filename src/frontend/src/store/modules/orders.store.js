@@ -79,7 +79,9 @@ export default {
           return acc;
         }, 0);
 
-        const sumMisc = getters.getMiscPrice(order.orderMisc);
+        const sumMisc = order.orderMisc
+          ? getters.getMiscPrice(order.orderMisc)
+          : 0;
         return sumPizza + sumMisc;
       } else {
         return null;

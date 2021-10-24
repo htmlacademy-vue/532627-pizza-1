@@ -82,3 +82,7 @@ export const initUser = (store) => {
     store.dispatch(`Auth/${GET_ME}`);
   }
 };
+
+export const getRandomInt = () => {
+  return Math.floor(Math.random() * 1000);
+};

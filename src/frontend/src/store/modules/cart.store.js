@@ -22,7 +22,7 @@ import {
 } from "@/store/actions.types";
 
 import { resourceTypes } from "@/common/enums";
-import { getSumm, mapMiscFields } from "@/common/helpers";
+import { getRandomInt, getSumm, mapMiscFields } from "@/common/helpers";
 
 const initState = () => ({
   cart: [],
@@ -121,7 +121,7 @@ export default {
         });
 
         return {
-          id: Math.floor(Math.random() * 1000),
+          id: getRandomInt(),
           name: item.name,
           dough: dough.value,
           sauce: sauce.value,
@@ -150,7 +150,14 @@ export default {
       commit(SET_CART, pizzas);
     },
 
-    async [CREATE_ORDER]({ state, rootState, getters, rootGetters, commit }) {
+    async [CREATE_ORDER]({
+      state,
+      rootState,
+      getters,
+      rootGetters,
+      commit,
+      dispatch,
+    }) {
       const pizzas = getters.getCart.map((item) => ({
         name: item.name,
         sauceId: rootGetters["Builder/getSauceList"].find(
@@ -195,6 +202,7 @@ export default {
         await this.$api.orders.post(order);
         commit(SET_SUCCESS, true);
         commit(RESET_CART);
+        dispatch(FETCH_MISC);
       } catch (e) {
         console.error(e);
       }

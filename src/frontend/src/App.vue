@@ -7,18 +7,14 @@
     </AppLayout>
 
     <transition name="fade">
-      <AppNotification
-        v-if="needShowNotification"
-        :message="notification.msg"
-        :type="notification.type"
-      />
+      <AppNotifications />
     </transition>
   </div>
 </template>
 
 <script>
 import AppLayout from "@/layouts/AppLayout";
-import AppNotification from "@/common/components/AppNotification";
+import AppNotifications from "@/common/components/AppNotifications";
 import AppStartScreen from "@/common/components/AppStartScreen";
 import { mapGetters, mapActions } from "vuex";
 import { INIT } from "@/store/actions.types";
@@ -26,21 +22,13 @@ import { initUser } from "@/common/helpers";
 
 export default {
   name: "App",
-  components: { AppLayout, AppNotification, AppStartScreen },
+  components: { AppLayout, AppNotifications, AppStartScreen },
   mounted() {
     this.init();
     initUser(this.$store);
   },
   computed: {
-    ...mapGetters("Notification", {
-      notification: "getNotification",
-    }),
-
     ...mapGetters(["isLoading"]),
-
-    needShowNotification() {
-      return this.notification.msg;
-    },
   },
   methods: {
     ...mapActions({ init: INIT }),

@@ -83,7 +83,14 @@
         Удалить
       </button>
 
-      <button type="submit" class="button">Сохранить</button>
+      <button
+        :disabled="isDisabled"
+        type="submit"
+        :class="{ 'button-disabled': isDisabled }"
+        class="button"
+      >
+        Сохранить
+      </button>
     </div>
   </form>
 </template>
@@ -111,6 +118,11 @@ export default {
       flat: this.address.flat || "",
       comment: this.address.comment || "",
     };
+  },
+  computed: {
+    isDisabled() {
+      return !this.street || !this.building || !this.flat;
+    },
   },
   methods: {
     remove() {

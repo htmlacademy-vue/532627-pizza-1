@@ -26,10 +26,10 @@ export default new Vuex.Store({
     },
   },
   actions: {
-    [INIT]({ commit, dispatch }) {
+    async [INIT]({ commit, dispatch }) {
       commit(START_LOADING);
-      dispatch(`Builder/${FETCH_BUILDER_DATA}`);
-      dispatch(`Cart/${FETCH_MISC}`);
+      await dispatch(`Builder/${FETCH_BUILDER_DATA}`);
+      await dispatch(`Cart/${FETCH_MISC}`);
       setTimeout(() => commit(FINISH_LOADING), 1000);
     },
   },
