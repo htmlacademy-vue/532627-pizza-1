@@ -1,7 +1,6 @@
 <template>
   <div class="content__result">
     <p>Итого: {{ totalSum }} ₽</p>
-    {{ id }}
     <button
       type="button"
       :disabled="isDisabledSubmit"
@@ -15,7 +14,7 @@
 </template>
 
 <script>
-import { CREATE_CART, EDIT_CART_PIZZA } from "@/store/actions-types";
+import { CREATE_CART, EDIT_CART_PIZZA } from "@/store/actions.types";
 import { mapGetters, mapActions } from "vuex";
 
 export default {

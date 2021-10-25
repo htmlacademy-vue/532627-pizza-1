@@ -1,22 +1,24 @@
 <template>
-  <form action="test.html" method="post" class="layout-form">
+  <form method="post" class="layout-form" @submit.prevent="handleSubmit">
     <main class="content cart">
       <div class="container">
         <CartTitle />
 
-        <CartEmpty v-if="false" />
+        <CartEmpty v-if="!cart.length" />
 
-        <CartList />
+        <template v-else>
+          <CartList />
 
-        <CartAdditional />
+          <CartAdditional />
 
-        <CartOrder />
+          <CartOrder />
+        </template>
       </div>
     </main>
 
     <CartFooter @submit="handleSubmit" />
 
-    <CartThanksForOrder v-if="isSubmitted" />
+    <CartThanksForOrder v-if="isSuccess" @close="setSuccess(false)" />
   </form>
 </template>
 
@@ -28,6 +30,9 @@ import CartEmpty from "@/modules/cart/CartEmpty";
 import CartList from "@/modules/cart/CartList";
 import CartTitle from "@/modules/cart/CartTitle";
 import CartThanksForOrder from "@/modules/cart/CartThanksForOrder";
+import { CREATE_ORDER } from "@/store/actions.types";
+import { mapActions, mapGetters, mapMutations } from "vuex";
+import { SET_SUCCESS } from "@/store/mutation.types";
 
 export default {
   name: "Cart",
@@ -45,8 +50,29 @@ export default {
       isSubmitted: false,
     };
   },
+  computed: {
+    ...mapGetters("Cart", {
+      cart: "getCart",
+      isSuccess: "getIsSuccess",
+    }),
+  },
+  mounted() {
+    if (!this.cart.length) {
+      this.$router.push("/");
+    }
+  },
+  beforeDestroy() {
+    this.setSuccess(false);
+  },
   methods: {
-    handleSubmit() {
+    ...mapActions("Cart", {
+      createOrder: CREATE_ORDER,
+    }),
+    ...mapMutations("Cart", {
+      setSuccess: SET_SUCCESS,
+    }),
+    async handleSubmit() {
+      await this.createOrder();
       this.isSubmitted = true;
     },
   },

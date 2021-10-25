@@ -1,7 +1,4 @@
-import doughList from "@/static/dough.json";
-import sizes from "@/static/sizes.json";
-import sauces from "@/static/sauces.json";
-import ingredients from "@/static/ingredients.json";
+import { resourceTypes } from "@/common/enums";
 
 import {
   DOUGH_TYPES,
@@ -20,17 +17,17 @@ import {
   RESET_BUILDER,
   CHANGE_INGREDIENTS,
   CHANGE_PIZZA,
-} from "@/store/mutation-types";
+  SET_BUILDER,
+} from "@/store/mutation.types";
+import { FETCH_BUILDER_DATA } from "@/store/actions.types";
 
 const initState = () => ({
-  id: null,
-  quantity: null,
-  doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
-  sizeList: sizes.map((item) => getValueByName(item, SIZE_TYPES)),
-  sauceList: sauces.map((item) => getValueByName(item, SAUCE_TYPES)),
-  ingredients: ingredients.map((item) => {
-    return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
-  }),
+  id: 0,
+  quantity: 0,
+  doughList: [],
+  sizeList: [],
+  sauceList: [],
+  ingredients: [],
   dough: "light",
   size: "small",
   sauce: "tomato",
@@ -40,7 +37,37 @@ const initState = () => ({
 export default {
   namespaced: true,
   state: initState(),
+  actions: {
+    async [FETCH_BUILDER_DATA]({ commit }) {
+      try {
+        const [doughList, ingredients, saucesList, sizeList] =
+          await Promise.all([
+            this.$api[resourceTypes.DOUGH].query(),
+            this.$api[resourceTypes.INGREDIENTS].query(),
+            this.$api[resourceTypes.SAUCES].query(),
+            this.$api[resourceTypes.SIZES].query(),
+          ]);
+
+        commit(SET_BUILDER, {
+          doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
+          sizeList: sizeList.map((item) => getValueByName(item, SIZE_TYPES)),
+          sauceList: saucesList.map((item) =>
+            getValueByName(item, SAUCE_TYPES)
+          ),
+          ingredients: ingredients.map((item) => {
+            return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
+          }),
+        });
+      } catch (e) {
+        this.$notifier.error(e.toString());
+      }
+    },
+  },
   mutations: {
+    [SET_BUILDER](state, payload) {
+      Object.assign(state, payload);
+    },
+
     [SET_PIZZA_NAME](state, payload) {
       state.name = payload;
     },
@@ -54,7 +81,15 @@ export default {
       state.sauce = payload;
     },
     [RESET_BUILDER](state) {
-      Object.assign(state, initState());
+      state.name = "";
+      state.id = 0;
+      state.quantity = 0;
+      state.dough = "light";
+      state.size = "small";
+      state.sauce = "tomato";
+      state.ingredients = state.ingredients.map((item) => {
+        return { ...item, count: 0 };
+      });
     },
     [CHANGE_INGREDIENTS](state, { value, count }) {
       const currentIngredient = state.ingredients.find(

@@ -13,6 +13,7 @@
 <script>
 import { mapGetters } from "vuex";
 import CartAdditionalItem from "@/modules/cart/CartAdditionalItem";
+
 export default {
   name: "CartAdditional",
   components: { CartAdditionalItem },

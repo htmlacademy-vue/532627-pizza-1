@@ -1,3 +1,5 @@
+import { auth, loggedIn } from "@/middlewares";
+
 export const routes = [
   {
     path: "/",
@@ -8,6 +10,9 @@ export const routes = [
     path: "/login",
     name: "Login",
     component: () => import("@/views/Login"),
+    meta: {
+      middlewares: [loggedIn],
+    },
   },
   {
     path: "/profile",
@@ -15,6 +20,7 @@ export const routes = [
     component: () => import("@/views/Profile"),
     meta: {
       layout: "AppLayoutSidebar",
+      middlewares: [auth],
     },
   },
   {
@@ -23,6 +29,7 @@ export const routes = [
     component: () => import("@/views/Orders"),
     meta: {
       layout: "AppLayoutSidebar",
+      middlewares: [auth],
     },
   },
   {

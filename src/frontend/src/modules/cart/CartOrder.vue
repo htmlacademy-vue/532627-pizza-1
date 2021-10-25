@@ -4,39 +4,74 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select name="test" class="select">
-          <option value="1">Заберу сам</option>
-          <option value="2">Новый адрес</option>
-          <option value="3">Дом</option>
+        <select v-model="deliveryType" name="test" class="select">
+          <option :value="$options.deliveryTypes.SELF">Заберу сам</option>
+          <option :value="$options.deliveryTypes.NEW_ADDRESS">
+            Новый адрес
+          </option>
+          <option
+            v-for="address in addressList"
+            :key="address.id"
+            :value="address.id"
+          >
+            {{ !!address.name ? address.name : getAddressDesc(address) }}
+          </option>
         </select>
       </label>
 
       <label class="input input--big-label">
         <span>Контактный телефон:</span>
-        <input type="text" name="tel" placeholder="+7 999-999-99-99" />
+        <input
+          v-model="phone"
+          type="text"
+          name="tel"
+          placeholder="+7 999-999-99-99"
+          @input="setPhone(phone)"
+        />
       </label>
 
-      <div class="cart-form__address">
+      <div
+        v-if="deliveryType !== $options.deliveryTypes.SELF"
+        class="cart-form__address"
+      >
         <span class="cart-form__label">Новый адрес:</span>
 
         <div class="cart-form__input">
           <label class="input">
             <span>Улица*</span>
-            <input type="text" name="street" />
+            <input
+              v-model="address.street"
+              :disabled="isDisabled"
+              type="text"
+              name="street"
+              @input="setAddress(address)"
+            />
           </label>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
           <label class="input">
             <span>Дом*</span>
-            <input type="text" name="house" />
+            <input
+              v-model="address.building"
+              :disabled="isDisabled"
+              type="text"
+              name="house"
+              @input="setAddress(address)"
+            />
           </label>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
           <label class="input">
             <span>Квартира</span>
-            <input type="text" name="apartment" />
+            <input
+              v-model="address.flat"
+              :disabled="isDisabled"
+              type="text"
+              name="apartment"
+              @input="setAddress(address)"
+            />
           </label>
         </div>
       </div>
@@ -45,7 +80,67 @@
 </template>
 
 <script>
+import { SET_PHONE, SET_ADDRESS } from "@/store/mutation.types";
+import { mapGetters, mapMutations } from "vuex";
+import { DELIVERY_TYPES } from "@/common/constants";
+
 export default {
   name: "CartOrder",
+  data() {
+    return {
+      deliveryType: DELIVERY_TYPES.SELF,
+      phone: "",
+      address: {
+        street: "",
+        building: "",
+        flat: "",
+      },
+    };
+  },
+  deliveryTypes: DELIVERY_TYPES,
+  watch: {
+    deliveryType: {
+      handler(val) {
+        if (val === DELIVERY_TYPES.SELF) {
+          this.address = null;
+        } else if (val !== DELIVERY_TYPES.NEW_ADDRESS) {
+          this.address = this.addressList.find((address) => address.id === val);
+        } else {
+          this.address = {
+            street: "",
+            building: "",
+            flat: "",
+          };
+        }
+        console.log(this.address);
+        this.setAddress(this.address);
+      },
+      immediate: true,
+    },
+  },
+  computed: {
+    ...mapGetters("Addresses", {
+      addressList: "getAddresses",
+    }),
+    ...mapGetters("Cart", {
+      getPhone: "getPhone",
+    }),
+    isDisabled() {
+      return this.deliveryType !== this.$options.deliveryTypes.NEW_ADDRESS;
+    },
+  },
+  mounted() {
+    this.phone = this.getPhone;
+  },
+  methods: {
+    ...mapMutations("Cart", {
+      setPhone: SET_PHONE,
+      setAddress: SET_ADDRESS,
+    }),
+
+    getAddressDesc(address) {
+      return `ул. ${address.street}, д. ${address.building}`;
+    },
+  },
 };
 </script>

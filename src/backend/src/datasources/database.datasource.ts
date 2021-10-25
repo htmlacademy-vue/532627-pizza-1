@@ -6,7 +6,7 @@ const config = {
   connector: 'postgresql',
   url: '',
   host: 'db',
-  port: 5434,
+  port: 5432,
   user: 'postgres',
   password: 'psql',
   database: 'pizza',

@@ -1,3 +1,12 @@
+import { resourceTypes } from "@/common/enums";
+import {
+  ReadOnlyApiService,
+  AuthApiService,
+  OrderApiService,
+  AddressApiService,
+} from "@/services/api.service";
+import { GET_ME } from "@/store/actions.types";
+
 /**
  * @param {Object} item
  * @param {Array} TYPES
@@ -37,4 +46,43 @@ export const getSumm = (items) => {
  */
 export const getNameByValue = (value, TYPES) => {
   return TYPES.find((type) => type?.value === value)?.name;
+};
+
+export const createResources = (notifier) => {
+  return {
+    [resourceTypes.DOUGH]: new ReadOnlyApiService(
+      resourceTypes.DOUGH,
+      notifier
+    ),
+    [resourceTypes.SIZES]: new ReadOnlyApiService(
+      resourceTypes.SIZES,
+      notifier
+    ),
+    [resourceTypes.SAUCES]: new ReadOnlyApiService(
+      resourceTypes.SAUCES,
+      notifier
+    ),
+    [resourceTypes.INGREDIENTS]: new ReadOnlyApiService(
+      resourceTypes.INGREDIENTS,
+      notifier
+    ),
+    [resourceTypes.MISC]: new ReadOnlyApiService(resourceTypes.MISC, notifier),
+    [resourceTypes.AUTH]: new AuthApiService(notifier),
+    [resourceTypes.ORDERS]: new OrderApiService(resourceTypes.ORDERS, notifier),
+    [resourceTypes.ADDRESSES]: new AddressApiService(
+      resourceTypes.ADDRESSES,
+      notifier
+    ),
+  };
+};
+
+export const initUser = (store) => {
+  if (store.$jwt.getToken()) {
+    store.$api[resourceTypes.AUTH].setAuthHeader();
+    store.dispatch(`Auth/${GET_ME}`);
+  }
+};
+
+export const getRandomInt = () => {
+  return Math.floor(Math.random() * 1000);
 };

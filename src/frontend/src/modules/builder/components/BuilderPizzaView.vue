@@ -32,7 +32,7 @@
 </template>
 
 <script>
-import { SET_PIZZA_NAME, CHANGE_INGREDIENTS } from "@/store/mutation-types";
+import { SET_PIZZA_NAME, CHANGE_INGREDIENTS } from "@/store/mutation.types";
 import { mapGetters, mapMutations } from "vuex";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 import AppDrop from "@/common/components/AppDrop";

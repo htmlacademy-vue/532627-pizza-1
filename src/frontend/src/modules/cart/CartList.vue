@@ -69,8 +69,8 @@
 import { SAUCE_TYPES, SIZE_TYPES } from "@/common/constants";
 import { mapGetters, mapMutations, mapActions } from "vuex";
 import { getNameByValue } from "@/common/helpers";
-import { CHANGE_PIZZA, CHANGE_PIZZA_QUANTITY } from "@/store/mutation-types";
-import { DECREASE_PIZZA_QUANTITY } from "@/store/actions-types";
+import { CHANGE_PIZZA, CHANGE_PIZZA_QUANTITY } from "@/store/mutation.types";
+import { DECREASE_PIZZA_QUANTITY } from "@/store/actions.types";
 
 export default {
   name: "CartList",
@@ -98,8 +98,8 @@ export default {
     getSauce(value) {
       return getNameByValue(value, SAUCE_TYPES)?.toLowerCase();
     },
-    getIngredients(value) {
-      return value.map((item) => item.name.toLowerCase()).join(", ");
+    getIngredients(items) {
+      return items.map((item) => item.name.toLowerCase()).join(", ");
     },
     change(pizza) {
       this.changeBuilder(pizza);

@@ -15,7 +15,13 @@
     </div>
 
     <div class="footer__submit">
-      <button type="submit" class="button" @click.prevent="submitOrder">
+      <button
+        :disabled="isDisabledSubmit"
+        type="submit"
+        :class="{ 'button--disabled': isDisabledSubmit }"
+        class="button"
+        @click.prevent="submitOrder"
+      >
         Оформить заказ
       </button>
     </div>
@@ -23,21 +29,31 @@
 </template>
 
 <script>
-import { mapGetters, mapMutations } from "vuex";
-import { RESET_CART } from "@/store/mutation-types";
+import { mapGetters } from "vuex";
+
 export default {
   name: "CartFooter",
+  data() {
+    return {
+      isSubmitted: false,
+    };
+  },
   computed: {
     ...mapGetters("Cart", {
       total: "getTotal",
+      isValidOrderData: "isValidOrderData",
     }),
+    isDisabledSubmit() {
+      return this.isSubmitted || !this.isValidOrderData;
+    },
   },
   methods: {
-    ...mapMutations("Cart", {
-      resetCart: RESET_CART,
-    }),
     submitOrder() {
-      this.resetCart();
+      this.isSubmitted = true;
+      setTimeout(() => {
+        this.isSubmitted = false;
+      }, 1500);
+
       this.$emit("submit");
     },
   },

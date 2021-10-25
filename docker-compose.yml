@@ -8,8 +8,6 @@ services:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: psql
       POSTGRES_DB: pizza
-    ports:
-      - 5434:5434
 
   backend:
     build: src/backend

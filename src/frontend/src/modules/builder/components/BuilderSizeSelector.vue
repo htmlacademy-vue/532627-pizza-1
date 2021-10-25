@@ -28,7 +28,7 @@
 </template>
 
 <script>
-import { SET_SIZE } from "@/store/mutation-types";
+import { SET_SIZE } from "@/store/mutation.types";
 import { mapGetters, mapMutations } from "vuex";
 import AppRadioButton from "@/common/components/AppRadioButton";
 
