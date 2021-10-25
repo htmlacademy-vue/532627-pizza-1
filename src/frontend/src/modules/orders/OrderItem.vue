@@ -121,16 +121,8 @@ export default {
       return this.totalSum(this.order.id);
     },
 
-    isSelfDelivery() {
-      return (
-        this.order.orderAddress.street === "0" &&
-        this.order.orderAddress.building === "0" &&
-        this.order.orderAddress.flat === "0"
-      );
-    },
-
     orderAddress() {
-      if (this.isSelfDelivery) {
+      if (!this.order.addressId) {
         return "Самовывоз";
       }
 

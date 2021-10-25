@@ -61,6 +61,9 @@ export default {
       this.$router.push("/");
     }
   },
+  beforeDestroy() {
+    this.setSuccess(false);
+  },
   methods: {
     ...mapActions("Cart", {
       createOrder: CREATE_ORDER,

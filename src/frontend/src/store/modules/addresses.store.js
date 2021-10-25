@@ -20,6 +20,7 @@ export default {
           return address.id === updatedAddress.id ? updatedAddress : address;
         });
         commit(SET_ADDRESSES, updatedAddressList);
+        this.$notifier.success("Адрес успешно изменён");
       } catch (e) {
         console.error(e);
       }
@@ -36,6 +37,7 @@ export default {
       try {
         const newAddress = await this.$api.addresses.post(address);
         commit(SET_ADDRESSES, [...getters.getAddresses, newAddress]);
+        this.$notifier.success("Адрес успешно добавлен");
       } catch (e) {
         console.error(e);
       }
@@ -47,6 +49,7 @@ export default {
           SET_ADDRESSES,
           getters.getAddresses.filter((item) => item.id !== addressId)
         );
+        this.$notifier.warning("Адрес успешно удалён");
       } catch (e) {
         console.error(e);
       }

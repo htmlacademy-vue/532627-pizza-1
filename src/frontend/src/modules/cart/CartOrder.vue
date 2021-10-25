@@ -102,11 +102,7 @@ export default {
     deliveryType: {
       handler(val) {
         if (val === DELIVERY_TYPES.SELF) {
-          this.address = {
-            street: "0",
-            building: "0",
-            flat: "0",
-          };
+          this.address = null;
         } else if (val !== DELIVERY_TYPES.NEW_ADDRESS) {
           this.address = this.addressList.find((address) => address.id === val);
         } else {
@@ -116,6 +112,7 @@ export default {
             flat: "",
           };
         }
+        console.log(this.address);
         this.setAddress(this.address);
       },
       immediate: true,

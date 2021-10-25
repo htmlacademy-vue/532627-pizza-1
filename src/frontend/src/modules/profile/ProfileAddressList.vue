@@ -33,7 +33,6 @@ import { mapGetters, mapActions } from "vuex";
 import ProfileAddress from "@/modules/profile/ProfileAddress";
 import { ADD_ADDRESS, FETCH_ADRESSES } from "@/store/actions.types";
 import ProfileAddressForm from "@/modules/profile/ProfileAddressForm";
-import { getRandomInt } from "@/common/helpers";
 
 export default {
   name: "ProfileAddressList",
@@ -63,8 +62,7 @@ export default {
     }),
     saveNewAdrress(address) {
       try {
-        const addressId = address.id ? address.id : getRandomInt().toString();
-        this.addAddress({ ...address, id: addressId });
+        this.addAddress({ ...address });
         this.isAddingNew = false;
       } catch {
         return false;

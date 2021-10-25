@@ -130,13 +130,16 @@ export default {
     },
     save() {
       const address = {
-        id: this.id,
         name: this.name,
         street: this.street,
         building: this.building,
         flat: this.flat,
         comment: this.comment,
       };
+
+      if (this.id) {
+        address.id = this.id;
+      }
       this.$emit("submit", address);
     },
   },

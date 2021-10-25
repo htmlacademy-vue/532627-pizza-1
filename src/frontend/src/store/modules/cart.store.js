@@ -266,7 +266,13 @@ export default {
       return state.misc;
     },
     isValidOrderData(state) {
-      return state.phone && state.address;
+      return (
+        state.phone &&
+        (state.address === null ||
+          (!!state.address.street &&
+            !!state.address.building &&
+            !!state.address.flat))
+      );
     },
     getPhone(state) {
       return state.phone;

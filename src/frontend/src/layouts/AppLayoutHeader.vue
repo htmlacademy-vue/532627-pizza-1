@@ -20,7 +20,7 @@
           <span>{{ user.name }}</span>
         </router-link>
 
-        <a class="header__logout" @click.prevent="logout">
+        <a class="header__logout" @click.prevent="handleLogout">
           <span>Выйти</span>
         </a>
       </template>
