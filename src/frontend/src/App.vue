@@ -3,7 +3,9 @@
     <AppStartScreen v-if="isLoading" />
 
     <AppLayout v-else>
-      <router-view />
+      <transition name="slide-fade" mode="out-in" appear>
+        <router-view />
+      </transition>
     </AppLayout>
 
     <transition name="fade">
@@ -48,5 +50,15 @@ export default {
 .fade-enter,
 .fade-leave-to {
   opacity: 0;
+}
+.slide-fade-enter-active {
+  transition: transform 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: transform 0.8s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(10px);
 }
 </style>

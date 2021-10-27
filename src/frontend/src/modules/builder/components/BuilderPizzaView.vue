@@ -15,13 +15,15 @@
       <AppDrop @drop="onConstructorDrop($event)">
         <div :class="`pizza--foundation--${size}-${sauceValue}`" class="pizza">
           <div class="pizza__wrapper">
-            <template v-for="ingredient in checkedIngredients">
-              <div
-                :key="ingredient.id"
-                :class="`pizza__filling--${ingredient.value}`"
-                class="pizza__filling"
-              />
-            </template>
+            <transition-group name="drop" mode="out-in">
+              <template v-for="ingredient in checkedIngredients">
+                <div
+                  :key="ingredient.id"
+                  :class="`pizza__filling--${ingredient.value}`"
+                  class="pizza__filling"
+                />
+              </template>
+            </transition-group>
           </div>
         </div>
       </AppDrop>
@@ -70,3 +72,27 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.drop-enter-active {
+  animation: drop 300ms;
+}
+
+@keyframes drop {
+  0% {
+    opacity: 10%;
+  }
+  25% {
+    opacity: 30%;
+  }
+  50% {
+    opacity: 50%;
+  }
+  75% {
+    opacity: 75%;
+  }
+  100% {
+    opacity: 100%;
+  }
+}
+</style>
