@@ -42,7 +42,7 @@ export const getSumm = (items) => {
 /**
  * @param {String} value
  * @param {Array} TYPES
- * @return {Object} processed item
+ * @return {String| undefined} name
  */
 export const getNameByValue = (value, TYPES) => {
   return TYPES.find((type) => type?.value === value)?.name;
