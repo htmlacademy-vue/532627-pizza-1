@@ -20,11 +20,6 @@ describe("AppItemCounter", () => {
     wrapper.destroy();
   });
 
-  test("Is Vue instance", () => {
-    createComponent({ propsData });
-    expect(wrapper.isVueInstance).toBeTruthy();
-  });
-
   test("There is emits an change event when click by button minus", async () => {
     createComponent({ propsData });
     const btnMinus = wrapper.find(`[data-test="button--minus"]`);

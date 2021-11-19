@@ -5,11 +5,12 @@
       :value="itemValue"
       type="radio"
       :checked="checked"
+      data-test="radio-input"
       class="visually-hidden"
       @change="$emit('change', itemValue)"
     />
 
-    <slot name="name"></slot>
+    <slot data-test="slot-name" name="name"></slot>
 
     <slot name="description"></slot>
   </label>
