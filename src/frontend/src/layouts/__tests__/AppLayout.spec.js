@@ -1,15 +1,19 @@
 import { shallowMount } from "@vue/test-utils";
 import AppLayout from "@/layouts/AppLayout";
-import AppDefaultLayout from "@/layouts/AppDefaultLayout";
 
 describe("AppLayout", () => {
   let wrapper;
-  let slots = {
-    default: "content",
+
+  const mocks = {
+    $route: {
+      meta: {
+        layout: "",
+      },
+    },
   };
 
   const createComponent = (options) => {
-    wrapper = shallowMount(AppDefaultLayout, options);
+    wrapper = shallowMount(AppLayout, options);
   };
 
   afterEach(() => {
@@ -17,7 +21,7 @@ describe("AppLayout", () => {
   });
 
   test("render slot content", () => {
-    createComponent({ slots });
-    expect(wrapper.html()).toContain(slots.default);
+    createComponent({ mocks });
+    expect(wrapper.exists()).toBe(true);
   });
 });
