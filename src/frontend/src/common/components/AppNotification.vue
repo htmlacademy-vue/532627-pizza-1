@@ -1,6 +1,7 @@
 <template>
   <div class="notification">
     <span
+      data-test="message"
       :class="{
         notification__message_warning: type === 'warning',
         notification__message_error: type === 'error',
