@@ -11,7 +11,7 @@
       </router-link>
     </div>
     <div class="header__cart">
-      <router-link to="/cart">{{ total }} ₽</router-link>
+      <router-link to="/cart" data-test="cart-link">{{ total }} ₽</router-link>
     </div>
     <div class="header__user">
       <template v-if="isLoggedIn">
@@ -20,11 +20,15 @@
           <span>{{ user.name }}</span>
         </router-link>
 
-        <a class="header__logout" @click.prevent="handleLogout">
+        <a
+          class="header__logout"
+          data-test="logout"
+          @click.prevent="handleLogout"
+        >
           <span>Выйти</span>
         </a>
       </template>
-      <router-link v-else to="/login" class="header__login">
+      <router-link v-else to="/login" data-test="login" class="header__login">
         <span>Войти</span>
       </router-link>
     </div>
@@ -51,7 +55,10 @@ export default {
     handleLogout() {
       this.logout();
       this.$notifier.warning("Вы вышли из своей учётной записи");
-      this.$router.push("/");
+
+      if (this.$route.path !== "/") {
+        this.$router.push("/");
+      }
     },
   },
 };
