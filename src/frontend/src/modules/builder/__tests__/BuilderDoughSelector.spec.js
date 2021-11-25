@@ -1,11 +1,10 @@
-import { createLocalVue, mount } from "@vue/test-utils";
+import { mount } from "@vue/test-utils";
 import BuilderDoughSelector from "@/modules/builder/components/BuilderDoughSelector";
-import Vuex from "vuex";
-import { generateMockStore } from "@/store/mocks";
-
-const localVue = createLocalVue();
-
-localVue.use(Vuex);
+import { generateMockStore, setCart } from "@/store/mocks";
+import doughList from "@/static/dough.json";
+import { getValueByName } from "@/common/helpers";
+import { DOUGH_TYPES } from "@/common/constants";
+import { CHANGE_DOUGH } from "@/store/actions.types";
 
 describe("BuilderDoughSelector", () => {
   let wrapper;
@@ -19,7 +18,7 @@ describe("BuilderDoughSelector", () => {
   beforeEach(() => {
     actions = {
       Builder: {
-        setDough: jest.fn(),
+        [CHANGE_DOUGH]: jest.fn(),
       },
     };
     store = generateMockStore(actions);
@@ -30,10 +29,22 @@ describe("BuilderDoughSelector", () => {
   });
 
   test("render dough selector", () => {
-    createComponent({ localVue, store });
+    setCart(store);
+    createComponent({ store });
+    expect(wrapper.exists()).toBeTruthy();
   });
 
-  test("set dough", () => {
-    createComponent({ localVue, store });
+  test("change dough", async () => {
+    setCart(store);
+    createComponent({ store });
+
+    const doughRadioInput = wrapper.find(`[data-test="dough-radio-input"]`);
+    const doughValue = getValueByName(doughList[0], DOUGH_TYPES)?.value;
+
+    await doughRadioInput.vm.$emit("change", doughValue);
+    expect(actions.Builder[CHANGE_DOUGH]).toHaveBeenLastCalledWith(
+      expect.any(Object),
+      doughValue
+    );
   });
 });

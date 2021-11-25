@@ -7,6 +7,8 @@ export const INIT = "INIT";
   Builder
  **/
 export const FETCH_BUILDER_DATA = "FETCH_BUILDER_DATA";
+export const CHANGE_DOUGH = "CHANGE_DOUGH";
+export const CHANGE_SIZE = "CHANGE_SIZE";
 /**
  * Cart actions
  */

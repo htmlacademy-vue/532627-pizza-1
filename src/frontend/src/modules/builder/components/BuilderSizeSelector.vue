@@ -10,13 +10,14 @@
           :item-value="size.value"
           name="diameter"
           :checked="size.value === sizeValue"
+          data-test="size-radio-input"
           :class="{
             'diameter__input--small': size.value === 'small',
             'diameter__input--normal': size.value === 'normal',
             'diameter__input--normal': size.value === 'big',
           }"
           class="diameter__input"
-          @change="setSizeValue"
+          @change="changeSizeValue"
         >
           <template #name>
             <span>{{ size.name }}</span>
@@ -28,9 +29,9 @@
 </template>
 
 <script>
-import { SET_SIZE } from "@/store/mutation.types";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import AppRadioButton from "@/common/components/AppRadioButton";
+import { CHANGE_SIZE } from "@/store/actions.types";
 
 export default {
   name: "BuilderSizeSelector",
@@ -42,8 +43,8 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations("Builder", {
-      setSizeValue: SET_SIZE,
+    ...mapActions("Builder", {
+      changeSizeValue: CHANGE_SIZE,
     }),
   },
 };

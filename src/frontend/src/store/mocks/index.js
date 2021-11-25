@@ -37,7 +37,7 @@ export const generateMockStore = (actions) => {
   return new Vuex.Store({
     state,
     mutations,
-    modules: modules,
+    modules,
     getters: modules["Builder"].getters,
     plugins: [vuexPlugins],
   });

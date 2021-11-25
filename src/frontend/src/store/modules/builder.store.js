@@ -19,7 +19,7 @@ import {
   CHANGE_PIZZA,
   SET_BUILDER,
 } from "@/store/mutation.types";
-import { FETCH_BUILDER_DATA } from "@/store/actions.types";
+import {FETCH_BUILDER_DATA, CHANGE_DOUGH, CHANGE_SIZE} from "@/store/actions.types";
 
 const initState = () => ({
   id: 0,
@@ -38,6 +38,12 @@ export default {
   namespaced: true,
   state: initState(),
   actions: {
+    [CHANGE_DOUGH]({ commit }, dough) {
+      commit(SET_DOUGH, dough);
+    },
+    [CHANGE_SIZE]({ commit }, size) {
+      commit(SET_SIZE, size);
+    },
     async [FETCH_BUILDER_DATA]({ commit }) {
       try {
         const [doughList, ingredients, saucesList, sizeList] =
