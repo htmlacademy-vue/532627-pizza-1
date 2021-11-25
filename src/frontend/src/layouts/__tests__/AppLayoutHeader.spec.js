@@ -97,7 +97,7 @@ describe("AppLayoutHeader", () => {
 
   test("render total price in cart link", () => {
     authUser(store);
-    setCart(store);
+    setCart(store, true);
     createComponent({ localVue, store, stubs });
 
     const cartLink = wrapper.find(`[data-test="cart-link"]`);

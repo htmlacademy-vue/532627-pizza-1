@@ -48,7 +48,7 @@ export const authUser = (store) => {
   store.commit(`Auth/${SET_USER}`, user);
 };
 
-export const setCart = (store) => {
+const setBuild = (store) => {
   store.commit(`Cart/${RESET_CART}`);
   store.commit(`Builder/${SET_BUILDER}`, {
     ...build,
@@ -59,5 +59,12 @@ export const setCart = (store) => {
       return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
     }),
   });
-  store.dispatch(`Cart/${CREATE_CART}`);
+};
+
+export const setCart = (store, needCreateCart = false) => {
+  setBuild(store);
+
+  if (needCreateCart) {
+    store.dispatch(`Cart/${CREATE_CART}`);
+  }
 };

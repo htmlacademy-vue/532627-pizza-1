@@ -38,10 +38,10 @@ describe("BuilderSizeSelector", () => {
     setCart(store);
     createComponent({ store });
 
-    const doughRadioInput = wrapper.find(`[data-test="size-radio-input"]`);
+    const sizeRadioInput = wrapper.find(`[data-test="size-radio-input"]`);
     const sizeValue = getValueByName(sizeList[0], SIZE_TYPES)?.value;
 
-    await doughRadioInput.vm.$emit("change", sizeValue);
+    await sizeRadioInput.vm.$emit("change", sizeValue);
     expect(actions.Builder[CHANGE_SIZE]).toHaveBeenLastCalledWith(
       expect.any(Object),
       sizeValue

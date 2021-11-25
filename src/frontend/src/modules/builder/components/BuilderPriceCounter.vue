@@ -4,6 +4,7 @@
     <button
       type="button"
       :disabled="isDisabledSubmit"
+      data-test="price-counter-button"
       :class="{ 'button--disabled': isDisabledSubmit }"
       class="button"
       @click="id ? edit() : createCart()"
