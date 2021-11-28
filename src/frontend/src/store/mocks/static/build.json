@@ -2,5 +2,8 @@
   "dough": "large",
   "sauce": "creamy",
   "name": "pizza",
-  "size": "normal"
+  "size": "normal",
+  "ingredients": [
+    {"value": "mushrooms", "count": 1, "price": 33}
+  ]
 }

@@ -19,7 +19,11 @@ import {
   CHANGE_PIZZA,
   SET_BUILDER,
 } from "@/store/mutation.types";
-import {FETCH_BUILDER_DATA, CHANGE_DOUGH, CHANGE_SIZE} from "@/store/actions.types";
+import {
+  FETCH_BUILDER_DATA,
+  CHANGE_DOUGH,
+  CHANGE_SIZE,
+} from "@/store/actions.types";
 
 const initState = () => ({
   id: 0,

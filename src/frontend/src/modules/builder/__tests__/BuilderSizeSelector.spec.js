@@ -5,6 +5,7 @@ import { CHANGE_SIZE } from "@/store/actions.types";
 import { getValueByName } from "@/common/helpers";
 import sizeList from "@/static/sizes.json";
 import { SIZE_TYPES } from "@/common/constants";
+import build from "@/store/mocks/static/build.json";
 
 describe("BuilderSizeSelector", () => {
   let wrapper;
@@ -29,13 +30,13 @@ describe("BuilderSizeSelector", () => {
   });
 
   test("render size selector", () => {
-    setCart(store);
+    setCart(store, build);
     createComponent({ store });
     expect(wrapper.exists()).toBeTruthy();
   });
 
   test("change size", async () => {
-    setCart(store);
+    setCart(store, build);
     createComponent({ store });
 
     const sizeRadioInput = wrapper.find(`[data-test="size-radio-input"]`);

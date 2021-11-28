@@ -14,7 +14,6 @@ import doughList from "@/static/dough.json";
 import sizeList from "@/static/sizes.json";
 import saucesList from "@/static/sauces.json";
 import ingredients from "@/static/ingredients.json";
-import build from "@/store/mocks/static/build.json";
 import { getValueByName } from "@/common/helpers";
 import {
   DOUGH_TYPES,
@@ -48,21 +47,21 @@ export const authUser = (store) => {
   store.commit(`Auth/${SET_USER}`, user);
 };
 
-const setBuild = (store) => {
+export const setBuild = (store, build) => {
   store.commit(`Cart/${RESET_CART}`);
   store.commit(`Builder/${SET_BUILDER}`, {
-    ...build,
     doughList: doughList.map((item) => getValueByName(item, DOUGH_TYPES)),
     sizeList: sizeList.map((item) => getValueByName(item, SIZE_TYPES)),
     sauceList: saucesList.map((item) => getValueByName(item, SAUCE_TYPES)),
     ingredients: ingredients.map((item) => {
       return { ...getValueByName(item, INGREDIENT_TYPES), count: 0 };
     }),
+    ...build,
   });
 };
 
-export const setCart = (store, needCreateCart = false) => {
-  setBuild(store);
+export const setCart = (store, build, needCreateCart = false) => {
+  setBuild(store, build);
 
   if (needCreateCart) {
     store.dispatch(`Cart/${CREATE_CART}`);

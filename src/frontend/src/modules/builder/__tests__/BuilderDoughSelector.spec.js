@@ -5,6 +5,7 @@ import doughList from "@/static/dough.json";
 import { getValueByName } from "@/common/helpers";
 import { DOUGH_TYPES } from "@/common/constants";
 import { CHANGE_DOUGH } from "@/store/actions.types";
+import build from "@/store/mocks/static/build.json";
 
 describe("BuilderDoughSelector", () => {
   let wrapper;
@@ -29,13 +30,13 @@ describe("BuilderDoughSelector", () => {
   });
 
   test("render dough selector", () => {
-    setCart(store);
+    setCart(store, build);
     createComponent({ store });
     expect(wrapper.exists()).toBeTruthy();
   });
 
   test("change dough", async () => {
-    setCart(store);
+    setCart(store, build);
     createComponent({ store });
 
     const doughRadioInput = wrapper.find(`[data-test="dough-radio-input"]`);

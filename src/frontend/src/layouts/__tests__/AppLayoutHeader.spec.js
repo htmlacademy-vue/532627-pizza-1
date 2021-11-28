@@ -1,14 +1,13 @@
 import AppLayoutHeader from "@/layouts/AppLayoutHeader";
 import { mount, createLocalVue } from "@vue/test-utils";
 import { generateMockStore, authUser, setCart } from "@/store/mocks";
-import Vuex from "vuex";
 import VueRouter from "vue-router";
 import { LOGOUT } from "@/store/actions.types";
+import build from "@/store/mocks/static/build.json";
 
 const localVue = createLocalVue();
 const router = new VueRouter();
 
-localVue.use(Vuex);
 localVue.use(VueRouter);
 
 const mocks = {
@@ -97,7 +96,7 @@ describe("AppLayoutHeader", () => {
 
   test("render total price in cart link", () => {
     authUser(store);
-    setCart(store, true);
+    setCart(store, build, true);
     createComponent({ localVue, store, stubs });
 
     const cartLink = wrapper.find(`[data-test="cart-link"]`);
