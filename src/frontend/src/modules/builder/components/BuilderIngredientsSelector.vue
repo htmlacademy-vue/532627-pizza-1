@@ -12,9 +12,10 @@
             :key="sauce.value"
             :item-value="sauce.value"
             :checked="sauce.value === sauceValue"
+            data-test="sauce-item"
             name="sauce"
             class="radio ingridients__input"
-            @change="setSauceValue"
+            @change="changeSauce"
           >
             <template #name>
               <span>{{ sauce.name }}</span>
@@ -32,10 +33,11 @@
             <li
               v-for="ingredient in ingredientList"
               :key="ingredient.name"
+              data-test="ingredient-item"
               class="ingridients__item"
             >
               <AppDrag
-                :draggable="ingredient.count < $options.INGREDIENTS_MAX_VALUE"
+                :draggable="ingredient.count < 3"
                 :transfer-data="ingredient"
               >
                 <AppItemChip :value="ingredient.value">
@@ -45,7 +47,8 @@
 
               <AppItemCounter
                 :value="ingredient.count"
-                :max-value="$options.INGREDIENTS_MAX_VALUE"
+                :max-value="3"
+                data-test="ingredient-item-counter"
                 class="ingridients__counter"
                 @change="
                   changeIngredients({ value: ingredient.value, count: $event })
@@ -60,12 +63,12 @@
 </template>
 
 <script>
-import { SET_SAUCE, CHANGE_INGREDIENTS } from "@/store/mutation.types";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import AppItemChip from "@/common/components/AppItemChip";
 import AppItemCounter from "@/common/components/AppItemCounter";
 import AppRadioButton from "@/common/components/AppRadioButton";
 import AppDrag from "@/common/components/AppDrag";
+import { CHANGE_INGREDIENTS, CHANGE_SAUCE } from "@/store/actions.types";
 
 export default {
   name: "BuilderIngredientsSelector",
@@ -85,9 +88,9 @@ export default {
     }),
   },
   methods: {
-    ...mapMutations("Builder", {
-      setSauceValue: SET_SAUCE,
+    ...mapActions("Builder", {
       changeIngredients: CHANGE_INGREDIENTS,
+      changeSauce: CHANGE_SAUCE,
     }),
   },
 };

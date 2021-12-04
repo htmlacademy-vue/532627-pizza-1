@@ -9,6 +9,9 @@ export const INIT = "INIT";
 export const FETCH_BUILDER_DATA = "FETCH_BUILDER_DATA";
 export const CHANGE_DOUGH = "CHANGE_DOUGH";
 export const CHANGE_SIZE = "CHANGE_SIZE";
+export const CHANGE_NAME = "CHANGE_NAME";
+export const CHANGE_INGREDIENTS = "CHANGE_INGREDIENTS";
+export const CHANGE_SAUCE = "CHANGE_SAUCE";
 /**
  * Cart actions
  */
