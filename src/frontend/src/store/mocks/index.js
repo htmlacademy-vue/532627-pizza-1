@@ -7,6 +7,7 @@ import {
   SET_USER,
   SET_BUILDER,
   RESET_CART,
+  SET_ORDERS,
 } from "@/store/mutation.types";
 import { CREATE_CART } from "@/store/actions.types";
 import user from "@/static/user.json";
@@ -21,6 +22,7 @@ import {
   SAUCE_TYPES,
   SIZE_TYPES,
 } from "@/common/constants";
+import mockBuild from "@/store/mocks/static/build.json";
 
 const state = () => ({
   isLoading: false,
@@ -66,4 +68,9 @@ export const setCart = (store, build, needCreateCart = false) => {
   if (needCreateCart) {
     store.dispatch(`Cart/${CREATE_CART}`);
   }
+};
+
+export const setOrders = (store, orders) => {
+  setBuild(store, mockBuild);
+  store.commit(`Orders/${SET_ORDERS}`, orders);
 };

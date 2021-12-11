@@ -1,0 +1,24 @@
+{
+  "id": 1,
+  "userId": "ce6ec374-a45d-44c7-9e2f-ae5190a7bbe4",
+  "addressId": null,
+  "orderPizzas": [
+    {
+      "id": 1,
+      "name": "ррп",
+      "quantity": 1,
+      "sauceId": 1,
+      "doughId": 1,
+      "sizeId": 2,
+      "orderId": 1,
+      "ingredients": [
+        {
+          "id": 1,
+          "quantity": 1,
+          "pizzaId": 1,
+          "ingredientId": 4
+        }
+      ]
+    }
+  ]
+}
