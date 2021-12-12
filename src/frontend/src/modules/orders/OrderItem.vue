@@ -52,15 +52,30 @@
           />
 
           <div class="product__text">
-            <h2>{{ pizza.name }}</h2>
+            <h2 data-test="order-pizza-name">{{ pizza.name }}</h2>
 
             <ul>
               <li>
-                {{ getSizeDesc(pizza.sizeId) }},
-                {{ getDoughDesc(pizza.doughId) }}
+                <span data-test="order-size">{{
+                  getSizeDesc(pizza.sizeId)
+                }}</span
+                >,
+                <span data-test="order-dough">{{
+                  getDoughDesc(pizza.doughId)
+                }}</span>
               </li>
-              <li>Соус: {{ getSauceDesc(pizza.sauceId) }}</li>
-              <li>Начинка: {{ getIngredientsDesc(pizza.ingredients) }}</li>
+              <li>
+                Соус:
+                <span data-test="order-sauce">{{
+                  getSauceDesc(pizza.sauceId)
+                }}</span>
+              </li>
+              <li>
+                Начинка:
+                <span data-test="order-ingredients">{{
+                  getIngredientsDesc(pizza.ingredients)
+                }}</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -172,6 +187,7 @@ export default {
         );
         return ingredient?.name.toLowerCase();
       });
+      console.log(this.ingredientList);
       return ingredientsList.join(", ");
     },
 

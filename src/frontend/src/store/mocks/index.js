@@ -49,6 +49,11 @@ export const authUser = (store) => {
   store.commit(`Auth/${SET_USER}`, user);
 };
 
+export const unAuthUser = (store) => {
+  store.commit(`Auth/${SET_AUTH}`, false);
+  store.commit(`Auth/${SET_USER}`, {});
+};
+
 export const setBuild = (store, build) => {
   store.commit(`Cart/${RESET_CART}`);
   store.commit(`Builder/${SET_BUILDER}`, {
