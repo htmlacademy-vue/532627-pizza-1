@@ -5,6 +5,7 @@
         v-for="miscItem in miscList"
         :key="miscItem.id"
         :misc="miscItem"
+        data-test="misc-item"
       />
     </ul>
   </div>

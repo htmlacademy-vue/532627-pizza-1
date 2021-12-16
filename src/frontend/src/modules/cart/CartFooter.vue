@@ -11,13 +11,16 @@
     </p>
 
     <div class="footer__price">
-      <b>Итого: {{ total }} ₽</b>
+      <b>
+        Итого: <span data-test="cart-total">{{ total }}</span> ₽
+      </b>
     </div>
 
     <div class="footer__submit">
       <button
         :disabled="isDisabledSubmit"
         type="submit"
+        data-test="cart-submit"
         :class="{ 'button--disabled': isDisabledSubmit }"
         class="button"
         @click.prevent="submitOrder"

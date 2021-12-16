@@ -8,6 +8,7 @@ import {
   SET_BUILDER,
   RESET_CART,
   SET_ORDERS,
+  SET_PHONE, SET_ADDRESS, SET_MISC,
 } from "@/store/mutation.types";
 import { CREATE_CART } from "@/store/actions.types";
 import user from "@/static/user.json";
@@ -15,6 +16,7 @@ import doughList from "@/static/dough.json";
 import sizeList from "@/static/sizes.json";
 import saucesList from "@/static/sauces.json";
 import ingredients from "@/static/ingredients.json";
+import misc from "@/static/misc.json";
 import { getValueByName } from "@/common/helpers";
 import {
   DOUGH_TYPES,
@@ -78,4 +80,13 @@ export const setCart = (store, build, needCreateCart = false) => {
 export const setOrders = (store, orders) => {
   setBuild(store, mockBuild);
   store.commit(`Orders/${SET_ORDERS}`, orders);
+};
+
+export const setOrderData = (store, phone, address) => {
+  store.commit(`Cart/${SET_PHONE}`, phone);
+  store.commit(`Cart/${SET_ADDRESS}`, address);
+};
+
+export const setMisc = (store) => {
+  store.commit(`Cart/${SET_MISC}`, misc);
 };

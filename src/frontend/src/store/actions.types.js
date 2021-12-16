@@ -21,6 +21,7 @@ export const EDIT_CART_PIZZA = "EDIT_CART_PIZZA";
 export const FETCH_MISC = "FETCH_MISC";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const REPEAT_ORDER = "REPEAT_ORDER";
+export const UPDATE_MISC = "UPDATE_MISC";
 
 /**
  * Notification actions
