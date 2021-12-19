@@ -1,6 +1,11 @@
 <template>
   <ul v-if="pizzas.length > 0" class="cart-list sheet">
-    <li v-for="pizza in pizzas" :key="pizza.id" class="cart-list__item">
+    <li
+      v-for="pizza in pizzas"
+      :key="pizza.id"
+      data-test="cart-item"
+      class="cart-list__item"
+    >
       <div class="product cart-list__product">
         <img
           src="@/assets/img/product.svg"
@@ -11,11 +16,23 @@
         />
 
         <div class="product__text">
-          <h2>{{ pizza.name }}</h2>
+          <h2 data-test="cart-item-name">{{ pizza.name }}</h2>
           <ul>
-            <li>{{ getSize(pizza.size) }}, {{ getDough(pizza.dough) }}</li>
-            <li>Соус: {{ getSauce(pizza.sauce) }}</li>
-            <li>Начинка: {{ getIngredients(pizza.ingredients) }}</li>
+            <li data-test="cart-item-size-dough">
+              {{ getSize(pizza.size) }}, {{ getDough(pizza.dough) }}
+            </li>
+            <li>
+              Соус:
+              <span data-test="cart-item-sauce">{{
+                getSauce(pizza.sauce)
+              }}</span>
+            </li>
+            <li>
+              Начинка:
+              <span data-test="cart-item-ingredients">{{
+                getIngredients(pizza.ingredients)
+              }}</span>
+            </li>
           </ul>
         </div>
       </div>
@@ -23,6 +40,7 @@
       <div class="counter cart-list__counter">
         <button
           type="button"
+          data-test="pizza-item-decrease"
           class="counter__button counter__button--minus"
           @click="
             decreaseQuantity({
@@ -36,16 +54,21 @@
         <input
           type="text"
           name="counter"
-          class="counter__input"
+          data-test="cart-item-quantity"
           :value="pizza.quantity"
           readonly
+          class="counter__input"
         />
 
         <button
           type="button"
+          data-test="pizza-item-increase"
           class="counter__button counter__button--plus counter__button--orange"
           @click="
-            changePizzaQuantity({ id: pizza.id, quantity: pizza.quantity + 1 })
+            increasePizzaQuantity({
+              id: pizza.id,
+              quantity: pizza.quantity + 1,
+            })
           "
         >
           <span class="visually-hidden">Больше</span>
@@ -53,11 +76,21 @@
       </div>
 
       <div class="cart-list__price">
-        <b>{{ pizza.price * pizza.quantity }} ₽</b>
+        <b>
+          <span data-test="cart-item-total-price">{{
+            pizza.price * pizza.quantity
+          }}</span>
+          ₽
+        </b>
       </div>
 
       <div class="cart-list__button">
-        <button type="button" class="cart-list__edit" @click="change(pizza)">
+        <button
+          type="button"
+          data-test="pizza-item-change"
+          class="cart-list__edit"
+          @click="change(pizza)"
+        >
           Изменить
         </button>
       </div>
@@ -67,10 +100,14 @@
 
 <script>
 import { SAUCE_TYPES, SIZE_TYPES } from "@/common/constants";
-import { mapGetters, mapMutations, mapActions } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import { getNameByValue } from "@/common/helpers";
-import { CHANGE_PIZZA, CHANGE_PIZZA_QUANTITY } from "@/store/mutation.types";
-import { DECREASE_PIZZA_QUANTITY } from "@/store/actions.types";
+
+import {
+  DECREASE_PIZZA_QUANTITY,
+  EDIT_PIZZA,
+  INCREASE_PIZZA_QUANTITY,
+} from "@/store/actions.types";
 
 export default {
   name: "CartList",
@@ -82,12 +119,10 @@ export default {
   methods: {
     ...mapActions("Cart", {
       decreaseQuantity: DECREASE_PIZZA_QUANTITY,
+      increasePizzaQuantity: INCREASE_PIZZA_QUANTITY,
     }),
-    ...mapMutations("Builder", {
-      changeBuilder: CHANGE_PIZZA,
-    }),
-    ...mapMutations("Cart", {
-      changePizzaQuantity: CHANGE_PIZZA_QUANTITY,
+    ...mapActions("Builder", {
+      changeBuilder: EDIT_PIZZA,
     }),
     getSize(value) {
       return getNameByValue(value, SIZE_TYPES);

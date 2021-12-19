@@ -8,7 +8,9 @@ import {
   SET_BUILDER,
   RESET_CART,
   SET_ORDERS,
-  SET_PHONE, SET_ADDRESS, SET_MISC,
+  SET_PHONE,
+  SET_ADDRESS,
+  SET_MISC,
 } from "@/store/mutation.types";
 import { CREATE_CART } from "@/store/actions.types";
 import user from "@/static/user.json";

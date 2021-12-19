@@ -6,6 +6,7 @@ export const INIT = "INIT";
 /**
   Builder
  **/
+export const EDIT_PIZZA = "EDIT_PIZZA";
 export const FETCH_BUILDER_DATA = "FETCH_BUILDER_DATA";
 export const CHANGE_DOUGH = "CHANGE_DOUGH";
 export const CHANGE_SIZE = "CHANGE_SIZE";
@@ -17,6 +18,7 @@ export const CHANGE_SAUCE = "CHANGE_SAUCE";
  */
 export const CREATE_CART = "CREATE_CART";
 export const DECREASE_PIZZA_QUANTITY = "DECREASE_PIZZA_QUANTITY";
+export const INCREASE_PIZZA_QUANTITY = "INCREASE_PIZZA_QUANTITY";
 export const EDIT_CART_PIZZA = "EDIT_CART_PIZZA";
 export const FETCH_MISC = "FETCH_MISC";
 export const CREATE_ORDER = "CREATE_ORDER";

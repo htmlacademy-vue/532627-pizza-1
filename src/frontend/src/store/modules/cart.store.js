@@ -14,6 +14,7 @@ import {
 import {
   CREATE_CART,
   DECREASE_PIZZA_QUANTITY,
+  INCREASE_PIZZA_QUANTITY,
   EDIT_CART_PIZZA,
   FETCH_MISC,
   CREATE_ORDER,
@@ -243,6 +244,10 @@ export default {
 
       commit("Builder/RESET_BUILDER", null, { root: true });
     },
+    [INCREASE_PIZZA_QUANTITY]({ commit }, { id, quantity }) {
+      commit(CHANGE_PIZZA_QUANTITY, { id, quantity });
+    },
+
     [DECREASE_PIZZA_QUANTITY]({ commit }, { id, quantity }) {
       if (quantity === 0) {
         commit(REMOVE_PIZZA, id);

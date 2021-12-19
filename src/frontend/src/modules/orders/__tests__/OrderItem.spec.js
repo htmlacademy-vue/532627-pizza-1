@@ -103,8 +103,6 @@ describe("OrderItem", () => {
   test("render ingredients", async () => {
     createComponent({ store, propsData });
     await localVue.nextTick();
-    await localVue.nextTick();
-    await localVue.nextTick();
     const ingredientsText = wrapper.find(`[data-test="order-ingredients"]`);
     const ingredients = propsData.order.orderPizzas[0].ingredients
       .map(

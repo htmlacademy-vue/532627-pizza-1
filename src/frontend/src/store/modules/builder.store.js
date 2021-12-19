@@ -26,6 +26,7 @@ import {
   CHANGE_NAME,
   CHANGE_INGREDIENTS,
   CHANGE_SAUCE,
+  EDIT_PIZZA,
 } from "@/store/actions.types";
 
 const initState = () => ({
@@ -59,6 +60,9 @@ export default {
     },
     [CHANGE_SIZE]({ commit }, size) {
       commit(SET_SIZE, size);
+    },
+    [EDIT_PIZZA]({ commit }, pizza) {
+      commit(CHANGE_PIZZA, pizza);
     },
     async [FETCH_BUILDER_DATA]({ commit }) {
       try {
