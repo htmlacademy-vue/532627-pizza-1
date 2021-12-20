@@ -24,6 +24,8 @@ export const FETCH_MISC = "FETCH_MISC";
 export const CREATE_ORDER = "CREATE_ORDER";
 export const REPEAT_ORDER = "REPEAT_ORDER";
 export const UPDATE_MISC = "UPDATE_MISC";
+export const CHANGE_PHONE = "CHANGE_PHONE";
+export const CHANGE_ADDRESS = "CHANGE_ADRESS";
 
 /**
  * Notification actions

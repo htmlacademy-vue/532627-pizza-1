@@ -20,6 +20,8 @@ import {
   CREATE_ORDER,
   REPEAT_ORDER,
   UPDATE_MISC,
+  CHANGE_PHONE,
+  CHANGE_ADDRESS,
 } from "@/store/actions.types";
 
 import { resourceTypes } from "@/common/enums";
@@ -91,6 +93,13 @@ export default {
     },
   },
   actions: {
+    [CHANGE_ADDRESS]({ commit }, address) {
+      commit(SET_ADDRESS, address);
+    },
+    [CHANGE_PHONE]({ commit }, phone) {
+      console.log(phone)
+      commit(SET_PHONE, phone);
+    },
     [UPDATE_MISC]({ commit }, { id, quantity }) {
       commit(CHANGE_MISC_QUANTITY, { id, quantity: Math.max(quantity, 0) });
     },

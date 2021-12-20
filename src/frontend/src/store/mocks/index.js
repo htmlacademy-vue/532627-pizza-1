@@ -10,6 +10,7 @@ import {
   SET_ORDERS,
   SET_PHONE,
   SET_ADDRESS,
+  SET_ADDRESSES,
   SET_MISC,
 } from "@/store/mutation.types";
 import { CREATE_CART } from "@/store/actions.types";
@@ -27,6 +28,7 @@ import {
   SIZE_TYPES,
 } from "@/common/constants";
 import mockBuild from "@/store/mocks/static/build.json";
+import addresses from "@/store/mocks/static/addresses.json";
 
 const state = () => ({
   isLoading: false,
@@ -91,4 +93,8 @@ export const setOrderData = (store, phone, address) => {
 
 export const setMisc = (store) => {
   store.commit(`Cart/${SET_MISC}`, misc);
+};
+
+export const setAddresses = (store) => {
+  store.commit(`Addresses/${SET_ADDRESSES}`, addresses);
 };

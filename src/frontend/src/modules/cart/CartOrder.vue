@@ -4,7 +4,12 @@
       <label class="cart-form__select">
         <span class="cart-form__label">Получение заказа:</span>
 
-        <select v-model="deliveryType" name="test" class="select">
+        <select
+          v-model="deliveryType"
+          name="test"
+          data-test="cart-order-select"
+          class="select"
+        >
           <option :value="$options.deliveryTypes.SELF">Заберу сам</option>
           <option :value="$options.deliveryTypes.NEW_ADDRESS">
             Новый адрес
@@ -26,12 +31,14 @@
           type="text"
           name="tel"
           placeholder="+7 999-999-99-99"
+          data-test="cart-order-phone"
           @input="setPhone(phone)"
         />
       </label>
 
       <div
         v-if="deliveryType !== $options.deliveryTypes.SELF"
+        data-test="cart-order-new-address"
         class="cart-form__address"
       >
         <span class="cart-form__label">Новый адрес:</span>
@@ -44,6 +51,7 @@
               :disabled="isDisabled"
               type="text"
               name="street"
+              data-test="cart-order-street"
               @input="setAddress(address)"
             />
           </label>
@@ -80,9 +88,9 @@
 </template>
 
 <script>
-import { SET_PHONE, SET_ADDRESS } from "@/store/mutation.types";
-import { mapGetters, mapMutations } from "vuex";
+import { mapActions, mapGetters } from "vuex";
 import { DELIVERY_TYPES } from "@/common/constants";
+import { CHANGE_ADDRESS, CHANGE_PHONE } from "@/store/actions.types";
 
 export default {
   name: "CartOrder",
@@ -112,7 +120,6 @@ export default {
             flat: "",
           };
         }
-        console.log(this.address);
         this.setAddress(this.address);
       },
       immediate: true,
@@ -133,9 +140,9 @@ export default {
     this.phone = this.getPhone;
   },
   methods: {
-    ...mapMutations("Cart", {
-      setPhone: SET_PHONE,
-      setAddress: SET_ADDRESS,
+    ...mapActions("Cart", {
+      setPhone: CHANGE_PHONE,
+      setAddress: CHANGE_ADDRESS,
     }),
 
     getAddressDesc(address) {
