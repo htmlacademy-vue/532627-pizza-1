@@ -6,14 +6,16 @@
       :alt="user.name"
       width="72"
       height="72"
+      data-test="profile-user-avatar"
     />
 
     <div v-if="user.name" class="user__name">
-      <span>{{ user.name }}</span>
+      <span data-test="profile-user-name">{{ user.name }}</span>
     </div>
 
     <p v-if="user.phone" class="user__phone">
-      Контактный телефон: <span>{{ user.phone }}</span>
+      Контактный телефон:
+      <span data-test="profile-user-phone">{{ user.phone }}</span>
     </p>
   </div>
 </template>

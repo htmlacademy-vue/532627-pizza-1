@@ -1,4 +1,5 @@
 import ProfileAddress from "@/modules/profile/ProfileAddress";
+import ProfileAddressForm from "@/modules/profile/ProfileAddressForm";
 import { mount } from "@vue/test-utils";
 import { REMOVE_ADDRESS, UPDATE_ADDRESS } from "@/store/actions.types";
 import { generateMockStore } from "@/store/mocks";
@@ -18,7 +19,7 @@ describe("ProfileAddress", () => {
       number: 1,
       address: {
         id: 1,
-        name: "name",
+        name: "Address #1",
         street: "street",
         building: "building",
         flat: "flat",
@@ -40,11 +41,9 @@ describe("ProfileAddress", () => {
 
   test("render profile address edition form by click", async () => {
     createComponent({ propsData });
-    const editBtn = wrapper.find("[data-test='profile-address-edit'");
+    const editBtn = wrapper.find("[data-test='profile-address-edit']");
     await editBtn.trigger("click");
-    const profileAddressForm = wrapper.findComponent({
-      name: "ProfileAddressForm",
-    });
+    const profileAddressForm = wrapper.findComponent(ProfileAddressForm);
     expect(profileAddressForm.exists()).toBe(true);
   });
 
@@ -71,18 +70,15 @@ describe("ProfileAddress", () => {
   });
 
   test("call update address", async () => {
-    createComponent({ propsData });
+    createComponent({ store, propsData });
     const editBtn = wrapper.find("[data-test='profile-address-edit'");
     await editBtn.trigger("click");
-    const profileAddressForm = wrapper.findComponent({
-      name: "ProfileAddressForm",
-    });
-
-    // await profileAddressForm.trigger("submit");
+    const profileAddressForm = wrapper.findComponent(ProfileAddressForm);
+    await profileAddressForm.trigger("submit");
     expect(profileAddressForm.exists()).toBe(true);
-    /*expect(actions.Addresses[UPDATE_ADDRESS]).toHaveBeenCalledWith(
+    expect(actions.Addresses[UPDATE_ADDRESS]).toHaveBeenCalledWith(
       expect.any(Object),
-      {}
-    );*/
+      propsData.address
+    );
   });
 });

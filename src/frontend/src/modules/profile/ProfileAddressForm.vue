@@ -1,11 +1,14 @@
 <template>
   <form
     method="post"
+    data-test="profile-address-form"
     class="address-form address-form--opened sheet"
     @submit.prevent="save"
   >
     <div class="address-form__header">
-      <b>Адрес №{{ number }}</b>
+      <b
+        >Адрес №<span data-test="profile-address-number">{{ number }}</span></b
+      >
     </div>
 
     <div class="address-form__wrapper">
@@ -17,6 +20,7 @@
             v-model="name"
             type="text"
             name="addr-name"
+            data-test="profile-address-name"
             placeholder="Введите название адреса"
             required
           />
@@ -33,6 +37,7 @@
             name="addr-street"
             placeholder="Введите название улицы"
             required
+            data-test="profile-address-street"
           />
         </label>
       </div>
@@ -47,6 +52,7 @@
             name="addr-house"
             placeholder="Введите номер дома"
             required
+            data-test="profile-address-building"
           />
         </label>
       </div>
@@ -60,6 +66,7 @@
             type="text"
             name="addr-apartment"
             placeholder="Введите № квартиры"
+            data-test="profile-address-flat"
           />
         </label>
       </div>
@@ -73,13 +80,19 @@
             type="text"
             name="addr-comment"
             placeholder="Введите комментарий"
+            data-test="profile-address-comment"
           />
         </label>
       </div>
     </div>
 
     <div class="address-form__buttons">
-      <button type="button" class="button button--transparent" @click="remove">
+      <button
+        type="button"
+        data-test="profile-address-form-btn-remove"
+        class="button button--transparent"
+        @click="remove"
+      >
         Удалить
       </button>
 
