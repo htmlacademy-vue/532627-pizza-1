@@ -47,7 +47,7 @@ describe("AppNotifications", () => {
     createComponent({ store, localVue });
 
     const childComponents = wrapper.findAllComponents(AppNotification);
-    expect(childComponents.length).toBe(1);
+    expect(childComponents).toHaveLength(state.notifications.length);
   });
 
   test("render list of notification components", () => {
@@ -59,6 +59,6 @@ describe("AppNotifications", () => {
     createComponent({ store, localVue });
 
     const childComponents = wrapper.findAllComponents(AppNotification);
-    expect(childComponents.length).toBe(3);
+    expect(childComponents).toHaveLength(state.notifications.length);
   });
 });
