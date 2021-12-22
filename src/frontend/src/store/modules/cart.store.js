@@ -97,7 +97,6 @@ export default {
       commit(SET_ADDRESS, address);
     },
     [CHANGE_PHONE]({ commit }, phone) {
-      console.log(phone)
       commit(SET_PHONE, phone);
     },
     [UPDATE_MISC]({ commit }, { id, quantity }) {

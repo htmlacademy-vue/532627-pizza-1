@@ -10,8 +10,6 @@ describe("Profile", () => {
     wrapper = shallowMount(Profile, options);
   };
 
-  beforeEach(() => {
-  });
   afterEach(() => {
     wrapper.destroy();
   });

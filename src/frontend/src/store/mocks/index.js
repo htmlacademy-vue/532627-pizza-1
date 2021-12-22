@@ -34,7 +34,7 @@ const state = () => ({
   isLoading: false,
 });
 
-export const generateMockStore = (actions) => {
+export const generateMockStore = (actions, mutations) => {
   if (actions) {
     Object.entries(actions).forEach(([module, actions]) => {
       modules[module] = { ...modules[module], actions };

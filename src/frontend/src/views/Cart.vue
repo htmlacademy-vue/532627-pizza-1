@@ -1,5 +1,10 @@
 <template>
-  <form method="post" class="layout-form" @submit.prevent="handleSubmit">
+  <form
+    method="post"
+    data-test="cart-form"
+    class="layout-form"
+    @submit.prevent="handleSubmit"
+  >
     <main class="content cart">
       <div class="container">
         <CartTitle />

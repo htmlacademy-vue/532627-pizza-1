@@ -187,7 +187,6 @@ export default {
         );
         return ingredient?.name.toLowerCase();
       });
-      console.log(this.ingredientList);
       return ingredientsList.join(", ");
     },
 
