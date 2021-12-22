@@ -8,7 +8,11 @@
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <router-link :to="isLoggedIn ? '/orders' : '/'" class="button">
+      <router-link
+        :to="isLoggedIn ? '/orders' : '/'"
+        data-test="back-link"
+        class="button"
+      >
         Отлично, я жду!</router-link
       >
     </div>

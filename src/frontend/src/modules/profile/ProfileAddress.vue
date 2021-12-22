@@ -2,6 +2,7 @@
   <div class="layout__address">
     <ProfileAddressForm
       v-if="isEditing"
+      data-test="profile-address-form"
       :number="number"
       :address="address"
       @submit="updateAddress"
@@ -9,17 +10,29 @@
     />
     <div v-else class="sheet address-form">
       <div class="address-form__header">
-        <b>Адрес №{{ number }}. {{ address.name }}</b>
+        <b
+          >Адрес №
+          <span data-test="profile-address-title"
+            >{{ number }}. {{ address.name }}</span
+          >
+        </b>
 
         <div class="address-form__edit">
-          <button type="button" class="icon" @click="isEditing = true">
+          <button
+            type="button"
+            data-test="profile-address-edit"
+            class="icon"
+            @click="isEditing = true"
+          >
             <span class="visually-hidden">Изменить адрес</span>
           </button>
         </div>
       </div>
 
-      <p>{{ formattedAddress }}</p>
-      <small v-if="address.comment">{{ address.comment }}</small>
+      <p data-test="profile-formatted-address">{{ formattedAddress }}</p>
+      <small v-if="address.comment" data-test="profile-address-comment">{{
+        address.comment
+      }}</small>
     </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 <template>
-  <div v-if="orderList.length && miscList.length" class="layout__content">
+  <div v-if="orderList.length" class="layout__content">
     <AppLayoutTitle>История заказов</AppLayoutTitle>
 
     <OrderItem v-for="order in orderList" :key="order.id" :order="order" />

@@ -2,11 +2,16 @@
   <section class="sheet order">
     <div class="order__wrapper">
       <div class="order__number">
-        <b>Заказ #{{ order.id }}</b>
+        <b
+          >Заказ #<span data-test="order-id">{{ order.id }}</span></b
+        >
       </div>
 
       <div class="order__sum">
-        <span>Сумма заказа: {{ total }} ₽</span>
+        <span
+          >Сумма заказа:
+          <span data-test="order-total">{{ total }}</span> ₽</span
+        >
       </div>
 
       <div class="order__button">
@@ -20,7 +25,12 @@
       </div>
 
       <div class="order__button">
-        <button type="button" class="button" @click="handleRepeatOrder">
+        <button
+          type="button"
+          class="button"
+          data-test="repeat-order"
+          @click="handleRepeatOrder"
+        >
           Повторить
         </button>
       </div>
@@ -42,15 +52,30 @@
           />
 
           <div class="product__text">
-            <h2>{{ pizza.name }}</h2>
+            <h2 data-test="order-pizza-name">{{ pizza.name }}</h2>
 
             <ul>
               <li>
-                {{ getSizeDesc(pizza.sizeId) }},
-                {{ getDoughDesc(pizza.doughId) }}
+                <span data-test="order-size">{{
+                  getSizeDesc(pizza.sizeId)
+                }}</span
+                >,
+                <span data-test="order-dough">{{
+                  getDoughDesc(pizza.doughId)
+                }}</span>
               </li>
-              <li>Соус: {{ getSauceDesc(pizza.sauceId) }}</li>
-              <li>Начинка: {{ getIngredientsDesc(pizza.ingredients) }}</li>
+              <li>
+                Соус:
+                <span data-test="order-sauce">{{
+                  getSauceDesc(pizza.sauceId)
+                }}</span>
+              </li>
+              <li>
+                Начинка:
+                <span data-test="order-ingredients">{{
+                  getIngredientsDesc(pizza.ingredients)
+                }}</span>
+              </li>
             </ul>
           </div>
         </div>
@@ -75,7 +100,7 @@
       </li>
     </ul>
 
-    <p class="order__address">
+    <p data-test="order-address" class="order__address">
       {{ orderAddress }}
     </p>
   </section>
@@ -160,7 +185,7 @@ export default {
         const ingredient = this.ingredientList.find(
           (it) => it.id === item.ingredientId
         );
-        return ingredient.name.toLowerCase();
+        return ingredient?.name.toLowerCase();
       });
       return ingredientsList.join(", ");
     },

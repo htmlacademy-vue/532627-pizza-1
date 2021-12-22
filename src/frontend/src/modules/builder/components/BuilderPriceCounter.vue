@@ -1,9 +1,10 @@
 <template>
   <div class="content__result">
-    <p>Итого: {{ totalSum }} ₽</p>
+    <p data-test="price-counter-total-sum">Итого: {{ totalSum }} ₽</p>
     <button
       type="button"
       :disabled="isDisabledSubmit"
+      data-test="price-counter-button"
       :class="{ 'button--disabled': isDisabledSubmit }"
       class="button"
       @click="id ? edit() : createCart()"

@@ -1,6 +1,11 @@
 <template>
   <div class="sign-form">
-    <a href="#" class="close close--white" @click.prevent="$router.push('/')">
+    <a
+      href="#"
+      data-test="login-close"
+      class="close close--white"
+      @click.prevent="$router.push('/')"
+    >
       <span class="visually-hidden">Закрыть форму авторизации</span>
     </a>
 
@@ -8,7 +13,7 @@
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
 
-    <form @submit.prevent="submit">
+    <form data-test="login-form" @submit.prevent="submit">
       <div class="sign-form__input">
         <label class="input">
           <span>E-mail</span>
@@ -17,6 +22,7 @@
             type="email"
             name="email"
             placeholder="example@mail.ru"
+            data-test="login-email"
           />
         </label>
       </div>
@@ -29,6 +35,7 @@
             type="password"
             name="pass"
             placeholder="***********"
+            data-test="login-password"
           />
         </label>
       </div>

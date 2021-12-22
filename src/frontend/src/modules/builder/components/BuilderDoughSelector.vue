@@ -1,5 +1,5 @@
 <template>
-  <div class="content__dough">
+  <div v-if="doughList.length" class="content__dough">
     <div class="sheet">
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
       <div class="sheet__content dough">
@@ -7,14 +7,15 @@
           v-for="dough in doughList"
           :key="dough.name"
           name="dough"
-          :checked="dough.value === daughValue"
+          :checked="dough.value === doughValue"
           :item-value="dough.value"
+          data-test="dough-radio-input"
           :class="{
             'dough__input--light': dough.value === 'light',
             'dough__input--large': dough.value === 'large',
           }"
           class="dough__input"
-          @change="setDaughValue"
+          @change="setDough"
         >
           <template #name>
             <b> {{ dough.name }}</b>
@@ -30,9 +31,9 @@
 </template>
 
 <script>
-import { SET_DOUGH } from "@/store/mutation.types";
-import { mapGetters, mapMutations } from "vuex";
+import { mapGetters, mapActions } from "vuex";
 import AppRadioButton from "@/common/components/AppRadioButton";
+import { CHANGE_DOUGH } from "@/store/actions.types";
 
 export default {
   name: "BuilderDoughSelector",
@@ -40,12 +41,12 @@ export default {
   computed: {
     ...mapGetters("Builder", {
       doughList: "getDoughList",
-      daughValue: "getDoughValue",
+      doughValue: "getDoughValue",
     }),
   },
   methods: {
-    ...mapMutations("Builder", {
-      setDaughValue: SET_DOUGH,
+    ...mapActions("Builder", {
+      setDough: CHANGE_DOUGH,
     }),
   },
 };

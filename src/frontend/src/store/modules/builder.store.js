@@ -15,11 +15,19 @@ import {
   SET_SAUCE,
   SET_SIZE,
   RESET_BUILDER,
-  CHANGE_INGREDIENTS,
+  SET_INGREDIENTS,
   CHANGE_PIZZA,
   SET_BUILDER,
 } from "@/store/mutation.types";
-import { FETCH_BUILDER_DATA } from "@/store/actions.types";
+import {
+  FETCH_BUILDER_DATA,
+  CHANGE_DOUGH,
+  CHANGE_SIZE,
+  CHANGE_NAME,
+  CHANGE_INGREDIENTS,
+  CHANGE_SAUCE,
+  EDIT_PIZZA,
+} from "@/store/actions.types";
 
 const initState = () => ({
   id: 0,
@@ -38,6 +46,24 @@ export default {
   namespaced: true,
   state: initState(),
   actions: {
+    [CHANGE_SAUCE]({ commit }, payload) {
+      commit(SET_SAUCE, payload);
+    },
+    [CHANGE_INGREDIENTS]({ commit }, payload) {
+      commit(SET_INGREDIENTS, payload);
+    },
+    [CHANGE_NAME]({ commit }, name) {
+      commit(SET_PIZZA_NAME, name);
+    },
+    [CHANGE_DOUGH]({ commit }, dough) {
+      commit(SET_DOUGH, dough);
+    },
+    [CHANGE_SIZE]({ commit }, size) {
+      commit(SET_SIZE, size);
+    },
+    [EDIT_PIZZA]({ commit }, pizza) {
+      commit(CHANGE_PIZZA, pizza);
+    },
     async [FETCH_BUILDER_DATA]({ commit }) {
       try {
         const [doughList, ingredients, saucesList, sizeList] =
@@ -91,7 +117,7 @@ export default {
         return { ...item, count: 0 };
       });
     },
-    [CHANGE_INGREDIENTS](state, { value, count }) {
+    [SET_INGREDIENTS](state, { value, count }) {
       const currentIngredient = state.ingredients.find(
         (ingredient) => ingredient.value === value
       );
@@ -114,22 +140,22 @@ export default {
   },
   getters: {
     checkedIngredients(state) {
-      return state.ingredients.filter((ingredient) => ingredient.count > 0);
+      return (
+        state.ingredients?.filter((ingredient) => ingredient.count > 0) ?? []
+      );
     },
     totalSum(state, getters) {
-      const doughPrice = state.doughList.find(
-        (item) => item.value === state.dough
-      )?.price;
+      const doughPrice =
+        state.doughList?.find((item) => item.value === state.dough)?.price ?? 0;
 
-      const saucePrice = state.sauceList.find(
-        (item) => item.value === state.sauce
-      )?.price;
+      const saucePrice =
+        state.sauceList?.find((item) => item.value === state.sauce)?.price ?? 0;
 
-      const sizeMultiplier = state.sizeList.find(
-        (item) => item.value === state.size
-      )?.multiplier;
+      const sizeMultiplier =
+        state.sizeList?.find((item) => item.value === state.size)?.multiplier ??
+        0;
 
-      const ingredientsPrice = getters.checkedIngredients.reduce(
+      const ingredientsPrice = getters.checkedIngredients?.reduce(
         (acc, item) => {
           acc += item.count * item.price;
           return acc;

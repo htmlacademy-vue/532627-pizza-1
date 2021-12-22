@@ -1,8 +1,6 @@
 import {
   ADD_TO_CART,
   RESET_CART,
-  ADD_MISC,
-  DELETE_MISC,
   REMOVE_PIZZA,
   CHANGE_PIZZA_QUANTITY,
   EDIT_PIZZA,
@@ -11,14 +9,19 @@ import {
   SET_PHONE,
   SET_CART,
   SET_SUCCESS,
+  CHANGE_MISC_QUANTITY,
 } from "@/store/mutation.types";
 import {
   CREATE_CART,
   DECREASE_PIZZA_QUANTITY,
+  INCREASE_PIZZA_QUANTITY,
   EDIT_CART_PIZZA,
   FETCH_MISC,
   CREATE_ORDER,
   REPEAT_ORDER,
+  UPDATE_MISC,
+  CHANGE_PHONE,
+  CHANGE_ADDRESS,
 } from "@/store/actions.types";
 
 import { resourceTypes } from "@/common/enums";
@@ -55,13 +58,6 @@ export default {
     [RESET_CART](state) {
       Object.assign(state, { ...initState(), isSuccess: state.isSuccess });
     },
-    [ADD_MISC](state, miscId) {
-      const miscItem = state.misc.find((misc) => miscId === misc.id);
-
-      if (miscItem) {
-        miscItem.quantity += 1;
-      }
-    },
     [EDIT_PIZZA](state, pizza) {
       const currentPizza = state.cart.find(
         (pizzaItem) => pizzaItem.id === pizza.id
@@ -71,11 +67,11 @@ export default {
         Object.assign(currentPizza, pizza);
       }
     },
-    [DELETE_MISC](state, miscId) {
-      const miscItem = state.misc.find((misc) => miscId === misc.id);
+    [CHANGE_MISC_QUANTITY](state, { id, quantity }) {
+      const miscItem = state.misc.find((misc) => id === misc.id);
 
-      if (miscItem && miscItem.quantity > 0) {
-        miscItem.quantity -= 1;
+      if (miscItem) {
+        miscItem.quantity = quantity;
       }
     },
     [REMOVE_PIZZA](state, id) {
@@ -97,6 +93,15 @@ export default {
     },
   },
   actions: {
+    [CHANGE_ADDRESS]({ commit }, address) {
+      commit(SET_ADDRESS, address);
+    },
+    [CHANGE_PHONE]({ commit }, phone) {
+      commit(SET_PHONE, phone);
+    },
+    [UPDATE_MISC]({ commit }, { id, quantity }) {
+      commit(CHANGE_MISC_QUANTITY, { id, quantity: Math.max(quantity, 0) });
+    },
     [REPEAT_ORDER]({ commit, rootGetters, getters }, orderId) {
       const copiedOrder = rootGetters["Orders/getOrderById"](orderId);
 
@@ -247,6 +252,10 @@ export default {
 
       commit("Builder/RESET_BUILDER", null, { root: true });
     },
+    [INCREASE_PIZZA_QUANTITY]({ commit }, { id, quantity }) {
+      commit(CHANGE_PIZZA_QUANTITY, { id, quantity });
+    },
+
     [DECREASE_PIZZA_QUANTITY]({ commit }, { id, quantity }) {
       if (quantity === 0) {
         commit(REMOVE_PIZZA, id);

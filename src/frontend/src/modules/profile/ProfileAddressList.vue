@@ -19,6 +19,7 @@
       <button
         :disabled="isAddingNew"
         type="button"
+        data-test="profile-address-list-add-new"
         class="button button--border"
         @click="isAddingNew = true"
       >

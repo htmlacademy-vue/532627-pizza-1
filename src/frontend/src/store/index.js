@@ -8,6 +8,14 @@ import { vuexPlugins } from "@/plugins";
 
 Vue.use(Vuex);
 
+export const mutations = {
+  [START_LOADING](state) {
+    state.isLoading = true;
+  },
+  [FINISH_LOADING](state) {
+    state.isLoading = false;
+  },
+};
 export default new Vuex.Store({
   state: {
     isLoading: false,
@@ -17,14 +25,7 @@ export default new Vuex.Store({
       return state.isLoading;
     },
   },
-  mutations: {
-    [START_LOADING](state) {
-      state.isLoading = true;
-    },
-    [FINISH_LOADING](state) {
-      state.isLoading = false;
-    },
-  },
+  mutations,
   actions: {
     async [INIT]({ commit, dispatch }) {
       commit(START_LOADING);

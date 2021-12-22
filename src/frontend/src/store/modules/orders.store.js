@@ -51,10 +51,11 @@ export default {
           (it) => it.id === item.ingredientId
         );
 
-        acc += ingredient.price * item.quantity;
+        if (ingredient) {
+          acc += ingredient.price * item.quantity;
+        }
         return acc;
       }, 0);
-
       return (dough.price + sauce.price + sumIngredients) * size.multiplier;
     },
     getMiscPrice: (state, _, rootState) => (misc) => {
