@@ -7,11 +7,11 @@ import CartFooter from "@/modules/cart/CartFooter";
 import CartEmpty from "@/modules/cart/CartEmpty";
 import CartList from "@/modules/cart/CartList";
 import build from "@/store/mocks/static/build.json";
-import cart from "@/store/modules/cart.store";
+import cart from "@/modules/cart/store";
 import CartAdditional from "@/modules/cart/CartAdditional";
 import CartOrder from "@/modules/cart/CartOrder";
 import CartThanksForOrder from "@/modules/cart/CartThanksForOrder";
-import {SET_SUCCESS} from "@/store/mutation.types";
+import { SET_SUCCESS } from "@/store/mutation.types";
 
 const mocks = {
   $router: {
@@ -68,7 +68,7 @@ describe("Cart", () => {
     expect(cartEmpty.exists()).toBeTruthy();
   });
 
-  test("render CartList component if cart not empty", async () =>{
+  test("render CartList component if cart not empty", async () => {
     createComponent({ store, mocks });
     await setCart(store, build, true);
     const cartList = wrapper.findComponent(CartList);

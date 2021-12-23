@@ -1,6 +1,5 @@
 import Vuex from "vuex";
-import modules from "@/store/modules";
-import { mutations } from "@/store";
+import modules from "@/modules";
 import { vuexPlugins } from "@/plugins";
 import {
   SET_AUTH,

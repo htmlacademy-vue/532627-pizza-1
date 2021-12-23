@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Vuex from "vuex";
-import modules from "./modules";
+import modules from "@/modules";
 
 import { START_LOADING, FINISH_LOADING } from "@/store/mutation.types";
 import { FETCH_MISC, FETCH_BUILDER_DATA, INIT } from "@/store/actions.types";

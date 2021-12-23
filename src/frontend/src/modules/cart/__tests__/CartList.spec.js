@@ -8,7 +8,7 @@ import {
   EDIT_PIZZA,
   INCREASE_PIZZA_QUANTITY,
 } from "@/store/actions.types";
-import cart from "@/store/modules/cart.store";
+import cart from "@/store/modules/cart/cart.store";
 import VueRouter from "vue-router";
 const localVue = createLocalVue();
 const router = new VueRouter();
