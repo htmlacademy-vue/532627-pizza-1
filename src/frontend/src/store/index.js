@@ -4,7 +4,7 @@ import modules from "@/modules";
 
 import { START_LOADING, FINISH_LOADING } from "@/store/mutation.types";
 import { FETCH_MISC, FETCH_BUILDER_DATA, INIT } from "@/store/actions.types";
-import { vuexPlugins } from "@/plugins";
+import { vuexPlugins } from "@/plugins/vuexPlugins";
 
 Vue.use(Vuex);
 

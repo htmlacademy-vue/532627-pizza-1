@@ -17,9 +17,3 @@ const plugins = {
 };
 
 Vue.use(plugins);
-
-export const vuexPlugins = (store) => {
-  store.$jwt = JwtService;
-  store.$notifier = new Notifier(store);
-  store.$api = createResources(store.$notifier);
-};

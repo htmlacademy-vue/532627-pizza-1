@@ -1,4 +1,4 @@
-import Login from "@/views/^Login";
+import Login from "@/views/Login";
 import { createLocalVue, mount } from "@vue/test-utils";
 import { authUser, generateMockStore } from "@/store/mocks";
 import { LOGIN } from "@/store/actions.types";
