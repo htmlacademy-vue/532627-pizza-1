@@ -3,7 +3,7 @@ import AppNotification from "@/common/components/AppNotification";
 
 import Vuex from "vuex";
 import { mount, createLocalVue } from "@vue/test-utils";
-import Notifications from "@/store/modules/notification.store";
+import Notifications from "@/modules/notification/store";
 const localVue = createLocalVue();
 
 localVue.use(Vuex);

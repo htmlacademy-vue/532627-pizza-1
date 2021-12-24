@@ -1,7 +1,7 @@
+import Vue from "vue";
 import Vuex from "vuex";
-import modules from "@/store/modules";
-import { mutations } from "@/store";
-import { vuexPlugins } from "@/plugins";
+import modules from "@/modules";
+import { vuexPlugins } from "@/plugins/vuexPlugins";
 import {
   SET_AUTH,
   SET_USER,
@@ -35,6 +35,7 @@ const state = () => ({
 });
 
 export const generateMockStore = (actions, mutations) => {
+  Vue.use(Vuex);
   if (actions) {
     Object.entries(actions).forEach(([module, actions]) => {
       modules[module] = { ...modules[module], actions };

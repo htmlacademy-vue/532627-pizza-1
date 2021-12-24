@@ -16,6 +16,8 @@ const mocks = {
   },
   $notifier: {
     success: jest.fn(),
+    warning: jest.fn(),
+    error: jest.fn(),
   },
 };
 
@@ -74,7 +76,7 @@ describe("AppLayoutHeader", () => {
 
   test("logout by btn click", async () => {
     authUser(store);
-    createComponent({ localVue, store, stubs, router });
+    createComponent({ localVue, store, stubs, router, mocks });
     const logoutBtn = wrapper.find(`[data-test="logout"]`);
     await logoutBtn.trigger("click");
     expect(actions.Auth[LOGOUT]).toHaveBeenCalled();

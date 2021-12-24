@@ -1,9 +1,9 @@
-import Auth from "./auth.store";
-import Builder from "./builder.store";
-import Cart from "./cart.store";
-import Orders from "./orders.store";
-import Notification from "./notification.store";
-import Addresses from "./addresses.store";
+import Auth from "../../modules/auth/store";
+import Builder from "../../modules/builder/store";
+import Cart from "../../modules/cart/store";
+import Orders from "../../modules/orders/store";
+import Notification from "../../modules/notification/store";
+import Addresses from "../../modules/addresses/store";
 
 export default {
   Auth,
