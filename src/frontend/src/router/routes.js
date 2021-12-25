@@ -86,8 +86,7 @@ export default pages
     const { default: component } = await import(`../views/${path.join("/")}`);
 
     // Получаем свойства из компонента.
-    const { layout, middlewares, name, notAnimate } = component;
-
+    const { layout, middlewares, name } = component;
     // Создаём маршрут.
     const route = `/${generateRoute([...path])}`;
 
@@ -111,8 +110,7 @@ export default pages
           component: childComponent,
           meta: {
             layout: childLayout || defaultLayout,
-            middlewares: childMiddleware || {},
-            notAnimate: childComponent.notAnimate || false,
+            middlewares: childMiddleware || [],
           },
         };
       });
@@ -125,8 +123,7 @@ export default pages
       component,
       meta: {
         layout: layout || defaultLayout,
-        middlewares: middlewares || {},
-        notAnimate,
+        middlewares: middlewares || [],
       },
       children,
     };

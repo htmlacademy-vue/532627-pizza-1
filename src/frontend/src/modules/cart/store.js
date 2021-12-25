@@ -197,7 +197,6 @@ export default {
 
       const order = {
         userId: rootState.Auth.user?.id ?? null,
-        //phone: state.phone,  TODO: backend не принимает
         address: state.address,
         pizzas,
         misc,
