@@ -23,18 +23,17 @@
           </option>
         </select>
       </label>
-
-      <label class="input input--big-label">
-        <span>Контактный телефон:</span>
-        <input
-          v-model="phone"
-          type="text"
-          name="tel"
-          placeholder="+7 999-999-99-99"
-          data-test="cart-order-phone"
-          @input="setPhone(phone)"
-        />
-      </label>
+      <AppInput
+        v-model="phone"
+        type="text"
+        name="tel"
+        mod-big-label
+        placeholder="+7 999-999-99-99"
+        data-test="cart-order-phone"
+        @input="setPhone(phone)"
+      >
+        Контактный телефон:
+      </AppInput>
 
       <div
         v-if="deliveryType !== $options.deliveryTypes.SELF"
@@ -44,43 +43,40 @@
         <span class="cart-form__label">Новый адрес:</span>
 
         <div class="cart-form__input">
-          <label class="input">
-            <span>Улица*</span>
-            <input
-              v-model="address.street"
-              :disabled="isDisabled"
-              type="text"
-              name="street"
-              data-test="cart-order-street"
-              @input="setAddress(address)"
-            />
-          </label>
+          <AppInput
+            v-model="address.street"
+            :disabled="isDisabled"
+            type="text"
+            name="street"
+            data-test="cart-order-street"
+            @input="setAddress(address)"
+          >
+            Улица*
+          </AppInput>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
-          <label class="input">
-            <span>Дом*</span>
-            <input
-              v-model="address.building"
-              :disabled="isDisabled"
-              type="text"
-              name="house"
-              @input="setAddress(address)"
-            />
-          </label>
+          <AppInput
+            v-model="address.building"
+            :disabled="isDisabled"
+            type="text"
+            name="house"
+            is-visible-caption
+            @input="setAddress(address)"
+            >Дом*
+          </AppInput>
         </div>
 
         <div class="cart-form__input cart-form__input--small">
-          <label class="input">
-            <span>Квартира</span>
-            <input
-              v-model="address.flat"
-              :disabled="isDisabled"
-              type="text"
-              name="apartment"
-              @input="setAddress(address)"
-            />
-          </label>
+          <AppInput
+            v-model="address.flat"
+            :disabled="isDisabled"
+            type="text"
+            name="apartment"
+            @input="setAddress(address)"
+          >
+            Квартира
+          </AppInput>
         </div>
       </div>
     </div>
@@ -91,9 +87,11 @@
 import { mapActions, mapGetters } from "vuex";
 import { DELIVERY_TYPES } from "@/common/constants";
 import { CHANGE_ADDRESS, CHANGE_PHONE } from "@/store/actions.types";
+import AppInput from "@/common/components/AppInput";
 
 export default {
   name: "CartOrder",
+  components: { AppInput },
   data() {
     return {
       deliveryType: DELIVERY_TYPES.SELF,
@@ -151,3 +149,72 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+.cart-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.cart-form__select {
+  display: flex;
+  align-items: center;
+
+  margin-right: auto;
+
+  span {
+    margin-right: 16px;
+  }
+}
+
+.cart-form__label {
+  @include b-s16-h19;
+
+  white-space: nowrap;
+}
+
+.cart-form__address {
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  margin-top: 20px;
+}
+
+.cart-form__input {
+  flex-grow: 1;
+
+  margin-bottom: 20px;
+  margin-left: 16px;
+
+  &--small {
+    max-width: 120px;
+  }
+}
+
+.select {
+  @include r-s16-h19;
+  display: block;
+  margin: 0;
+  padding: 8px 16px;
+  padding-right: 30px;
+  cursor: pointer;
+  transition: 0.3s;
+  color: $black;
+  border: 1px solid $purple-400;
+  border-radius: 8px;
+  outline: none;
+  background-color: $silver-100;
+  background-image: url("~@/assets/img/select.svg");
+  background-repeat: no-repeat;
+  background-position: right 8px center;
+  font-family: inherit;
+  appearance: none;
+  &:hover {
+    border-color: $orange-100;
+  }
+  &:focus {
+    border-color: $green-500;
+  }
+}
+</style>

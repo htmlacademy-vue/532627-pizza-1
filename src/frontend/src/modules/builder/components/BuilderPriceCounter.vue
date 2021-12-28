@@ -1,25 +1,26 @@
 <template>
   <div class="content__result">
     <p data-test="price-counter-total-sum">Итого: {{ totalSum }} ₽</p>
-    <button
-      type="button"
+
+    <AppButton
       :disabled="isDisabledSubmit"
       data-test="price-counter-button"
       :class="{ 'button--disabled': isDisabledSubmit }"
-      class="button"
       @click="id ? edit() : createCart()"
     >
       Готовьте!
-    </button>
+    </AppButton>
   </div>
 </template>
 
 <script>
 import { CREATE_CART, EDIT_CART_PIZZA } from "@/store/actions.types";
 import { mapGetters, mapActions } from "vuex";
+import AppButton from "@/common/components/AppButton";
 
 export default {
   name: "BuilderPriceCounter",
+  components: { AppButton },
   computed: {
     ...mapGetters("Builder", {
       totalSum: "totalSum",

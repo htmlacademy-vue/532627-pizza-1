@@ -1,5 +1,5 @@
 <template>
-  <div class="counter counter--orange">
+  <div class="counter">
     <button
       type="button"
       :disabled="value === 0"
@@ -23,7 +23,10 @@
       type="button"
       :disabled="value === maxValue"
       data-test="button--plus"
-      :class="{ 'counter__button--disabled': value === maxValue }"
+      :class="{
+        'counter__button--disabled': value === maxValue,
+        'counter__button--orange': isOrangeTheme,
+      }"
       class="counter__button counter__button--plus"
       @click="increase"
     >
@@ -43,6 +46,10 @@ export default {
     maxValue: {
       type: Number,
       default: 3,
+    },
+    isOrangeTheme: {
+      type: Boolean,
+      default: false,
     },
   },
   methods: {

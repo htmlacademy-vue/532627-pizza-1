@@ -1,5 +1,5 @@
 <template>
-  <label class="radio">
+  <label :class="{ radio: radio }">
     <input
       :name="name"
       :value="itemValue"
@@ -29,6 +29,10 @@ export default {
       required: true,
     },
     checked: {
+      type: Boolean,
+      default: false,
+    },
+    radio: {
       type: Boolean,
       default: false,
     },

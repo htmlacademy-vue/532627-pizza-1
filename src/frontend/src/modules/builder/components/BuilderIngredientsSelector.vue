@@ -13,6 +13,7 @@
             :item-value="sauce.value"
             :checked="sauce.value === sauceValue"
             data-test="sauce-item"
+            radio
             name="sauce"
             class="radio ingredients__input"
             @change="changeSauce"

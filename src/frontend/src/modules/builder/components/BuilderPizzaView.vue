@@ -1,15 +1,15 @@
 <template>
   <div class="content__pizza">
     <label class="input">
-      <span class="visually-hidden">Название пиццы</span>
-      <input
+      <AppInput
         :value="pizzaName"
-        type="text"
         name="pizza_name"
-        placeholder="Введите название пиццы"
         data-test="pizza-view-name"
-        @input="setPizzaName($event.target.value)"
-      />
+        placeholder="Введите название пиццы"
+        @input="setPizzaName($event)"
+      >
+        Название пиццы
+      </AppInput>
     </label>
 
     <div class="content__constructor">
@@ -24,7 +24,11 @@
               <template v-for="ingredient in checkedIngredients">
                 <div
                   :key="ingredient.id"
-                  :class="`pizza__filling--${ingredient.value}`"
+                  :class="{
+                    [`pizza__filling--${ingredient.value}`]: ingredient.value,
+                    'pizza__filling--second': ingredient.count === 2,
+                    'pizza__filling--third': ingredient.count === 3,
+                  }"
                   class="pizza__filling"
                 />
               </template>
@@ -43,10 +47,12 @@ import { mapActions, mapGetters } from "vuex";
 import BuilderPriceCounter from "@/modules/builder/components/BuilderPriceCounter";
 import AppDrop from "@/common/components/AppDrop";
 import { CHANGE_NAME, CHANGE_INGREDIENTS } from "@/store/actions.types";
+import AppInput from "@/common/components/AppInput";
 
 export default {
   name: "BuilderPizzaView",
   components: {
+    AppInput,
     BuilderPriceCounter,
     AppDrop,
   },

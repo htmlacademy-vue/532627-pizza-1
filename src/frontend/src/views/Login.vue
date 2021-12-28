@@ -16,30 +16,31 @@
     <form data-test="login-form" @submit.prevent="submit">
       <div class="sign-form__input">
         <label class="input">
-          <span>E-mail</span>
-          <input
+          <AppInput
+            ref="email"
             v-model="email"
-            type="email"
+            data-test="login-email"
             name="email"
             placeholder="example@mail.ru"
-            data-test="login-email"
-          />
+            type="email"
+          >
+            E-mail
+          </AppInput>
         </label>
       </div>
 
       <div class="sign-form__input">
-        <label class="input">
-          <span>Пароль</span>
-          <input
-            v-model="password"
-            type="password"
-            name="pass"
-            placeholder="***********"
-            data-test="login-password"
-          />
-        </label>
+        <AppInput
+          v-model="password"
+          data-test="login-password"
+          name="pass"
+          placeholder="***********"
+          type="password"
+        >
+          Пароль
+        </AppInput>
       </div>
-      <button type="submit" class="button">Авторизоваться</button>
+      <AppButton type="submit">Авторизоваться</AppButton>
     </form>
   </div>
 </template>
@@ -48,9 +49,15 @@
 import { LOGIN } from "@/store/actions.types";
 import { mapActions, mapGetters } from "vuex";
 import { loggedIn } from "@/middlewares";
+import AppInput from "@/common/components/AppInput";
+import AppButton from "@/common/components/AppButton";
 
 export default {
   name: "Login",
+  components: {
+    AppButton,
+    AppInput,
+  },
   middlewares: [loggedIn],
   data() {
     return {
