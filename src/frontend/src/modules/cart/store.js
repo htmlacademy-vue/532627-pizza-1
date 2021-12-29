@@ -22,6 +22,7 @@ import {
   UPDATE_MISC,
   CHANGE_PHONE,
   CHANGE_ADDRESS,
+  ADD_ADDRESS,
 } from "@/store/actions.types";
 
 import { resourceTypes } from "@/common/enums";
@@ -32,6 +33,7 @@ const initState = () => ({
   misc: [],
   phone: "",
   address: {
+    id: null,
     street: "",
     building: "",
     flat: "",
@@ -204,6 +206,11 @@ export default {
 
       try {
         await this.$api.orders.post(order);
+
+        if (!state.address?.id) {
+          dispatch(`Addresses/${ADD_ADDRESS}`, state.address, { root: true });
+        }
+
         commit(SET_SUCCESS, true);
         commit(RESET_CART);
         dispatch(FETCH_MISC);

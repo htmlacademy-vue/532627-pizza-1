@@ -196,13 +196,4 @@ export default {
     padding: 16px 27px;
   }
 }
-.address-form__header {
-  @include b-s14-h16;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 21px;
-  padding: 10px 16px;
-  border-bottom: 1px solid rgba($green-500, 0.1);
-}
 </style>
