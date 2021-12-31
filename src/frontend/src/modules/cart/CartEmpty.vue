@@ -9,3 +9,9 @@ export default {
   name: "CartEmpty",
 };
 </script>
+
+<style lang="scss" scoped>
+.cart__empty {
+  padding: 20px 30px;
+}
+</style>

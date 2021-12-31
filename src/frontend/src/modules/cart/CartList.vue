@@ -37,44 +37,13 @@
         </div>
       </div>
 
-      <div class="counter cart-list__counter">
-        <button
-          type="button"
-          data-test="pizza-item-decrease"
-          class="counter__button counter__button--minus"
-          @click="
-            decreaseQuantity({
-              id: pizza.id,
-              quantity: Math.max(0, pizza.quantity - 1),
-            })
-          "
-        >
-          <span class="visually-hidden">Меньше</span>
-        </button>
-        <input
-          type="text"
-          name="counter"
-          data-test="cart-item-quantity"
-          :value="pizza.quantity"
-          readonly
-          class="counter__input"
-        />
-
-        <button
-          type="button"
-          data-test="pizza-item-increase"
-          class="counter__button counter__button--plus counter__button--orange"
-          @click="
-            increasePizzaQuantity({
-              id: pizza.id,
-              quantity: pizza.quantity + 1,
-            })
-          "
-        >
-          <span class="visually-hidden">Больше</span>
-        </button>
-      </div>
-
+      <AppItemCounter
+        :value="pizza.quantity"
+        is-orange-theme
+        data-test="pizza-item-decrease"
+        class="cart-list__counter"
+        @change="changePizzaQuantity(pizza, $event)"
+      />
       <div class="cart-list__price">
         <b>
           <span data-test="cart-item-total-price">{{
@@ -108,9 +77,13 @@ import {
   EDIT_PIZZA,
   INCREASE_PIZZA_QUANTITY,
 } from "@/store/actions.types";
+import AppItemCounter from "@/common/components/AppItemCounter";
 
 export default {
   name: "CartList",
+  components: {
+    AppItemCounter,
+  },
   computed: {
     ...mapGetters("Cart", {
       pizzas: "getCart",
@@ -124,6 +97,19 @@ export default {
     ...mapActions("Builder", {
       changeBuilder: EDIT_PIZZA,
     }),
+    changePizzaQuantity(pizza, quantity) {
+      if (quantity > pizza.quantity) {
+        this.increasePizzaQuantity({
+          id: pizza.id,
+          quantity: Math.max(0, quantity),
+        });
+      } else {
+        this.decreaseQuantity({
+          id: pizza.id,
+          quantity: Math.max(0, quantity),
+        });
+      }
+    },
     getSize(value) {
       return getNameByValue(value, SIZE_TYPES);
     },
@@ -143,3 +129,82 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+@import "~@/assets/scss/mixins/m_clear-list.scss";
+.cart-list {
+  @include clear-list;
+  padding: 15px 0;
+}
+.cart-list__item {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 15px;
+  padding-right: 15px;
+  padding-bottom: 15px;
+  padding-left: 15px;
+  border-bottom: 1px solid rgba($green-500, 0.1);
+  &:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+  }
+}
+.cart-list__product {
+  flex-grow: 1;
+  margin-right: auto;
+}
+
+.cart-list__counter {
+  width: 54px;
+  margin-right: auto;
+  margin-left: 20px;
+}
+.cart-list__price {
+  min-width: 100px;
+  margin-right: 36px;
+  margin-left: 10px;
+  text-align: right;
+  b {
+    @include b-s16-h19;
+  }
+}
+.cart-list__edit {
+  @include l-s11-h13;
+  cursor: pointer;
+  transition: 0.3s;
+  border: none;
+  outline: none;
+  background-color: transparent;
+  &:hover {
+    color: $green-500;
+  }
+  &:active {
+    color: $green-600;
+  }
+  &:focus {
+    color: $green-400;
+  }
+}
+
+.product {
+  display: flex;
+  align-items: center;
+}
+
+.product__text {
+  margin-left: 15px;
+
+  h2 {
+    @include b-s18-h21;
+
+    margin-top: 0;
+    margin-bottom: 10px;
+  }
+
+  ul {
+    @include clear-list;
+    @include l-s11-h13;
+  }
+}
+</style>

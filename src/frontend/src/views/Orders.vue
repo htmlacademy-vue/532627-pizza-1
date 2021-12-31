@@ -11,10 +11,13 @@ import AppLayoutTitle from "@/common/components/AppLayoutTitle";
 import OrderItem from "@/modules/orders/OrderItem";
 import { FETCH_MISC, FETCH_ORDERS } from "@/store/actions.types";
 import { mapActions, mapGetters } from "vuex";
+import { auth } from "@/middlewares";
 
 export default {
   name: "Orders",
   components: { OrderItem, AppLayoutTitle },
+  layout: "AppLayoutSidebar",
+  middlewares: [auth],
   computed: {
     ...mapGetters("Orders", {
       orderList: "getOrderList",

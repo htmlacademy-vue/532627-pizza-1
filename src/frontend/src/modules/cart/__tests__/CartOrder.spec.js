@@ -51,9 +51,8 @@ describe("CartOrder", () => {
 
   test("call change phone action by typing in input", async () => {
     createComponent({ store });
-    const phoneInput = wrapper.find("[data-test='cart-order-phone']");
-    phoneInput.element.value = "+79999999999";
-    await phoneInput.trigger("input", { value: "+79999999999" });
+    const phoneInput = wrapper.findComponent({ ref: "cart-order-phone" });
+    await phoneInput.vm.$emit("input", "+79999999999");
     expect(actions.Cart[CHANGE_PHONE]).toHaveBeenCalledWith(
       expect.any(Object),
       "+79999999999"

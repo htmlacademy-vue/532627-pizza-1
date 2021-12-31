@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="app-default-layout">
     <AppLayoutHeader />
     <slot />
   </div>
@@ -13,3 +13,10 @@ export default {
   components: { AppLayoutHeader },
 };
 </script>
+<style lang="scss" scoped>
+.app-default-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+</style>

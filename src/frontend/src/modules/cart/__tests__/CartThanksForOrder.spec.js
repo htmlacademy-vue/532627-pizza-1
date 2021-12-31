@@ -2,7 +2,11 @@ import { shallowMount } from "@vue/test-utils";
 import CartThanksForOrder from "@/modules/cart/CartThanksForOrder";
 import { authUser, generateMockStore, unAuthUser } from "@/store/mocks";
 
-const stubs = ["router-link"];
+const mocks = {
+  $router: {
+    push: jest.fn(),
+  },
+};
 
 describe("CartThanksForOrder", () => {
   let wrapper;
@@ -25,22 +29,23 @@ describe("CartThanksForOrder", () => {
 
   test("render component", () => {
     createComponent({
-      stubs,
       store,
     });
     expect(wrapper.exists()).toBeTruthy();
   });
 
-  test("link at logged state", () => {
+  test("link at logged state", async () => {
     authUser(store);
-    createComponent({ stubs, store });
-    const backLink = wrapper.find('[data-test="back-link"]');
-    expect(backLink.attributes().to).toBe("/orders");
+    createComponent({ store, mocks });
+    const backLink = wrapper.findComponent({ ref: "back-link" });
+    await backLink.vm.$emit("click");
+    expect(mocks.$router.push).toHaveBeenCalledWith("/orders");
   });
 
-  test("link at unlogged state", () => {
-    createComponent({ stubs, store });
-    const backLink = wrapper.find('[data-test="back-link"]');
-    expect(backLink.attributes().to).toBe("/");
+  test("link at unlogged state", async () => {
+    createComponent({ store, mocks });
+    const backLink = wrapper.findComponent({ ref: "back-link" });
+    await backLink.vm.$emit("click");
+    expect(mocks.$router.push).toHaveBeenCalledWith("/");
   });
 });
