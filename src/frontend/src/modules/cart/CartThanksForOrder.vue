@@ -8,7 +8,7 @@
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <AppButton tag="a" data-test="back-link" class="button" @click="goNext">
+      <AppButton ref="back-link" tag="a" class="button" @click="goNext">
         Отлично, я жду!
       </AppButton>
     </div>

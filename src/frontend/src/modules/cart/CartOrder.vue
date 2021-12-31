@@ -25,11 +25,11 @@
       </label>
       <AppInput
         v-model="phone"
+        ref="cart-order-phone"
         type="text"
         name="tel"
         mod-big-label
         placeholder="+7 999-999-99-99"
-        data-test="cart-order-phone"
         @input="setPhone(phone)"
       >
         Контактный телефон:

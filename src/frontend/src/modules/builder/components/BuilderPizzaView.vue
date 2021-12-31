@@ -2,9 +2,9 @@
   <div class="content__pizza">
     <label class="input">
       <AppInput
+        ref="pizza-view-name"
         :value="pizzaName"
         name="pizza_name"
-        data-test="pizza-view-name"
         placeholder="Введите название пиццы"
         @input="setPizzaName($event)"
       >

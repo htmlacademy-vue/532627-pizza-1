@@ -1,7 +1,6 @@
 import { initUser } from "@/common/helpers";
 
 export const auth = ({ next, store, nextMiddleware }) => {
-  console.log(111111);
   if (!store.getters["Auth/isLoggedIn"]) {
     const token = store.$jwt.getToken();
     if (token) {

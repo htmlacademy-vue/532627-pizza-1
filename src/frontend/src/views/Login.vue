@@ -17,9 +17,8 @@
       <div class="sign-form__input">
         <label class="input">
           <AppInput
-            ref="email"
             v-model="email"
-            data-test="login-email"
+            ref="login-email"
             name="email"
             placeholder="example@mail.ru"
             type="email"
@@ -32,7 +31,7 @@
       <div class="sign-form__input">
         <AppInput
           v-model="password"
-          data-test="login-password"
+          ref="login-password"
           name="pass"
           placeholder="***********"
           type="password"

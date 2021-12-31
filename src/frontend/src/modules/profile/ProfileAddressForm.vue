@@ -15,9 +15,9 @@
       <div class="address-form__input">
         <AppInput
           v-model="name"
+          ref="profile-address-name"
           type="text"
           name="addr-name"
-          data-test="profile-address-name"
           placeholder="Введите название адреса"
           required
         >
@@ -28,11 +28,11 @@
       <div class="address-form__input address-form__input--size--normal">
         <AppInput
           v-model="street"
+          ref="profile-address-street"
           type="text"
           name="addr-street"
           placeholder="Введите название улицы"
           required
-          data-test="profile-address-street"
         >
           Улица*
         </AppInput>
@@ -41,11 +41,11 @@
       <div class="address-form__input address-form__input--size--small">
         <AppInput
           v-model="building"
+          ref="profile-address-building"
           type="text"
           name="addr-house"
           placeholder="Введите номер дома"
           required
-          data-test="profile-address-building"
         >
           Дом*
         </AppInput>
@@ -54,10 +54,10 @@
       <div class="address-form__input address-form__input--size--small">
         <AppInput
           v-model="flat"
+          ref="profile-address-flat"
           type="text"
           name="addr-apartment"
           placeholder="Введите № квартиры"
-          data-test="profile-address-flat"
         >
           Квартира
         </AppInput>
@@ -66,10 +66,10 @@
       <div class="address-form__input">
         <AppInput
           v-model="comment"
+          ref="profile-address-comment"
           type="text"
           name="addr-comment"
           placeholder="Введите комментарий"
-          data-test="profile-address-comment"
         >
           Комментарий
         </AppInput>
@@ -78,8 +78,8 @@
 
     <div class="address-form__buttons">
       <AppButton
+        ref="profile-address-form-btn-remove"
         mod-transparent
-        data-test="profile-address-form-btn-remove"
         @click="remove"
       >
         Удалить

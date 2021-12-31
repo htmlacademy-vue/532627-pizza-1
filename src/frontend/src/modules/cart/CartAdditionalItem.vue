@@ -17,7 +17,8 @@
         <AppItemCounter
           :value="misc.quantity"
           is-orange-theme
-          @change="updateMisc({ id: misc.id, quantity: misc.quantity + 1 })"
+          data-test="misc-quantity"
+          @change="changeMisc(misc, $event)"
         />
       </div>
 
@@ -48,6 +49,9 @@ export default {
     ...mapActions("Cart", {
       updateMisc: UPDATE_MISC,
     }),
+    changeMisc(misc, quantity) {
+      this.updateMisc({ id: misc.id, quantity: quantity });
+    },
   },
 };
 </script>

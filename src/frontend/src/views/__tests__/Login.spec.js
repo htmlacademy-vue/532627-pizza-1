@@ -54,13 +54,11 @@ describe("Login", () => {
     const testEmail = "testEmail@example.com";
     const testPassword = "testPassword@example.com";
 
-    const emailInput = wrapper.find("[data-test='login-email']");
-    emailInput.element.value = testEmail;
-    await emailInput.trigger("input");
+    const emailInput = wrapper.findComponent({ ref: "login-email" });
+    await emailInput.vm.$emit("input", testEmail);
 
-    const passwordInput = wrapper.find("[data-test='login-password']");
-    passwordInput.element.value = testPassword;
-    await passwordInput.trigger("input");
+    const passwordInput = wrapper.findComponent({ ref: "login-password" });
+    await passwordInput.vm.$emit("input", testPassword);
 
     const form = wrapper.find("[data-test='login-form']");
     await form.trigger("submit");

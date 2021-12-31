@@ -42,12 +42,7 @@
         is-orange-theme
         data-test="pizza-item-decrease"
         class="cart-list__counter"
-        @change="
-          decreaseQuantity({
-            id: pizza.id,
-            quantity: Math.max(0, pizza.quantity - 1),
-          })
-        "
+        @change="changePizzaQuantity(pizza, $event)"
       />
       <div class="cart-list__price">
         <b>
@@ -82,9 +77,13 @@ import {
   EDIT_PIZZA,
   INCREASE_PIZZA_QUANTITY,
 } from "@/store/actions.types";
+import AppItemCounter from "@/common/components/AppItemCounter";
 
 export default {
   name: "CartList",
+  components: {
+    AppItemCounter,
+  },
   computed: {
     ...mapGetters("Cart", {
       pizzas: "getCart",
@@ -98,6 +97,19 @@ export default {
     ...mapActions("Builder", {
       changeBuilder: EDIT_PIZZA,
     }),
+    changePizzaQuantity(pizza, quantity) {
+      if (quantity > pizza.quantity) {
+        this.increasePizzaQuantity({
+          id: pizza.id,
+          quantity: Math.max(0, quantity),
+        });
+      } else {
+        this.decreaseQuantity({
+          id: pizza.id,
+          quantity: Math.max(0, quantity),
+        });
+      }
+    },
     getSize(value) {
       return getNameByValue(value, SIZE_TYPES);
     },

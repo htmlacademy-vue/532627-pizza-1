@@ -10,6 +10,7 @@ import {
 } from "@/store/actions.types";
 import cart from "@/modules/cart/store";
 import VueRouter from "vue-router";
+import AppItemCounter from "@/common/components/AppItemCounter";
 const localVue = createLocalVue();
 const router = new VueRouter();
 
@@ -84,11 +85,9 @@ describe("CartList", () => {
   test("decrease pizza item quantity", async () => {
     createComponent({ store });
     await setCart(store, build, true);
-    const pizzaItemDecreaseBtn = wrapper.find(
-      "[data-test='pizza-item-decrease']"
-    );
+    const pizzaItemCounter = wrapper.findComponent(AppItemCounter);
     const pizzaId = store.getters["Cart/getCart"]?.[0]?.id;
-    await pizzaItemDecreaseBtn.trigger("click");
+    await pizzaItemCounter.vm.$emit("change", 0);
     expect(actions.Cart[DECREASE_PIZZA_QUANTITY]).toHaveBeenCalledWith(
       expect.any(Object),
       {
@@ -98,21 +97,12 @@ describe("CartList", () => {
     );
   });
 
-  test("render pizza item quantity", async () => {
-    createComponent({ store });
-    await setCart(store, build, true);
-    const pizzaQuantity = wrapper.find("[data-test='cart-item-quantity']");
-    expect(pizzaQuantity.element.value).toBe("1");
-  });
-
   test("increase pizza item quantity", async () => {
     createComponent({ store });
     await setCart(store, build, true);
-    const pizzaItemDecreaseBtn = wrapper.find(
-      "[data-test='pizza-item-increase']"
-    );
+    const pizzaItemCounter = wrapper.findComponent(AppItemCounter);
     const pizzaId = store.getters["Cart/getCart"]?.[0]?.id;
-    await pizzaItemDecreaseBtn.trigger("click");
+    await pizzaItemCounter.vm.$emit("change", 2);
     expect(actions.Cart[INCREASE_PIZZA_QUANTITY]).toHaveBeenCalledWith(
       expect.any(Object),
       {
