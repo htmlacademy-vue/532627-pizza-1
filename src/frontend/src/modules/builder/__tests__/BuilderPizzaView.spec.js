@@ -30,24 +30,23 @@ describe("BuilderPizzaView", () => {
 
   test("render empty pizza name input", () => {
     createComponent({ localVue, store });
-    const nameInput = wrapper.find("[data-test='pizza-view-name']");
-    expect(nameInput.element.value).toEqual("");
+    const nameInput = wrapper.findComponent({ ref: "pizza-view-name" });
+    expect(nameInput.vm.$options.propsData.value).toEqual("");
   });
 
   test("render pizza name", async () => {
     createComponent({ localVue, store });
     setBuild(store, build);
-    const nameInput = await wrapper.find("[data-test='pizza-view-name']");
-    expect(nameInput.element.value).toEqual(build.name);
+    const nameInput = await wrapper.findComponent({ ref: "pizza-view-name" });
+    expect(nameInput.vm.$options.propsData.value).toEqual(build.name);
   });
 
   test("change pizza name on input", async () => {
     createComponent({ localVue, store });
     setBuild(store, build);
     const newInputValue = "example";
-    const nameInput = await wrapper.find("[data-test='pizza-view-name']");
-    nameInput.element.value = newInputValue;
-    await nameInput.trigger("input", { value: newInputValue });
+    const nameInput = await wrapper.findComponent({ ref: "pizza-view-name" });
+    await nameInput.vm.$emit("input", newInputValue);
     expect(actions.Builder[CHANGE_NAME]).toHaveBeenLastCalledWith(
       expect.any(Object),
       newInputValue

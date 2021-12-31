@@ -87,6 +87,50 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.cart__title {
+  margin-bottom: 15px;
+}
+.cart__additional {
+  margin-top: 15px;
+  margin-bottom: 25px;
+}
+.cart__empty {
+  padding: 20px 30px;
+}
+.cart-form {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.cart-form__select {
+  display: flex;
+  align-items: center;
+  margin-right: auto;
+  span {
+    margin-right: 16px;
+  }
+}
+.cart-form__label {
+  @include b-s16-h19;
+  white-space: nowrap;
+}
+.cart-form__address {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-top: 20px;
+}
+.cart-form__input {
+  flex-grow: 1;
+  margin-bottom: 20px;
+  margin-left: 16px;
+  &--small {
+    max-width: 120px;
+  }
+}
+</style>
+
+<style lang="scss" scoped>
 .fade-enter-active,
 .fade-leave-active {
   transition: opacity 0.5s;

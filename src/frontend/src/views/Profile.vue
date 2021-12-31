@@ -12,9 +12,12 @@
 import ProfileUserData from "@/modules/profile/ProfileUserData";
 import ProfileAddressList from "@/modules/profile/ProfileAddressList";
 import AppLayoutTitle from "@/common/components/AppLayoutTitle";
+import { auth } from "@/middlewares";
 
 export default {
   name: "Profile",
+  layout: "AppLayoutSidebar",
+  middlewares: [auth],
   components: {
     AppLayoutTitle,
     ProfileAddressList,

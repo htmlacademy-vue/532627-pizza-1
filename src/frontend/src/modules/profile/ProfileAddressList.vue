@@ -16,15 +16,14 @@
     />
 
     <div v-else class="layout__button">
-      <button
+      <AppButton
         :disabled="isAddingNew"
-        type="button"
+        mod-border
         data-test="profile-address-list-add-new"
-        class="button button--border"
         @click="isAddingNew = true"
       >
         Добавить новый адрес
-      </button>
+      </AppButton>
     </div>
   </div>
 </template>
@@ -34,10 +33,11 @@ import { mapGetters, mapActions } from "vuex";
 import ProfileAddress from "@/modules/profile/ProfileAddress";
 import { ADD_ADDRESS, FETCH_ADRESSES } from "@/store/actions.types";
 import ProfileAddressForm from "@/modules/profile/ProfileAddressForm";
+import AppButton from "@/common/components/AppButton";
 
 export default {
   name: "ProfileAddressList",
-  components: { ProfileAddressForm, ProfileAddress },
+  components: { AppButton, ProfileAddressForm, ProfileAddress },
   data() {
     return {
       isAddingNew: false,

@@ -1,4 +1,5 @@
 import CartAdditionalItem from "@/modules/cart/CartAdditionalItem";
+import AppItemCounter from "@/common/components/AppItemCounter";
 import { mount } from "@vue/test-utils";
 import { generateMockStore } from "@/store/mocks";
 import { UPDATE_MISC } from "@/store/actions.types";
@@ -47,29 +48,16 @@ describe("CartAdditionalItem", () => {
     expect(name.text()).toBe(propsData.misc.name);
   });
 
-  test("call delete misc", async () => {
+  test("call change misc", async () => {
     createComponent({ propsData, store });
-    const minusBtn = wrapper.find("[data-test='misc-minus']");
-    await minusBtn.trigger("click");
+    const miscCounter = await wrapper.findComponent(AppItemCounter);
+    await miscCounter.vm.$emit(
+      "change",
+      propsData.misc.quantity - 1
+    );
     expect(actions.Cart[UPDATE_MISC]).toHaveBeenCalledWith(expect.any(Object), {
       id: propsData.misc.id,
       quantity: propsData.misc.quantity - 1,
-    });
-  });
-
-  test("render misc quantity", () => {
-    createComponent({ propsData });
-    const quantity = wrapper.find("[data-test='misc-quantity']").element.value;
-    expect(quantity).toBe(String(propsData.misc.quantity));
-  });
-
-  test("call add misc", async () => {
-    createComponent({ propsData, store });
-    const minusBtn = wrapper.find("[data-test='misc-plus']");
-    await minusBtn.trigger("click");
-    expect(actions.Cart[UPDATE_MISC]).toHaveBeenCalledWith(expect.any(Object), {
-      id: propsData.misc.id,
-      quantity: propsData.misc.quantity + 1,
     });
   });
 

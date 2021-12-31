@@ -25,3 +25,11 @@ export default {
   },
 };
 </script>
+<style lang="scss" scoped>
+@import "~@/assets/scss/mixins/m_clear-list.scss";
+.additional-list {
+  @include clear-list;
+  display: flex;
+  flex-wrap: wrap;
+}
+</style>
