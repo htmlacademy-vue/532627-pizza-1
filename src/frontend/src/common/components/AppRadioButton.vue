@@ -27,14 +27,17 @@ export default {
       type: String,
       required: true,
     },
+
     itemValue: {
       type: String,
       required: true,
     },
+
     checked: {
       type: Boolean,
       default: false,
     },
+
     radio: {
       type: Boolean,
       default: false,

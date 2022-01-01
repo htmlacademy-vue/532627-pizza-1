@@ -32,10 +32,12 @@ export default {
   computed: {
     ...mapGetters(["isLoading"]),
   },
+
   mounted() {
     this.init();
     initUser(this.$store);
   },
+
   methods: {
     ...mapActions({ init: INIT }),
   },

@@ -87,19 +87,23 @@ export default {
   components: {
     AppItemCounter,
   },
+
   computed: {
     ...mapGetters("Cart", {
       pizzas: "getCart",
     }),
   },
+
   methods: {
     ...mapActions("Cart", {
       decreaseQuantity: DECREASE_PIZZA_QUANTITY,
       increasePizzaQuantity: INCREASE_PIZZA_QUANTITY,
     }),
+
     ...mapActions("Builder", {
       changeBuilder: EDIT_PIZZA,
     }),
+
     changePizzaQuantity(pizza, quantity) {
       if (quantity > pizza.quantity) {
         this.increasePizzaQuantity({
@@ -113,18 +117,23 @@ export default {
         });
       }
     },
+
     getSize(value) {
       return getNameByValue(value, SIZE_TYPES);
     },
+
     getDough(value) {
       return `на ${value === "light" ? "тонком" : "толстом"} тесте`;
     },
+
     getSauce(value) {
       return getNameByValue(value, SAUCE_TYPES)?.toLowerCase();
     },
+
     getIngredients(items) {
       return items.map((item) => item.name.toLowerCase()).join(", ");
     },
+
     change(pizza) {
       this.changeBuilder(pizza);
       this.$router.push("/");

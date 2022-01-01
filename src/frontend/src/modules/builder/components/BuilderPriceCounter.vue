@@ -21,6 +21,7 @@ import AppButton from "@/common/components/AppButton";
 export default {
   name: "BuilderPriceCounter",
   components: { AppButton },
+
   computed: {
     ...mapGetters("Builder", {
       totalSum: "totalSum",
@@ -29,11 +30,13 @@ export default {
       quantity: "getQuantity",
     }),
   },
+
   methods: {
     ...mapActions("Cart", {
       createCart: CREATE_CART,
       editPizza: EDIT_CART_PIZZA,
     }),
+
     edit() {
       this.editPizza({ id: this.id, quantity: this.quantity });
       this.$router.push("/cart");

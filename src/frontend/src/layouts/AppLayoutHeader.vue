@@ -62,11 +62,13 @@ export default {
     ...mapGetters("Cart", {
       total: "getTotal",
     }),
+
     ...mapGetters("Auth", {
       isLoggedIn: "isLoggedIn",
       user: "getUser",
     }),
   },
+
   methods: {
     ...mapActions("Auth", { logout: LOGOUT }),
 

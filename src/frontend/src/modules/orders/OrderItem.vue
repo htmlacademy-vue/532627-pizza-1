@@ -124,16 +124,19 @@ import AppButton from "@/common/components/AppButton";
 export default {
   name: "OrderItem",
   components: { AppButton },
+
   props: {
     order: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     ...mapGetters("Orders", {
       totalSum: "getOrderSumm",
     }),
+
     ...mapGetters("Builder", {
       doughList: "getDoughList",
       sauceList: "getSauceList",
@@ -154,6 +157,7 @@ export default {
         return this.miscList.find((misc) => misc.id === orderMisc.miscId);
       });
     },
+
     total() {
       return this.totalSum(this.order.id);
     },
@@ -172,6 +176,7 @@ export default {
       return fullAddress;
     },
   },
+
   methods: {
     ...mapActions("Orders", {
       removeOrder: REMOVE_ORDER,
@@ -205,6 +210,7 @@ export default {
     getSizeDesc(sizeId) {
       return this.sizeList.find((it) => it.id === sizeId)?.name;
     },
+
     handleRepeatOrder() {
       this.repeatOrder(this.order.id);
       this.$router.push({ name: "Cart" });

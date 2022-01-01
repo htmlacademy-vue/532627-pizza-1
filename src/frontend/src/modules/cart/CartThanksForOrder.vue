@@ -31,15 +31,18 @@ import AppButton from "@/common/components/AppButton";
 export default {
   name: "CartThanksForOrder",
   components: { AppButton },
+
   computed: {
     ...mapGetters("Auth", {
       isLoggedIn: "isLoggedIn",
     }),
   },
+
   methods: {
     close() {
       this.$emit("close");
     },
+
     goNext() {
       const nextPath = this.isLoggedIn ? "/orders" : "/";
       this.$router.push(nextPath);

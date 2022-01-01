@@ -27,6 +27,7 @@ import BuilderSizeSelector from "@/modules/builder/components/BuilderSizeSelecto
 
 export default {
   name: "Index",
+
   components: {
     BuilderSizeSelector,
     BuilderPizzaView,

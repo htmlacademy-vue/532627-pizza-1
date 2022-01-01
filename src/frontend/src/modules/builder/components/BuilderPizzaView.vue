@@ -54,6 +54,7 @@ import AppInput from "@/common/components/AppInput";
 
 export default {
   name: "BuilderPizzaView",
+
   components: {
     AppInput,
     BuilderPriceCounter,
@@ -78,6 +79,7 @@ export default {
       setPizzaName: CHANGE_NAME,
       changeIngredients: CHANGE_INGREDIENTS,
     }),
+
     onConstructorDrop(event) {
       this.changeIngredients({
         value: event.value,

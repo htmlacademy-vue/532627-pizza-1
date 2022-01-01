@@ -43,15 +43,18 @@ export default {
       type: Number,
       default: 0,
     },
+
     maxValue: {
       type: Number,
       default: 3,
     },
+
     isOrangeTheme: {
       type: Boolean,
       default: false,
     },
   },
+
   methods: {
     input(evt) {
       const emittedValue = parseInt(evt.target.value);
@@ -64,6 +67,7 @@ export default {
     increase() {
       return this.$emit("change", this.value + 1);
     },
+
     decrease() {
       if (!this.value) {
         return false;

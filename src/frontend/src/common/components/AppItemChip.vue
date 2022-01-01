@@ -13,6 +13,7 @@ export default {
   props: {
     value: String,
   },
+
   computed: {
     classModificator() {
       return {

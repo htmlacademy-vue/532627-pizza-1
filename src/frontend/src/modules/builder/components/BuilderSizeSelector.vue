@@ -36,12 +36,14 @@ import { CHANGE_SIZE } from "@/store/actions.types";
 export default {
   name: "BuilderSizeSelector",
   components: { AppRadioButton },
+
   computed: {
     ...mapGetters("Builder", {
       sizeValue: "getSizeValue",
       sizeList: "getSizeList",
     }),
   },
+
   methods: {
     ...mapActions("Builder", {
       changeSizeValue: CHANGE_SIZE,

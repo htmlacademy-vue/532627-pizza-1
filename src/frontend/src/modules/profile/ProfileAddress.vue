@@ -52,21 +52,25 @@ import { mapActions } from "vuex";
 export default {
   name: "ProfileAddress",
   components: { ProfileAddressForm },
+
   props: {
     number: {
       type: Number,
       required: true,
     },
+
     address: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       isEditing: false,
     };
   },
+
   computed: {
     formattedAddress() {
       if (!this.address.flat) {
@@ -76,11 +80,13 @@ export default {
       }
     },
   },
+
   methods: {
     ...mapActions("Addresses", {
       updateAddress: UPDATE_ADDRESS,
       removeAddress: REMOVE_ADDRESS,
     }),
+
     handleAddressSubmit(updatedAddress) {
       this.isEditing = false;
       this.updateAddress(updatedAddress);

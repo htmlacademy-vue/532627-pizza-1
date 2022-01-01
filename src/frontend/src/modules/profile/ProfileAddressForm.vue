@@ -101,17 +101,20 @@ import AppInput from "@/common/components/AppInput";
 export default {
   name: "ProfileAddressForm",
   components: { AppInput, AppButton },
+
   props: {
     number: {
       type: Number,
       required: true,
     },
+
     address: {
       type: Object,
       required: true,
       default: () => {},
     },
   },
+
   data() {
     return {
       id: this.address.id || "",
@@ -122,15 +125,18 @@ export default {
       comment: this.address.comment || "",
     };
   },
+
   computed: {
     isDisabled() {
       return !this.street || !this.building || !this.flat;
     },
   },
+
   methods: {
     remove() {
       this.$emit("remove");
     },
+
     save() {
       const address = {
         name: this.name,

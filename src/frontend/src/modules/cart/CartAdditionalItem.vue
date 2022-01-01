@@ -39,16 +39,19 @@ import AppItemCounter from "@/common/components/AppItemCounter.vue";
 export default {
   name: "CartAdditionalItem",
   components: { AppItemCounter },
+
   props: {
     misc: {
       type: Object,
       default: () => {},
     },
   },
+
   methods: {
     ...mapActions("Cart", {
       updateMisc: UPDATE_MISC,
     }),
+
     changeMisc(misc, quantity) {
       this.updateMisc({ id: misc.id, quantity: quantity });
     },

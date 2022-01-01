@@ -47,6 +47,7 @@ export default {
       doughValue: "getDoughValue",
     }),
   },
+
   methods: {
     ...mapActions("Builder", {
       setDough: CHANGE_DOUGH,
