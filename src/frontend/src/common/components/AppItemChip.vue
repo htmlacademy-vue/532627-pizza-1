@@ -6,7 +6,7 @@
 
 <script>
 export default {
-  name: "ItemChip",
+  name: "AppItemChip",
   props: {
     value: String,
   },
