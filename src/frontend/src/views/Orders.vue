@@ -1,8 +1,15 @@
 <template>
-  <div v-if="orderList.length" class="layout__content">
+  <div
+    v-if="orderList.length"
+    class="layout__content"
+  >
     <AppLayoutTitle>История заказов</AppLayoutTitle>
 
-    <OrderItem v-for="order in orderList" :key="order.id" :order="order" />
+    <OrderItem
+      v-for="order in orderList"
+      :key="order.id"
+      :order="order"
+    />
   </div>
 </template>
 

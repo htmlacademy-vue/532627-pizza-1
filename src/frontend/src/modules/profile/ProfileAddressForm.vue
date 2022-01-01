@@ -85,7 +85,12 @@
         Удалить
       </AppButton>
 
-      <AppButton :disabled="isDisabled" type="submit"> Сохранить </AppButton>
+      <AppButton
+        :disabled="isDisabled"
+        type="submit"
+      >
+        Сохранить
+      </AppButton>
     </div>
   </form>
 </template>

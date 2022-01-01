@@ -4,7 +4,10 @@
 
     <main class="layout">
       <div class="layout__sidebar sidebar">
-        <router-link to="/" class="logo layout__logo">
+        <router-link
+          to="/"
+          class="logo layout__logo"
+        >
           <img
             src="@/assets/img/logo.svg"
             alt="V!U!E! Pizza logo"

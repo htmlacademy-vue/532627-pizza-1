@@ -3,7 +3,11 @@
     <AppStartScreen v-if="isLoading" />
 
     <AppLayout v-else>
-      <transition name="slide-fade" mode="out-in" appear>
+      <transition
+        name="slide-fade"
+        mode="out-in"
+        appear
+      >
         <router-view />
       </transition>
     </AppLayout>

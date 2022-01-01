@@ -1,5 +1,8 @@
 <template>
-  <span :class="classModificator" class="filling">
+  <span
+    :class="classModificator"
+    class="filling"
+  >
     <slot></slot>
   </span>
 </template>

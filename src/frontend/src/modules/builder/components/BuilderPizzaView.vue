@@ -20,7 +20,10 @@
           class="pizza"
         >
           <div class="pizza__wrapper">
-            <transition-group name="drop" mode="out-in">
+            <transition-group
+              name="drop"
+              mode="out-in"
+            >
               <template v-for="ingredient in checkedIngredients">
                 <div
                   :key="ingredient.id"

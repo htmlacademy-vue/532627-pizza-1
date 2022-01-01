@@ -23,8 +23,14 @@
 
     <CartFooter @submit="handleSubmit" />
 
-    <transition name="fade" mode="out-in">
-      <CartThanksForOrder v-if="isSuccess" @close="setSuccess(false)" />
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <CartThanksForOrder
+        v-if="isSuccess"
+        @close="setSuccess(false)"
+      />
     </transition>
   </form>
 </template>

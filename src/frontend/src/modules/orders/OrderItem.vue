@@ -15,13 +15,19 @@
       </div>
 
       <div class="order__button">
-        <AppButton mod-border @click="removeOrder(order.id)">
+        <AppButton
+          mod-border
+          @click="removeOrder(order.id)"
+        >
           Удалить
         </AppButton>
       </div>
 
       <div class="order__button">
-        <AppButton data-test="repeat-order" @click="handleRepeatOrder">
+        <AppButton
+          data-test="repeat-order"
+          @click="handleRepeatOrder"
+        >
           Повторить
         </AppButton>
       </div>
@@ -71,12 +77,22 @@
           </div>
         </div>
 
-        <p v-if="total" class="order__price">{{ total }} ₽</p>
+        <p
+          v-if="total"
+          class="order__price">
+          {{ total }} ₽
+        </p>
       </li>
     </ul>
 
-    <ul v-if="formattedMisc.length" class="order__additional">
-      <li v-for="miscItem in formattedMisc" :key="miscItem.id">
+    <ul
+      v-if="formattedMisc.length"
+      class="order__additional"
+    >
+      <li
+        v-for="miscItem in formattedMisc"
+        :key="miscItem.id"
+      >
         <img
           :src="miscItem.image"
           width="20"
@@ -91,7 +107,10 @@
       </li>
     </ul>
 
-    <p data-test="order-address" class="order__address">
+    <p
+      data-test="order-address"
+      class="order__address"
+    >
       {{ orderAddress }}
     </p>
   </section>

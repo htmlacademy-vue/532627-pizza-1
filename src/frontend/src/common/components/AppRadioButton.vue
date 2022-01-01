@@ -10,7 +10,10 @@
       @change="$emit('change', itemValue)"
     />
 
-    <slot data-test="slot-name" name="name"></slot>
+    <slot
+      data-test="slot-name"
+      name="name"
+    />
 
     <slot name="description"></slot>
   </label>

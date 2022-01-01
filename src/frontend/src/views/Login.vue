@@ -13,7 +13,10 @@
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
 
-    <form data-test="login-form" @submit.prevent="submit">
+    <form
+      data-test="login-form"
+      @submit.prevent="submit"
+    >
       <div class="sign-form__input">
         <label class="input">
           <AppInput

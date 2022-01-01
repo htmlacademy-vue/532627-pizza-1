@@ -8,13 +8,18 @@
       @submit="updateAddress"
       @remove="removeAddress(address.id)"
     />
-    <div v-else class="sheet address-form">
+    <div
+      v-else
+      class="sheet address-form"
+    >
       <div class="address-form__header">
         <b
           >Адрес №
-          <span data-test="profile-address-title"
-            >{{ number }}. {{ address.name }}</span
+          <span
+            data-test="profile-address-title"
           >
+            {{ number }}. {{ address.name }}
+          </span>
         </b>
 
         <div class="address-form__edit">
@@ -30,9 +35,11 @@
       </div>
 
       <p data-test="profile-formatted-address">{{ formattedAddress }}</p>
-      <small v-if="address.comment" data-test="profile-address-comment">{{
-        address.comment
-      }}</small>
+      <small
+        v-if="address.comment"
+        data-test="profile-address-comment">
+        {{ address.comment }}
+      </small>
     </div>
   </div>
 </template>

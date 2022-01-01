@@ -1,5 +1,8 @@
 <template>
-  <ul v-if="pizzas.length > 0" class="cart-list sheet">
+  <ul
+    v-if="pizzas.length > 0"
+    class="cart-list sheet"
+  >
     <li
       v-for="pizza in pizzas"
       :key="pizza.id"

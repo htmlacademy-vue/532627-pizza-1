@@ -1,7 +1,12 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <AppButton tag="a" mod-border mod-arrow @click="goToBuilder">
+      <AppButton
+        tag="a"
+        mod-border
+        mod-arrow
+        @click="goToBuilder"
+      >
         Хочу еще одну
       </AppButton>
     </div>

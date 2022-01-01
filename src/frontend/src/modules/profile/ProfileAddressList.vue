@@ -15,7 +15,10 @@
       @submit="saveNewAdrress"
     />
 
-    <div v-else class="layout__button">
+    <div
+      v-else
+      class="layout__button"
+    >
       <AppButton
         :disabled="isAddingNew"
         mod-border
