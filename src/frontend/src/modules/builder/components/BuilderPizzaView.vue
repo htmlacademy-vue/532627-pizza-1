@@ -20,7 +20,10 @@
           class="pizza"
         >
           <div class="pizza__wrapper">
-            <transition-group name="drop" mode="out-in">
+            <transition-group
+              name="drop"
+              mode="out-in"
+            >
               <template v-for="ingredient in checkedIngredients">
                 <div
                   :key="ingredient.id"
@@ -51,6 +54,7 @@ import AppInput from "@/common/components/AppInput";
 
 export default {
   name: "BuilderPizzaView",
+
   components: {
     AppInput,
     BuilderPriceCounter,
@@ -75,6 +79,7 @@ export default {
       setPizzaName: CHANGE_NAME,
       changeIngredients: CHANGE_INGREDIENTS,
     }),
+
     onConstructorDrop(event) {
       this.changeIngredients({
         value: event.value,

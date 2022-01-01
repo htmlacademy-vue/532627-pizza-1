@@ -1,6 +1,10 @@
 <template>
   <div class="popup">
-    <a href="#" class="close" @click="close">
+    <a
+      href="#"
+      class="close"
+      @click="close"
+    >
       <span class="visually-hidden">Закрыть попап</span>
     </a>
     <div class="popup__title">
@@ -8,7 +12,12 @@
     </div>
     <p>Мы начали готовить Ваш заказ, скоро привезём его вам ;)</p>
     <div class="popup__button">
-      <AppButton ref="back-link" tag="a" class="button" @click="goNext">
+      <AppButton
+        ref="back-link"
+        tag="a"
+        class="button"
+        @click="goNext"
+      >
         Отлично, я жду!
       </AppButton>
     </div>
@@ -22,15 +31,18 @@ import AppButton from "@/common/components/AppButton";
 export default {
   name: "CartThanksForOrder",
   components: { AppButton },
+
   computed: {
     ...mapGetters("Auth", {
       isLoggedIn: "isLoggedIn",
     }),
   },
+
   methods: {
     close() {
       this.$emit("close");
     },
+
     goNext() {
       const nextPath = this.isLoggedIn ? "/orders" : "/";
       this.$router.push(nextPath);

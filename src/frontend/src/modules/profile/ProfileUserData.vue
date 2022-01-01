@@ -9,11 +9,17 @@
       data-test="profile-user-avatar"
     />
 
-    <div v-if="user.name" class="user__name">
+    <div
+      v-if="user.name"
+      class="user__name"
+    >
       <span data-test="profile-user-name">{{ user.name }}</span>
     </div>
 
-    <p v-if="user.phone" class="user__phone">
+    <p
+      v-if="user.phone"
+      class="user__phone"
+    >
       Контактный телефон:
       <span data-test="profile-user-phone">{{ user.phone }}</span>
     </p>

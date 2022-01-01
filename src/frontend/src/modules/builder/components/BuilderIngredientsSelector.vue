@@ -73,12 +73,14 @@ import { CHANGE_INGREDIENTS, CHANGE_SAUCE } from "@/store/actions.types";
 
 export default {
   name: "BuilderIngredientsSelector",
+
   components: {
     AppDrag,
     AppItemCounter,
     AppItemChip,
     AppRadioButton,
   },
+
   INGREDIENTS_MAX_VALUE: 3,
 
   computed: {
@@ -88,6 +90,7 @@ export default {
       ingredientList: "getIngredientList",
     }),
   },
+
   methods: {
     ...mapActions("Builder", {
       changeIngredients: CHANGE_INGREDIENTS,

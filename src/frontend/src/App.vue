@@ -3,7 +3,11 @@
     <AppStartScreen v-if="isLoading" />
 
     <AppLayout v-else>
-      <transition name="slide-fade" mode="out-in" appear>
+      <transition
+        name="slide-fade"
+        mode="out-in"
+        appear
+      >
         <router-view />
       </transition>
     </AppLayout>
@@ -25,13 +29,15 @@ import { initUser } from "@/common/helpers";
 export default {
   name: "App",
   components: { AppLayout, AppNotifications, AppStartScreen },
+  computed: {
+    ...mapGetters(["isLoading"]),
+  },
+
   mounted() {
     this.init();
     initUser(this.$store);
   },
-  computed: {
-    ...mapGetters(["isLoading"]),
-  },
+
   methods: {
     ...mapActions({ init: INIT }),
   },

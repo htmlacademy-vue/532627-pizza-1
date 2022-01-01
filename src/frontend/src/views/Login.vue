@@ -13,12 +13,15 @@
       <h1 class="title title--small">Авторизуйтесь на сайте</h1>
     </div>
 
-    <form data-test="login-form" @submit.prevent="submit">
+    <form
+      data-test="login-form"
+      @submit.prevent="submit"
+    >
       <div class="sign-form__input">
         <label class="input">
           <AppInput
-            v-model="email"
             ref="login-email"
+            v-model="email"
             name="email"
             placeholder="example@mail.ru"
             type="email"
@@ -30,8 +33,8 @@
 
       <div class="sign-form__input">
         <AppInput
-          v-model="password"
           ref="login-password"
+          v-model="password"
           name="pass"
           placeholder="***********"
           type="password"

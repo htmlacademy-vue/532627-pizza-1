@@ -70,7 +70,7 @@ describe("ProfileAddressForm", () => {
   });
   test("render address comment", () => {
     createComponent({ propsData });
-    const comment = wrapper.findComponent({ ref: "profile-address-comment"}).vm
+    const comment = wrapper.findComponent({ ref: "profile-address-comment" }).vm
       .$options.propsData.value;
     expect(comment).toBe(String(propsData.address.comment));
   });

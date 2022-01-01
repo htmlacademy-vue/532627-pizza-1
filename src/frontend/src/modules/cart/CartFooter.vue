@@ -1,7 +1,12 @@
 <template>
   <section class="footer">
     <div class="footer__more">
-      <AppButton tag="a" mod-border mod-arrow @click="goToBuilder">
+      <AppButton
+        tag="a"
+        mod-border
+        mod-arrow
+        @click="goToBuilder"
+      >
         Хочу еще одну
       </AppButton>
     </div>
@@ -36,20 +41,24 @@ import AppButton from "@/common/components/AppButton";
 export default {
   name: "CartFooter",
   components: { AppButton },
+
   data() {
     return {
       isSubmitted: false,
     };
   },
+
   computed: {
     ...mapGetters("Cart", {
       total: "getTotal",
       isValidOrderData: "isValidOrderData",
     }),
+
     isDisabledSubmit() {
       return this.isSubmitted || !this.isValidOrderData;
     },
   },
+
   methods: {
     submitOrder() {
       this.isSubmitted = true;
@@ -59,6 +68,7 @@ export default {
 
       this.$emit("submit");
     },
+
     goToBuilder() {
       this.$router.push("/");
     },

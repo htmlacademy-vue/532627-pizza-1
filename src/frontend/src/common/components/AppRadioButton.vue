@@ -10,7 +10,10 @@
       @change="$emit('change', itemValue)"
     />
 
-    <slot data-test="slot-name" name="name"></slot>
+    <slot
+      data-test="slot-name"
+      name="name"
+    />
 
     <slot name="description"></slot>
   </label>
@@ -24,14 +27,17 @@ export default {
       type: String,
       required: true,
     },
+
     itemValue: {
       type: String,
       required: true,
     },
+
     checked: {
       type: Boolean,
       default: false,
     },
+
     radio: {
       type: Boolean,
       default: false,

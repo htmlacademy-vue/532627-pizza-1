@@ -15,13 +15,19 @@
       </div>
 
       <div class="order__button">
-        <AppButton mod-border @click="removeOrder(order.id)">
+        <AppButton
+          mod-border
+          @click="removeOrder(order.id)"
+        >
           Удалить
         </AppButton>
       </div>
 
       <div class="order__button">
-        <AppButton data-test="repeat-order" @click="handleRepeatOrder">
+        <AppButton
+          data-test="repeat-order"
+          @click="handleRepeatOrder"
+        >
           Повторить
         </AppButton>
       </div>
@@ -71,12 +77,22 @@
           </div>
         </div>
 
-        <p v-if="total" class="order__price">{{ total }} ₽</p>
+        <p
+          v-if="total"
+          class="order__price">
+          {{ total }} ₽
+        </p>
       </li>
     </ul>
 
-    <ul v-if="formattedMisc.length" class="order__additional">
-      <li v-for="miscItem in formattedMisc" :key="miscItem.id">
+    <ul
+      v-if="formattedMisc.length"
+      class="order__additional"
+    >
+      <li
+        v-for="miscItem in formattedMisc"
+        :key="miscItem.id"
+      >
         <img
           :src="miscItem.image"
           width="20"
@@ -91,7 +107,10 @@
       </li>
     </ul>
 
-    <p data-test="order-address" class="order__address">
+    <p
+      data-test="order-address"
+      class="order__address"
+    >
       {{ orderAddress }}
     </p>
   </section>
@@ -105,16 +124,19 @@ import AppButton from "@/common/components/AppButton";
 export default {
   name: "OrderItem",
   components: { AppButton },
+
   props: {
     order: {
       type: Object,
       required: true,
     },
   },
+
   computed: {
     ...mapGetters("Orders", {
       totalSum: "getOrderSumm",
     }),
+
     ...mapGetters("Builder", {
       doughList: "getDoughList",
       sauceList: "getSauceList",
@@ -135,6 +157,7 @@ export default {
         return this.miscList.find((misc) => misc.id === orderMisc.miscId);
       });
     },
+
     total() {
       return this.totalSum(this.order.id);
     },
@@ -153,6 +176,7 @@ export default {
       return fullAddress;
     },
   },
+
   methods: {
     ...mapActions("Orders", {
       removeOrder: REMOVE_ORDER,
@@ -186,6 +210,7 @@ export default {
     getSizeDesc(sizeId) {
       return this.sizeList.find((it) => it.id === sizeId)?.name;
     },
+
     handleRepeatOrder() {
       this.repeatOrder(this.order.id);
       this.$router.push({ name: "Cart" });

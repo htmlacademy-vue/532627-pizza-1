@@ -1,15 +1,19 @@
 <template>
-  <span :class="classModificator" class="filling">
+  <span
+    :class="classModificator"
+    class="filling"
+  >
     <slot></slot>
   </span>
 </template>
 
 <script>
 export default {
-  name: "ItemChip",
+  name: "AppItemChip",
   props: {
     value: String,
   },
+
   computed: {
     classModificator() {
       return {

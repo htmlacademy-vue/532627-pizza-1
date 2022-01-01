@@ -1,5 +1,8 @@
 <template>
-  <div v-if="doughList.length" class="content__dough">
+  <div
+    v-if="doughList.length"
+    class="content__dough"
+  >
     <div class="sheet">
       <h2 class="title title--small sheet__title">Выберите тесто</h2>
       <div class="sheet__content dough">
@@ -44,6 +47,7 @@ export default {
       doughValue: "getDoughValue",
     }),
   },
+
   methods: {
     ...mapActions("Builder", {
       setDough: CHANGE_DOUGH,

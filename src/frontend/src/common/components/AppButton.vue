@@ -6,27 +6,33 @@ export default {
       type: String,
       default: "button",
     },
+
     type: {
       type: String,
       default: "button",
     },
+
     disabled: {
       type: Boolean,
       default: false,
     },
+
     modTransparent: {
       type: Boolean,
       default: false,
     },
+
     modBorder: {
       type: Boolean,
       default: false,
     },
+
     modArrow: {
       type: Boolean,
       default: false,
     },
   },
+
   computed: {
     modifiersClass() {
       return {
@@ -36,6 +42,7 @@ export default {
       };
     },
   },
+
   render(createElement) {
     return createElement(
       this.tag,

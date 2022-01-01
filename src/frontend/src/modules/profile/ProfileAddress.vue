@@ -8,13 +8,18 @@
       @submit="updateAddress"
       @remove="removeAddress(address.id)"
     />
-    <div v-else class="sheet address-form">
+    <div
+      v-else
+      class="sheet address-form"
+    >
       <div class="address-form__header">
         <b
           >Адрес №
-          <span data-test="profile-address-title"
-            >{{ number }}. {{ address.name }}</span
+          <span
+            data-test="profile-address-title"
           >
+            {{ number }}. {{ address.name }}
+          </span>
         </b>
 
         <div class="address-form__edit">
@@ -30,9 +35,11 @@
       </div>
 
       <p data-test="profile-formatted-address">{{ formattedAddress }}</p>
-      <small v-if="address.comment" data-test="profile-address-comment">{{
-        address.comment
-      }}</small>
+      <small
+        v-if="address.comment"
+        data-test="profile-address-comment">
+        {{ address.comment }}
+      </small>
     </div>
   </div>
 </template>
@@ -45,21 +52,25 @@ import { mapActions } from "vuex";
 export default {
   name: "ProfileAddress",
   components: { ProfileAddressForm },
+
   props: {
     number: {
       type: Number,
       required: true,
     },
+
     address: {
       type: Object,
       required: true,
     },
   },
+
   data() {
     return {
       isEditing: false,
     };
   },
+
   computed: {
     formattedAddress() {
       if (!this.address.flat) {
@@ -69,11 +80,13 @@ export default {
       }
     },
   },
+
   methods: {
     ...mapActions("Addresses", {
       updateAddress: UPDATE_ADDRESS,
       removeAddress: REMOVE_ADDRESS,
     }),
+
     handleAddressSubmit(updatedAddress) {
       this.isEditing = false;
       this.updateAddress(updatedAddress);

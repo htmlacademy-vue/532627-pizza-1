@@ -23,8 +23,14 @@
 
     <CartFooter @submit="handleSubmit" />
 
-    <transition name="fade" mode="out-in">
-      <CartThanksForOrder v-if="isSuccess" @close="setSuccess(false)" />
+    <transition
+      name="fade"
+      mode="out-in"
+    >
+      <CartThanksForOrder
+        v-if="isSuccess"
+        @close="setSuccess(false)"
+      />
     </transition>
   </form>
 </template>
@@ -52,32 +58,39 @@ export default {
     CartOrder,
     CartFooter,
   },
+
   data() {
     return {
       isSubmitted: false,
     };
   },
+
   computed: {
     ...mapGetters("Cart", {
       cart: "getCart",
       isSuccess: "getIsSuccess",
     }),
   },
+
   mounted() {
     if (!this.cart.length) {
       this.$router.push("/");
     }
   },
+
   beforeDestroy() {
     this.setSuccess(false);
   },
+
   methods: {
     ...mapActions("Cart", {
       createOrder: CREATE_ORDER,
     }),
+
     ...mapMutations("Cart", {
       setSuccess: SET_SUCCESS,
     }),
+
     async handleSubmit() {
       await this.createOrder();
       this.isSubmitted = true;

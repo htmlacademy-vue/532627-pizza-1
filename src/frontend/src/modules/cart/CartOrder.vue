@@ -24,8 +24,8 @@
         </select>
       </label>
       <AppInput
-        v-model="phone"
         ref="cart-order-phone"
+        v-model="phone"
         type="text"
         name="tel"
         mod-big-label
@@ -103,7 +103,23 @@ export default {
       },
     };
   },
+
   deliveryTypes: DELIVERY_TYPES,
+
+  computed: {
+    ...mapGetters("Addresses", {
+      addressList: "getAddresses",
+    }),
+
+    ...mapGetters("Cart", {
+      getPhone: "getPhone",
+    }),
+
+    isDisabled() {
+      return this.deliveryType !== this.$options.deliveryTypes.NEW_ADDRESS;
+    },
+  },
+
   watch: {
     deliveryType: {
       handler(val) {
@@ -120,23 +136,15 @@ export default {
         }
         this.setAddress(this.address);
       },
+
       immediate: true,
     },
   },
-  computed: {
-    ...mapGetters("Addresses", {
-      addressList: "getAddresses",
-    }),
-    ...mapGetters("Cart", {
-      getPhone: "getPhone",
-    }),
-    isDisabled() {
-      return this.deliveryType !== this.$options.deliveryTypes.NEW_ADDRESS;
-    },
-  },
+
   mounted() {
     this.phone = this.getPhone;
   },
+
   methods: {
     ...mapActions("Cart", {
       setPhone: CHANGE_PHONE,

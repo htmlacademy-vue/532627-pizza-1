@@ -22,6 +22,7 @@ export default {
       type: String,
       required: true,
     },
+
     type: {
       type: String,
       default: "info",

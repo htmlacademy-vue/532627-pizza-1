@@ -51,10 +51,7 @@ describe("CartAdditionalItem", () => {
   test("call change misc", async () => {
     createComponent({ propsData, store });
     const miscCounter = await wrapper.findComponent(AppItemCounter);
-    await miscCounter.vm.$emit(
-      "change",
-      propsData.misc.quantity - 1
-    );
+    await miscCounter.vm.$emit("change", propsData.misc.quantity - 1);
     expect(actions.Cart[UPDATE_MISC]).toHaveBeenCalledWith(expect.any(Object), {
       id: propsData.misc.id,
       quantity: propsData.misc.quantity - 1,
