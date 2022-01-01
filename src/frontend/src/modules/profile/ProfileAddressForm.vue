@@ -14,8 +14,8 @@
     <div class="address-form__wrapper">
       <div class="address-form__input">
         <AppInput
-          v-model="name"
           ref="profile-address-name"
+          v-model="name"
           type="text"
           name="addr-name"
           placeholder="Введите название адреса"
@@ -27,8 +27,8 @@
 
       <div class="address-form__input address-form__input--size--normal">
         <AppInput
-          v-model="street"
           ref="profile-address-street"
+          v-model="street"
           type="text"
           name="addr-street"
           placeholder="Введите название улицы"
@@ -40,8 +40,8 @@
 
       <div class="address-form__input address-form__input--size--small">
         <AppInput
-          v-model="building"
           ref="profile-address-building"
+          v-model="building"
           type="text"
           name="addr-house"
           placeholder="Введите номер дома"
@@ -53,8 +53,8 @@
 
       <div class="address-form__input address-form__input--size--small">
         <AppInput
-          v-model="flat"
           ref="profile-address-flat"
+          v-model="flat"
           type="text"
           name="addr-apartment"
           placeholder="Введите № квартиры"
@@ -65,8 +65,8 @@
 
       <div class="address-form__input">
         <AppInput
-          v-model="comment"
           ref="profile-address-comment"
+          v-model="comment"
           type="text"
           name="addr-comment"
           placeholder="Введите комментарий"

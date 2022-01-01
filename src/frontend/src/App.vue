@@ -29,12 +29,12 @@ import { initUser } from "@/common/helpers";
 export default {
   name: "App",
   components: { AppLayout, AppNotifications, AppStartScreen },
+  computed: {
+    ...mapGetters(["isLoading"]),
+  },
   mounted() {
     this.init();
     initUser(this.$store);
-  },
-  computed: {
-    ...mapGetters(["isLoading"]),
   },
   methods: {
     ...mapActions({ init: INIT }),
